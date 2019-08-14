@@ -31,3 +31,12 @@
     transform: rotate(360deg);
   }
 }
+.state-list{
+  max-height: 122px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.state:hover{
+  background: black;
+  color: white;
+}

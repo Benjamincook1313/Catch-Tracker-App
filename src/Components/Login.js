@@ -30,7 +30,6 @@ function Login(props){
   async function login(){
     if(Email !== ''){
       const res = await axios.post('/auth/login', {Email, Password})
-      console.log(res.firstname)
       if(res.data){
         setEmail('')
         setPassword('')
@@ -42,7 +41,6 @@ function Login(props){
 
   const logout = async () => {
     const res = await axios.get('/auth/logout')
-    console.log(res.data)
     if(!res.data.loggedIn){
       props.toggleLogin()
     }
