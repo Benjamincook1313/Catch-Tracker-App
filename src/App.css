@@ -31,12 +31,16 @@
     transform: rotate(360deg);
   }
 }
-.state-list{
+.list{
   max-height: 122px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
-.state:hover{
+.list-item:hover{
+  background: black;
+  color: white;
+}
+.type:focus{
   background: black;
   color: white;
 }

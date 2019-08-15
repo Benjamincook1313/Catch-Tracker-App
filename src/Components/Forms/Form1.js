@@ -14,24 +14,24 @@ function Form1(props){
   const [State, setState] = useState('');
   const [River, setRiver] = useState('');
 
-  const stateList = States.filter(state => state === '' || state.toLowerCase().startsWith(props.State))
+  const stateList = States.filter(state => state === '' || state.toLowerCase().startsWith(State))
   .map((state, i) => (
-  <div className='state' key={i} value={States[i] || State}  
+  <div className='list-item' key={i} value={States[i] || State}  
     onClick={() => setState(States[i])/setShowStates(false)/props.setState(States[i])}>{state}
   </div>));
 
   return(
     <div className='Form1' >
-      <div> * State? 
-        <input 
+      <div>State <input 
           value={State} 
           onClick={() => setShowStates(true)} 
           onChange={e => setState(e.target.value.toLowerCase())/props.setState(e.target.value)}
         />
         {showStates && <button onClick={() => setShowStates(false)/setState('')/props.setState('')}>x</button>}
       </div>
-      <div className='state-list'>{showStates && stateList}</div>
-      <div>* Water? <input value={River} onChange={(e) => setRiver(e.target.value)/props.setRiver(e.target.value)}/></div>
+      <div className='list'>{showStates && stateList}</div>
+      
+      <div>River <input value={River} onChange={(e) => setRiver(e.target.value)/props.setRiver(e.target.value)}/></div>
     </div>
   )
 };

@@ -11,6 +11,7 @@ function Form(){
   const [River, setRiver] = useState('');
 
   // Form2
+  const [Type, setType] = useState('')
   const [Species, setSpecies] = useState('')
   const [Fly, setFly] = useState('')
   const [Length, setLength] = useState('')
@@ -21,8 +22,19 @@ function Form(){
 
   const [formIndex, setFormIndex] = useState(0)
   const Form = [
-    <Form1 River={River} State={State} setState={() => setState()} setRiver={() => setRiver()}/>, 
-    <Form2 setSpecies={() => setSpecies()} setFly={() => setFly()} setLength={() => setLength()} setImage={() =>setImage()}/>, 
+    <Form1 
+      River={River} 
+      State={State} 
+      setState={() => setState()} 
+      setRiver={() => setRiver()}
+    />, 
+    <Form2 
+      setType={() => setType()}
+      setSpecies={() => setSpecies()} 
+      setFly={() => setFly()} 
+      setLength={() => setLength()} 
+      setImage={() =>setImage()}
+    />, 
     <Form3 />,
     <FormReview />
   ]
