@@ -8,11 +8,13 @@
     "bootstrap": "^4.3.1",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
+    "express-fileupload": "^1.1.5",
     "express-session": "^1.16.2",
     "lodash": "^4.17.15",
     "massive": "^5.11.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-images-upload": "^1.2.7",
     "react-scripts": "3.1.0",
     "sass": "^1.22.9",
     "sweetalert2": "^8.15.3"
@@ -39,5 +41,18 @@
     ]
   },
   "main": "server/server.js",
-  "proxy": "http://localhost:6789"
+  "proxy": "http://localhost:6789",
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Benjamincook1313/Catch-Tracker-App.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Benjamincook1313/Catch-Tracker-App/issues"
+  },
+  "homepage": "https://github.com/Benjamincook1313/Catch-Tracker-App#readme"
 }

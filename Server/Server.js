@@ -32,8 +32,8 @@ app.get('/auth/logout', (req, res) => {
   req.session.destroy()
   res.status(200).send({})
 })
-
 // Catch Control
+app.post('/upload', Ctrl.upload)
 app.post('/api/saveCatch', Ctrl.saveCatch)
 
 // check for user

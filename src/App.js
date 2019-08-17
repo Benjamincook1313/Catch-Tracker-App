@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 import Login from './Components/Login'
 import axios from 'axios';
-import Form from './Components/Forms/Form'
+import NewCatch from './Components/Forms/Catch'
 import UserCatches from './Components/UserFish/UserFish';
 
 
@@ -32,13 +32,13 @@ function App(props) {
   };
   return (
     <div className="App">
-      <div>{LoggedIn && `Hello, ${First} ${Last} Welcome to your`}<h1>Fish-Log</h1> </div>
+      <div>{LoggedIn && `Hello, ${First} ${Last} Welcome to your`}<h1>US-Fish-Log</h1> </div>
       <Login toggleLogin={() => toggleLogin()} LoggedIn={LoggedIn}/>
       {LoggedIn &&
         <div className='user-data'>
           {!ShowForm && <button onClick={() => setShowForm(true)}>^-^ Fish On!!! ^-^</button>}
           {ShowForm && <button onClick={() => setShowForm(false)}>Fish Off! :(</button>}
-          {ShowForm && <Form />}
+          {ShowForm && <NewCatch />}
           <UserCatches/>
         </div>
       }
