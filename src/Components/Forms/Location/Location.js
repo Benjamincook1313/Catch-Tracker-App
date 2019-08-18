@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function Form1(props){
+function Location(props){
 
   const States = [
     "Alaska", "Alabama", "Arkansas", "Arizona", "California", "Colorado", "Connecticut", "Delaware", "Florida","Georgia",
@@ -18,7 +18,7 @@ function Form1(props){
   const filteredStates = States.filter(state => state.toLowerCase().startsWith(State))
   const stateList = filteredStates.map((state, i) => (
   <div className='list-item' key={i} value={filteredStates[i] || state}  
-    onClick={(e) => setState(filteredStates[i])/setShowStates(false)/props.setState(e.target.value)}>{state}
+    onClick={(e) => setState(filteredStates[i])/setShowStates(false)}>{state}
   </div>));
 
   const handleState=(str)=>{
@@ -32,22 +32,36 @@ function Form1(props){
       }
     }
     const answer = holder.join(' ')
+
     setState(answer)
-    props.setState(answer)
-  }
+  };
+
+  const capitalizeFirst=(str)=>{
+    const arr = str.split('')
+    const holder = []
+    for(let i=0; i<=arr.length; i++){
+      if(!arr[i-1] || arr[i-1] === ' '){
+        holder.push(arr[i].toUpperCase())
+      }else{
+        holder.push(arr[i])
+      }
+    }
+    const answer = holder.join(' ')
+    return answer
+  };
 
   return(
     <div className='Form1' >
       <h2>Where was your catch?</h2>
+      <h3>{(State && WaterName && State) && `${WaterName} ${WaterType + ','} ${State}`}</h3>
       <div>State <input 
           className='state'
           value={State} 
           onClick={() => setShowStates(true)}
-          onChange={e => handleState(e.target.value)}
+          onChange={e => setState(e.target.value)}
           onKeyPress={() => setShowStates(true)}
         />
-        {/* {!showStates && <button onClick={() => setShowStates(true)} style={{color: 'grey', paddingTop: 2}}>V</button>} */}
-        {showStates && <button onClick={() => setShowStates(false)/setState('')/props.setState('')}>x</button>}
+        {(showStates || State) && <button onClick={() => setShowStates(false)/setState('')}>x</button>}
       </div>
       <div className='list'>{showStates && stateList}</div>
       <span>
@@ -57,11 +71,11 @@ function Form1(props){
         <button className='type' onClick={() => setWaterType('Reservoir')}>Reservoir</button>
         <button className='type' onClick={() => setWaterType('Pond')}>Pond</button>
       </span>
-      <div>{WaterType && <input value={WaterName} type='text' onChange={(e) => setWaterName(e.target.value)/props.setWaterName(e.target.value)}/>}
+      <div>{WaterType && <input value={WaterName} type='text' onChange={(e) => setWaterName(e.target.value)}/>}
         {' ' + WaterType}
       </div>
     </div>
   )
 };
 
-export default Form1;
+export default Location;

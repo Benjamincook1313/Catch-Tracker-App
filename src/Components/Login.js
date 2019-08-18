@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios'
 
 function Login(props){
-  const { LoggedIn } = props
 
   const [FirstName, setFirstName] = useState('')
   const [LastName, setLastName] = useState('')
@@ -48,13 +47,13 @@ function Login(props){
 
   return(
     <div className='Login'>
-      {!LoggedIn && 
+      {!props.LoggedIn && 
         <div>
           <button onClick={() => {if(setShowRegister){setShowRegister(false) && setShowLogin(true)} setShowLogin(!showLogin)}}>login</button>
           <button onClick={() => {if(showLogin){setShowLogin(false) && setShowRegister(true)} setShowRegister(!showRegister)}}>register</button>
         </div> 
       }
-      {LoggedIn &&
+      {props.LoggedIn &&
         <button onClick={() => logout()}>logout</button>
       }
       {showRegister &&

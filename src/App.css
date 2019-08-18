@@ -40,11 +40,8 @@
   background: black;
   color: white;
 }
-.type:focus {
-  background: black;
-  color: white;
-}
-.fly-type:focus{
+
+.type:focus{
   background: black;
   color: white;
 }
