@@ -25,6 +25,8 @@ const ImageUpload=(props)=>{
       // complete
       storage.ref('images').child(Image.name).getDownloadURL().then(url => {
         setUploadedImage(url)
+        setImage('')
+        setImageName('')
       })
     })
   };
@@ -35,7 +37,6 @@ const ImageUpload=(props)=>{
 
   return (
     <div>
-      {Image}
       <ImageUploader 
         withIcon={true} 
         buttonText='Choose image' 
@@ -44,15 +45,9 @@ const ImageUpload=(props)=>{
         maxFileSize={5242880}
       />
       {/* <input type='file' onChange={e => onDrop(e.target.files)} /> */}
-      <input type='submit' value='Upload' onClick={handleUpload} />
+      {ImageName}<input type='submit' value='Upload' onClick={handleUpload} />
       {/* {Image && <div>{ImageName}<button onClick={handleUpload}>Upload</button></div>} */}
-      {/* <img src={UploadedImage} alt='' height='200' /> */}
-      <div className="card" style={{width: '18rem'}}>
-        <img className="card-img-top" src={UploadedImage} alt=''/>
-        <div className="card-body">
-          <p className="card-text">{ImageName}</p>
-        </div>
-      </div>
+      <img src={UploadedImage} alt='' height='200' />
     </div>
   )
 }

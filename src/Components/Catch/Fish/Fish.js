@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 import ImageUpload from './ImageUpload' 
+import ReviewCatch from '../ReviewCatch/ReviewCatch';
 
 function Fish(props){
+  const [ShowReview, setShowReview] = useState(false);
 
   const trout = ['Apache', 'Bull', 'Brook','Brown', 'Cutthroat', 'Dolly Varden','Golden', 'Lake', 'Rainbow', 'Splake', 'Tiger'];
   const salmon = ['Atlantic', 'Chinook (King)', 'Coho (Silver)', 'Humpy (Pink)', 'Keta (Chum)',  'Kokanee', 'Sockeye (Red)', 'Steelhead (Rainbow)'];
@@ -72,6 +74,10 @@ function Fish(props){
         <div className='list'>{showSpecies && speciesList}</div>
       </div>
       <ImageUpload />
+      {/* <button onClick={() => setShowReview(true)}>Show Catch Info</button> */}
+      {ReviewCatch &&
+        <ReviewCatch FishType={SelectedType} Species={Species} />
+      }
     </div>
   )
 };

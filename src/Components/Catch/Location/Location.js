@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import ReviewCatch from '../ReviewCatch/ReviewCatch';
+
 
 function Location(props){
+  const [ShowReview, setShowReview] = useState(false);
 
   const tod = ['EarlyMorning (before 7am)', 'Morning (7am - 11am)', 'Noon (11am - 1pm)', 'Afternoon (1pm - 4pm)', 'Evening (4pm - 7pm)', 'Night (after 7pm)'];
   const States = [
@@ -21,7 +24,6 @@ function Location(props){
 
   const [WaterType, setWaterType] = useState('');
   const [WaterName, setWaterName] = useState('');
-
 
   const filteredStates = States.filter(state => state.toLowerCase().startsWith(State))
   const stateList = filteredStates.map((state, i) => (
@@ -55,9 +57,11 @@ function Location(props){
   return(
     <div className='Form1' >
       <h2>Where was your catch?</h2>
-      <h5>{(Date && TOD) && `${TOD} ${Date}`}</h5>
-      <h4>{(State && WaterName && State) && `${WaterName} ${WaterType}, ${State}`}</h4>
-      <br/>
+      <div >
+        <h5>{(Date && 'TOD') && `${TOD} ${Date}`}</h5>
+        <h4>{(WaterType && WaterName) && `${WaterName} ${WaterType}`}</h4>
+        <h4>{State && `${State}`}</h4>
+      </div>
       <span>
         <div className='list'>
           <input type="date" value={Date} onChange={e => setDate(e.target.value)} />
@@ -65,8 +69,7 @@ function Location(props){
           {showTOD && todList}
         </div>
       </span>
-      <br/>
-      <div><input 
+        <input 
           className='state'
           value={State} 
           type='text'
@@ -76,7 +79,6 @@ function Location(props){
           onKeyPress={() => setShowStates(true)}
         />
         {(showStates || State) && <button onClick={() => setShowStates(false)/setState('')}>x</button>}
-      </div>
       <div className='list'>{showStates && stateList}</div>
       <br/>
       <span>
@@ -94,6 +96,16 @@ function Location(props){
         />}
         {' ' + WaterType}
       </div>
+      {/* <button onClick={() => setShowReview(true)}>Show Catch Info</button> */}
+      {ShowReview &&
+        <ReviewCatch 
+          Date={Date} 
+          TOD={TOD} 
+          State={State} 
+          WaterType={WaterType} 
+          WaterName={WaterName} 
+        />  
+      }    
     </div>
   )
 };

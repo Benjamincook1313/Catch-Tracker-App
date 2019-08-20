@@ -3,37 +3,25 @@ import Location from './Location/Location';
 import Wheather from './Wheather/Wheather';
 import Fish from './Fish/Fish';
 import Fly from './Fly/Fly'
+import ReviewCatch from './ReviewCatch/ReviewCatch';
 
 function Catch(props){
 
   const [formPage, setFormPage] = useState(0);
-
-  // Location
-  // const [State, setState] = useState('');
-  // const [WaterName, setWaterName] = useState('');
-
-  // Fish
-  // const [Type, setType] = useState('');
-  // const [Species, setSpecies] = useState('');
-  // const [Image, setImage] = useState('');
-
-  // Fly
-  // const [Fly, setFly] = useState('');
-
-  // Wheather
-  // const [Wheather, setWheather] = useState('');
 
   const Form = [
     <Location />, 
     <Wheather />, 
     <Fish />, 
     <Fly />,
+    <ReviewCatch />
   ];
   
   let handleNext=()=>{
     setFormPage(formPage + 1)
   };
-  let handleBack=(num)=>{
+  let handleBack=()=>{
+    if(formPage)
     setFormPage(formPage - 1)
   };
 
@@ -45,7 +33,7 @@ function Catch(props){
       <br/>  
       <div>    
         <button onClick={handleBack}>Back</button>
-        <button onClick={handleNext}>Next</button>
+        {(formPage !== 4) && <button onClick={handleNext}>Next</button>}
       </div>
     </div>
   )

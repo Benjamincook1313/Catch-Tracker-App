@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import ReviewCatch from '../ReviewCatch/ReviewCatch';
 
 function Fly(){
-
+  const [ShowReview, setShowReview] = useState(false);
 
   const [Fly, setFly] = useState('');
   const [FlyType, setFlyType] = useState('');
@@ -30,6 +31,10 @@ function Fly(){
         </label>
       </div>
       <div>{FlyType && <input value={Fly} onChange={e => setFly(e.target.value)}/>}{FlyType}</div>
+      {/* <button onClick={() => setShowReview(true)}>Show Catch Info</button> */}
+      {ShowReview && 
+        <ReviewCatch Fly={Fly} FlyType={FlyType} />
+      }
     </div>
   )
 };

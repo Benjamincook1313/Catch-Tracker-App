@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
+import ReviewCatch from '../ReviewCatch/ReviewCatch';
+
 
 function Wheather(){
-
-  // const [Selected, setSelected] = useState([])
+  const [ShowReview, setShowReview] = useState(false);
 
   const [Wheather, setWheather] = useState('');
   const [Temp, setTemp] = useState();
@@ -47,6 +48,10 @@ function Wheather(){
           </label>
         </div>
       </span>
+      {/* <button onClick={() => setShowReview(true)}>Show Catch Info</button> */}
+      {ShowReview &&
+        <ReviewCatch Wheather={Wheather} Temp={Temp} />
+      }
     </div>
   )
 };
