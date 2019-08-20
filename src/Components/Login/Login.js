@@ -41,7 +41,7 @@ function Login(props){
   const logout = async () => {
     const res = await axios.get('/auth/logout')
     if(!res.data.loggedIn){
-      props.toggleLogin()
+      props.setLoggedIn(false)
     }
   }
 

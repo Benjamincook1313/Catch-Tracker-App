@@ -13,37 +13,24 @@ function Fish(props){
   const [SelectedType, setSelectedType] = useState('')
   const [Species, setSpecies] = useState('');
 
-  const filteredSpecies = Type.filter(species => species === '' || species.toLowerCase().startsWith(Species))
-  const speciesList = filteredSpecies.map((species, i) => (
+  const filtered = Type.filter(species => species === '' || species.toLowerCase().startsWith(Species))
+  const speciesList = filtered.map((species, i) => (
   <div className='list-item' key={i} value={Type[i] || Species} 
-    onClick={() => setSpecies(filteredSpecies[i])/setShowSpecies(false)}>{species}
+    onClick={() => setSpecies(filtered[i])/setShowSpecies(false)}>
+    {species}
   </div>));
-
-  const handleSpecies=(str)=>{
-    const arr = str.split('')
-    const holder = []
-    for(let i=0; i<=arr.length; i++){
-      if(!arr[i-1] || arr[i-1] === ' '){
-        holder.push(arr[i].toUpperCase())
-      }else{
-        holder.push(arr[i])
-      }
-    }
-    const answer = holder.join(' ')
-    setSpecies(answer)
-  };
 
   return(
     <div className='Fish'>
       <h2>What kind of Fish?</h2>
         <div className="btn-group btn-group-toggle" data-toggle="buttons">
-          <label className="btn btn-secondary active" 
+          <label className="btn btn-secondary" 
             onClick={() => setType(trout)/
               setShowSpecies(true)/
               setSelectedType('Trout')
             } 
           >
-            <input type="radio" name="options" id="option0" autoComplete="off"/> Trout
+            <input type="radio" name="options" id="option1" autoComplete="off"/> Trout
           </label>
           <label className="btn btn-secondary" 
             onClick={() => setType(salmon)/
@@ -69,13 +56,14 @@ function Fish(props){
           </label>
         </div>
       <div>
-        {showSpecies && <input 
-          value={Species}
-          placeholder={'Species'}
-          onClick={() => setShowSpecies(true)}
-          onKeyPress={() => setShowSpecies(true)} 
-          onChange={e => setSpecies(e.target.value)}
-        />}
+        {showSpecies && 
+          <input 
+            value={Species}
+            placeholder={'Species'}
+            onClick={() => setShowSpecies(true)}
+            onChange={e => setSpecies(e.target.value)}
+          />
+        }
       {Species && 
         <h3>
           {`${Species} ${SelectedType}`} 
