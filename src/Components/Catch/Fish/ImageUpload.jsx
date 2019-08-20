@@ -35,17 +35,24 @@ const ImageUpload=(props)=>{
 
   return (
     <div>
-      <ImageUploader withIcon={true} buttonText='Choose image' onChange={onDrop} imgExtension={['.jpg', '.gif', '.png', '.gif']} maxFileSize={5242880}/>
-      {/* <input type='file' onChange={e => onDrop(e.target.files)} />
-      <input type='submit' value='Upload' onClick={handleUpload} /> */}
+      {Image}
+      <ImageUploader 
+        withIcon={true} 
+        buttonText='Choose image' 
+        onChange={onDrop} 
+        imgExtension={['.jpg', '.gif', '.png', '.gif']} 
+        maxFileSize={5242880}
+      />
+      {/* <input type='file' onChange={e => onDrop(e.target.files)} /> */}
+      <input type='submit' value='Upload' onClick={handleUpload} />
       {/* {Image && <div>{ImageName}<button onClick={handleUpload}>Upload</button></div>} */}
-      <img src={UploadedImage} alt='' height='200' />
-      {/* <div className="card" style={{width: '18rem'}}>
+      {/* <img src={UploadedImage} alt='' height='200' /> */}
+      <div className="card" style={{width: '18rem'}}>
         <img className="card-img-top" src={UploadedImage} alt=''/>
         <div className="card-body">
           <p className="card-text">{ImageName}</p>
         </div>
-      </div> */}
+      </div>
     </div>
   )
 }

@@ -8,14 +8,7 @@ function Fly(){
 
   return(
     <div>
-      <div>
-        <button className='fly-type' onClick={() => setFlyType('Nymph')}>Nymph</button>
-        <button className='fly-type' onClick={() => setFlyType('Dry Fly')}>Dry</button>
-        <button className='fly-type' onClick={() => setFlyType('Streamer')}>Streamer</button>
-        <button className='fly-type' onClick={() => setFlyType('Popper')}>Popper</button>
-        <button className='fly-type' onClick={() => setFlyType('Mouse')}>Mouse</button>
-        <button className='fly-type' onClick={() => setFlyType('Bead')}>Bead</button>
-      </div>
+      <h3>{(Fly && FlyType) && `${Fly} (${FlyType})`}</h3>
       <div className="btn-group btn-group-toggle" data-toggle="buttons">
         <label className="btn btn-secondary active" onClick={() => setFlyType('Nymph')}>
           <input type="radio" name="options" id="option1"/> Nymph
