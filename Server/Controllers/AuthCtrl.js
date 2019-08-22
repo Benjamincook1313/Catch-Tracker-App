@@ -1,17 +1,30 @@
 const bcrypt = require('bcryptjs')
 
 module.exports = {
+  checkForUser: (req, res) => {
+    res.status(200).send({
+      userData: req.session.user
+    })
+  },
+
   register: async (req, res) => {
     const { FirstName, LastName, Email, Password } = req.body
     const db = req.app.get('db')
     const userArr = await db.find_user([Email])
     if(userArr[0]){
+      alert('User already exists please sign in')
       return res.status(400).send({message: 'User Already exists'})
     }
     const salt = bcrypt.genSaltSync(10)
     const hash = bcrypt.hashSync(Password, salt)
     let newUserArr = await db.register_user([FirstName, LastName, Email, hash])
-    req.session.user = {id: newUserArr[0].user_id, FirstName: newUserArr[0].firstname, LastName: newUserArr[0].lastname, Email: newUserArr[0].email}
+    req.session.user = {
+      id: newUserArr[0].user_id, 
+      firstname: newUserArr[0].firstname, 
+      lastname: newUserArr[0].lastname, 
+      email: newUserArr[0].email,
+      loggedIn: true
+    }
     res.status(200).send({
       message: 'logged in',
       userData: req.session.user,
@@ -37,5 +50,10 @@ module.exports = {
       userData: req.session.user,
       loggedIn: true
     })
-  }
+  },
+
+  logout: async (req, res) => {
+    req.session.destroy();
+    res.status(200).send({});
+  },
 }

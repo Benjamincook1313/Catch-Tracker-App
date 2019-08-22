@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import ReviewCatch from '../ReviewCatch/ReviewCatch';
 
 function Fly(){
-  const [ShowReview, setShowReview] = useState(false);
-
   const [Fly, setFly] = useState('');
   const [FlyType, setFlyType] = useState('');
 
@@ -11,7 +8,7 @@ function Fly(){
     <div>
       <h3>{(Fly && FlyType) && `${Fly} (${FlyType})`}</h3>
       <div className="btn-group btn-group-toggle" data-toggle="buttons">
-        <label className="btn btn-secondary active" onClick={() => setFlyType('Nymph')}>
+        <label className="btn btn-secondary" onClick={() => setFlyType('Nymph')}>
           <input type="radio" name="options" id="option1"/> Nymph
         </label>
         <label className="btn btn-secondary" onClick={() => setFlyType('Dry')}>
@@ -31,10 +28,6 @@ function Fly(){
         </label>
       </div>
       <div>{FlyType && <input value={Fly} onChange={e => setFly(e.target.value)}/>}{FlyType}</div>
-      {/* <button onClick={() => setShowReview(true)}>Show Catch Info</button> */}
-      {ShowReview && 
-        <ReviewCatch Fly={Fly} FlyType={FlyType} />
-      }
     </div>
   )
 };

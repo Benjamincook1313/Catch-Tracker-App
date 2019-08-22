@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 function ReviewCatch(props){
   const { Date, TOD, State, WaterType, WaterName, Wheather, Temp, FishType, Species, Fly, FlyType } = props

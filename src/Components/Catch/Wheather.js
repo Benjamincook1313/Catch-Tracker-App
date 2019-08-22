@@ -1,10 +1,6 @@
 import React, {useState} from 'react';
-import ReviewCatch from '../ReviewCatch/ReviewCatch';
-
 
 function Wheather(){
-  const [ShowReview, setShowReview] = useState(false);
-
   const [Wheather, setWheather] = useState('');
   const [Temp, setTemp] = useState();
 
@@ -15,7 +11,7 @@ function Wheather(){
     <div className='Wheather'>
       <h2>What is the Weather like ?</h2>
       <h4>{(Wheather && Temp) && `${Temp} and ${Wheather}`}</h4>
-      <span>
+      <div>
         <div className="btn-group btn-group-toggle" data-toggle="buttons">
           <label className="btn btn-light" onClick={() => setWheather(wheather[3])} >
             <input type="radio" name="options" id="option1" /> {wheather[3]}
@@ -30,9 +26,9 @@ function Wheather(){
             <input type="radio" name="options" id="option3"/> {wheather[0]}
           </label>
         </div>
-      </span>
+      </div>
       <br/>
-      <span>
+      <div>
         <div className="btn-group btn-group-toggle" data-toggle="buttons">
           <label className="btn btn-secondary" onClick={() => setTemp(temp[0])}>
             <input type="radio" name="temp" id="option1" /> {temp[0]}
@@ -47,11 +43,7 @@ function Wheather(){
             <input type="radio" name="temp" id="option4" /> {temp[3]}
           </label>
         </div>
-      </span>
-      {/* <button onClick={() => setShowReview(true)}>Show Catch Info</button> */}
-      {ShowReview &&
-        <ReviewCatch Wheather={Wheather} Temp={Temp} />
-      }
+      </div>
     </div>
   )
 };

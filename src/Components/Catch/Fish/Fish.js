@@ -1,19 +1,16 @@
 import React, {useState} from 'react';
 import ImageUpload from './ImageUpload' 
-import ReviewCatch from '../ReviewCatch/ReviewCatch';
 
 function Fish(props){
-  const [ShowReview, setShowReview] = useState(false);
+  const [showSpecies, setShowSpecies] = useState(false);
+  const [Type, setType] = useState([]);
+  const [SelectedType, setSelectedType] = useState('')
+  const [Species, setSpecies] = useState('');
 
   const trout = ['Apache', 'Bull', 'Brook','Brown', 'Cutthroat', 'Dolly Varden','Golden', 'Lake', 'Rainbow', 'Splake', 'Tiger'];
   const salmon = ['Atlantic', 'Chinook (King)', 'Coho (Silver)', 'Humpy (Pink)', 'Keta (Chum)',  'Kokanee', 'Sockeye (Red)', 'Steelhead (Rainbow)'];
   const bass = ['Large Mouth', 'Small Mouth', 'Striper', 'White'];
   const other = ['Alligator Gar', 'Bluegill', 'Crappie', 'Catfish', 'Grayling', 'Herring', 'Muskie', 'Pike', 'Perch', 'Shad','Sturgeon', 'Sucker', 'Walleye'];
-
-  const [showSpecies, setShowSpecies] = useState(false);
-  const [Type, setType] = useState([]);
-  const [SelectedType, setSelectedType] = useState('')
-  const [Species, setSpecies] = useState('');
 
   const filtered = Type.filter(species => species === '' || species.toLowerCase().startsWith(Species))
   const speciesList = filtered.map((species, i) => (
@@ -74,10 +71,6 @@ function Fish(props){
         <div className='list'>{showSpecies && speciesList}</div>
       </div>
       <ImageUpload />
-      {/* <button onClick={() => setShowReview(true)}>Show Catch Info</button> */}
-      {ReviewCatch &&
-        <ReviewCatch FishType={SelectedType} Species={Species} />
-      }
     </div>
   )
 };

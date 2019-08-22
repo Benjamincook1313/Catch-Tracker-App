@@ -1,62 +1,73 @@
 import React, { useState } from 'react';
 import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux';
 
 function Login(props){
+  const loggedIn = useSelector(state => state.loggedIn)
+  const dispatch = useDispatch();
 
   const [FirstName, setFirstName] = useState('')
   const [LastName, setLastName] = useState('')
   const [Email, setEmail] = useState('')
   const [Password, setPassword] = useState('')
   const [Verify, setVerify] = useState('')
-  const [showLogin, setShowLogin] = useState(false)
-  const [showRegister, setShowRegister] = useState(false)
+  const [Login, setLogin] = useState(false)
+  const [Register, setRegister] = useState(false)
   
-  async function register(){
+  const register = async () => {
     if(Email !== '' && Password !== '' && Email.includes('@') && Verify === Password){
-      if(Password !== Verify){alert('Passwords do not match')}
+      if(Password !== Verify){ alert('Passwords do not match') }
       const res = await axios.post('/auth/register', { FirstName, LastName, Email, Password })
-      if(!res.data){ alert('Login Failed') }
+      if(!res.data.loggedIn){ alert('Login Failed') }
       alert('you are logged in')
+      // props.setLoggedIn(true)
+      dispatch({type: 'LOGIN'})
+      props.setUser(res.data)
       setFirstName('')
       setLastName('')
       setEmail('')
       setPassword('')
       setVerify('')
-      setShowRegister(false)
+      setRegister(false)
     }
-  }
+  };
   
-  async function login(){
+  const login = async () => {
     if(Email !== ''){
       const res = await axios.post('/auth/login', {Email, Password})
-      if(res.data){
+      if(res.data.loggedIn){
+        dispatch({type: 'LOGIN'})
+        // props.setLoggedIn(true)
+        props.setUser(res.data)
         setEmail('')
         setPassword('')
-        props.toggleLogin()
-        setShowLogin(false)
+        setLogin(false)
       }
     }
-  }
+  };
 
   const logout = async () => {
-    const res = await axios.get('/auth/logout')
+    let res = await axios.get('/auth/logout')
     if(!res.data.loggedIn){
-      props.setLoggedIn(false)
+      dispatch({type: 'LOGOUT'})
+      // props.setLoggedIn(false)
+      props.setUser({})
+      alert('logged out')
     }
   }
 
   return(
     <div className='Login'>
-      {!props.LoggedIn && 
+      {!loggedIn && 
         <div>
-          <button onClick={() => {if(setShowRegister){setShowRegister(false) && setShowLogin(true)} setShowLogin(!showLogin)}}>login</button>
-          <button onClick={() => {if(showLogin){setShowLogin(false) && setShowRegister(true)} setShowRegister(!showRegister)}}>register</button>
+          <button onClick={() => {if(setRegister){setRegister(false) && setLogin(true)} setLogin(!Login)}}>login</button>
+          <button onClick={() => {if(Login){setLogin(false) && setRegister(true)} setRegister(!Register)}}>register</button>
         </div> 
       }
-      {props.LoggedIn &&
-        <button onClick={() => logout()}>logout</button>
+      {loggedIn &&
+        <button onClick={logout}>logout</button>
       }
-      {showRegister &&
+      {Register &&
         <div>
           <div className='register-name'>
             First name <input value={FirstName} onChange={ e => setFirstName(e.target.value)}/>
@@ -68,19 +79,27 @@ function Login(props){
             Verify Password<input type='password' value={Verify} onChange={ e => setVerify(e.target.value)}/>
           </div>
           <button onClick={() => register()}>Register</button>
-          <button onClick={() => setShowRegister(false)}>x</button>
+          <button onClick={() => setRegister(false)}>x</button>
         </div>
       }
-      {showLogin &&
+      {Login &&
         <div>
           Email <input value={Email} type='email' onChange={e => setEmail(e.target.value)}/>
-          Password <input value={Password} type='password'onChange={e => setPassword(e.target.value)}/>
-          <button onClick={() => login()}>Login</button>
-          <button onClick={() => setShowLogin(false)}>x</button>
+          Password <input value={Password} type='password' onChange={e => setPassword(e.target.value)}/>
+          <button onClick={login}>Login</button>
+          <button onClick={() => setLogin(false)}>x</button>
         </div>
       }
     </div>
   )
-}
+};
 
+// const mapStateToProps=(reduxState)=>{
+//   return {
+//     userData: reduxState.userData,
+//     loggedIn: reduxState.loggedIn 
+//   }
+// }
+
+// export default connect(mapStateToProps, {})(Login);
 export default Login;

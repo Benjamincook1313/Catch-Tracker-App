@@ -26,15 +26,10 @@ app.use(session({
 }))
 
 // AUTHENTICATION
+app.get('/auth/checkForUser', AuthCtrl.checkForUser)
 app.post('/auth/register', AuthCtrl.register)
 app.post('/auth/login', AuthCtrl.login)
-app.get('/auth/logout', (req, res) => {
-  req.session.destroy()
-  res.status(200).send({})
-})
+app.get('/auth/logout', AuthCtrl.logout)
 // Catch Control
-app.post('/upload', Ctrl.upload)
 app.post('/api/saveCatch', Ctrl.saveCatch)
 
-// check for user
-app.get('/api/checkForUser', Ctrl.checkForUser)
