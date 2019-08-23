@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import ImageUploader from 'react-images-upload'
-import { storage } from '../../../Firebase'
+import { storage } from '../../../Firebase/index'
 
 
 const ImageUpload=(props)=>{
@@ -45,7 +45,7 @@ const ImageUpload=(props)=>{
         maxFileSize={5242880}
       />
       {/* <input type='file' onChange={e => onDrop(e.target.files)} /> */}
-      {ImageName}<input type='submit' value='Upload' onClick={handleUpload} />
+      {ImageName} {Image && <input type='submit' value='Upload' onClick={handleUpload}/>}
       {/* {Image && <div>{ImageName}<button onClick={handleUpload}>Upload</button></div>} */}
       <img src={UploadedImage} alt='' height='200' />
     </div>

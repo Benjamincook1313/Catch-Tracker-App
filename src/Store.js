@@ -1,11 +1,11 @@
-import { createStore, applyMiddleware} from 'redux';
-import promiseMiddleware from 'redux-promise-middleware'
-import reducer from './ducks/reducer';
-// import userReducer from './ducks/userReducer'
+import { createStore, applyMiddleware, /*combineReducers*/} from 'redux';
+import promiseMiddleware from 'redux-promise-middleware';
+import catchReducer from './ducks/reducer';
+// import userReducer from './ducks/userReducer';
 
 // const rootReducer = combineReducers({
 //   user: userReducer,
-//   catches: catchReducer 
-// })
+//   catch: catchReducer 
+// });
 
-export default createStore(reducer, applyMiddleware(promiseMiddleware));
+export default createStore(catchReducer, applyMiddleware(promiseMiddleware));

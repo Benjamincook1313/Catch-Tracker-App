@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux';
 
-function Login(props){
+function Login(){
   const loggedIn = useSelector(state => state.loggedIn)
   const dispatch = useDispatch();
 
@@ -14,34 +14,40 @@ function Login(props){
   const [Login, setLogin] = useState(false)
   const [Register, setRegister] = useState(false)
   
-  const register = async () => {
-    if(Email !== '' && Password !== '' && Email.includes('@') && Verify === Password){
+  const register = async (e) => {
+    if(e.key === 'Enter' && Email !== '' && Password !== '' && Email.includes('@') && Verify === Password){
       if(Password !== Verify){ alert('Passwords do not match') }
       const res = await axios.post('/auth/register', { FirstName, LastName, Email, Password })
       if(!res.data.loggedIn){ alert('Login Failed') }
       alert('you are logged in')
       // props.setLoggedIn(true)
       dispatch({type: 'LOGIN'})
-      props.setUser(res.data)
+      dispatch({type: 'UPDATE_USER', payload: res.data.userData})
+      // props.setUser(res.data)
       setFirstName('')
       setLastName('')
       setEmail('')
       setPassword('')
       setVerify('')
+      setLogin(false)
       setRegister(false)
     }
   };
   
-  const login = async () => {
-    if(Email !== ''){
+  const login = async (e) => {
+    if(Email !== '' && e.key === 'Enter'){
       const res = await axios.post('/auth/login', {Email, Password})
       if(res.data.loggedIn){
         dispatch({type: 'LOGIN'})
-        // props.setLoggedIn(true)
-        props.setUser(res.data)
+        dispatch({type: 'UPDATE_USER', payload: res.data.userData})
+        // props.setUser(res.data)
+        setFirstName('')
+        setLastName('')
         setEmail('')
         setPassword('')
+        setVerify('')
         setLogin(false)
+        setRegister(false)
       }
     }
   };
@@ -51,7 +57,8 @@ function Login(props){
     if(!res.data.loggedIn){
       dispatch({type: 'LOGOUT'})
       // props.setLoggedIn(false)
-      props.setUser({})
+      dispatch({type: 'UPDATE_USER', payload: {}})
+      // props.setUser({})
       alert('logged out')
     }
   }
@@ -76,17 +83,17 @@ function Login(props){
           <div>
             Email <input value={Email} onChange={ e => setEmail(e.target.value)}/>
             Password <input type='password' value={Password} onChange={ e => setPassword(e.target.value)}/>
-            Verify Password<input type='password' value={Verify} onChange={ e => setVerify(e.target.value)}/>
+            Verify Password<input type='password' value={Verify} onChange={ e => setVerify(e.target.value)} onKeyPress={e => register(e)}/>
+            <button onClick={() => setRegister(false)}>x</button>
           </div>
-          <button onClick={() => register()}>Register</button>
-          <button onClick={() => setRegister(false)}>x</button>
+          {/* <button onClick={() => register()}>Register</button> */}
         </div>
       }
       {Login &&
         <div>
           Email <input value={Email} type='email' onChange={e => setEmail(e.target.value)}/>
-          Password <input value={Password} type='password' onChange={e => setPassword(e.target.value)}/>
-          <button onClick={login}>Login</button>
+          Password <input value={Password} type='password' onChange={e => setPassword(e.target.value)} onKeyPress={e => login(e)}/>
+          {/* <button onClick={login}>Login</button> */}
           <button onClick={() => setLogin(false)}>x</button>
         </div>
       }

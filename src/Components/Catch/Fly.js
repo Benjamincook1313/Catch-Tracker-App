@@ -12,7 +12,7 @@ function Fly(){
           <input type="radio" name="options" id="option1"/> Nymph
         </label>
         <label className="btn btn-secondary" onClick={() => setFlyType('Dry')}>
-          <input type="radio" name="options" id="option2"/> Dry
+          <input type="radio" name="options" id="option2"/> Dryfly
         </label>
         <label className="btn btn-secondary" onClick={() => setFlyType('Streamer')}>
           <input type="radio" name="options" id="option3"/> Streamer

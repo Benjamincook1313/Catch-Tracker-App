@@ -1,44 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import Login from './Components/Catch/Login';
+import Login from './Components/Login';
 import Catch from './Components/Catch/Catch';
-import UserCatches from './Components/Catch/UserCatches';
+import UserCatches from './Components/UserCatches';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 // import styled, { css } from 'styled-components';
 import './App.css';
 
-function App() {;
+function App(props) {;
+  // console.log(useSelector(state => state.user))
   const loggedIn = useSelector(state => state.loggedIn)
-  // const User = useSelector(state => state.User)
+  const User = useSelector(state => state.user)
   const dispatch = useDispatch();
-
-  // const [LoggedIn, setLoggedIn] = useState('');
-  const [User, setUser] = useState({})
   const [ShowForm, setShowForm] = useState(false);
 
   useEffect(() => {
     axios.get('/auth/checkForUser').then(res => {
       if(res.data.userData){
         dispatch({type: 'LOGIN'})
-        // setLoggedIn(true)
-        setUser(res.data.userData)
-        setShowForm(true)
+        dispatch({type: 'UPDATE_USER', payload: res.data.userData})
       }
     })
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="App">
       <div>
-        {loggedIn && `Hello, ${User? User.firstname: null} ${User? User.lastname: null} Welcome to your`}
+        {loggedIn && `Hello, ${User? User.firstname: ''} ${User? User.lastname: ''} Welcome to your`}
         <h1>Catch - Tracker</h1> 
       </div>
       <div>
-        <Login 
-          // LoggedIn={LoggedIn} 
-          // setLoggedIn={() => setLoggedIn()} 
-          setUser={() => setUser()} 
-        />
+        <Login />
       </div>
       <br/>
       {loggedIn &&
@@ -57,12 +49,4 @@ function App() {;
   );
 };
 
-// const mapState=(state)=>{
-//   return {
-//     userData: state.userData,
-//     loggedIn: state.loggedIn
-//   }
-// }
-
-// export default connect(mapState, {})(App);
 export default App;

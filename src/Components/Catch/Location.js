@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Location(props){
   const today=()=>{
@@ -8,7 +9,7 @@ function Location(props){
     return `${year}-${month<10? `0${month +1}`: month + 1}-${day<10? `0${day}`: day}`
   }
 
-  const tod = ['early Morning (before 7am)', 'Morning (7am - 11am)', 'Noon (11am - 1pm)', 'after Noon (1pm - 4pm)', 'Evening (4pm - 7pm)', 'Night (after 7pm)'];
+  const tod = ['Early (before 7am)', 'Morning (7am - 11am)', 'Noon (11am - 1pm)', 'Mid-day (1pm - 4pm)', 'Evening (4pm - 7pm)', 'Night (after 7pm)'];
   const States = [
     "Alaska", "Alabama", "Arkansas", "Arizona", "California", "Colorado", "Connecticut", "Delaware", "Florida","Georgia",
     "Hawaii", "Iowa", "Idaho", "Illinois", "Indiana", "Kansas","Kentucky","Louisiana","Massachusetts","Maryland","Maine", 
@@ -17,22 +18,22 @@ function Location(props){
     "South Dakota", "Tennessee", "Texas", "Utah", "Virginia", "Vermont", "Washington", "Wisconsin", "West Virginia", "Wyoming"
   ];
 
-  const [Day, setDay] = useState(today())
+  const dispatch = useDispatch();
+  const [Day, setDay] = useState(today());
   const [TOD, setTOD] = useState('');
-  const [showTOD, setShowTOD] = useState(false);
-
-  const [showStates, setShowStates] = useState(false);
   const [State, setState] = useState('');
-
   const [WaterType, setWaterType] = useState('');
   const [WaterName, setWaterName] = useState('');
 
-  const filteredStates = States.filter(state => state.toLowerCase().startsWith(State))
+  const [showTOD, setShowTOD] = useState(false);
+  const [showStates, setShowStates] = useState(false);
+
+  const filteredStates = States.filter(state => state.toLowerCase().startsWith(State));
   const stateList = filteredStates.map((state, i) => (
-  <div className='list-item' key={i} value={filteredStates[i] || state}  
-    onClick={(e) => setState(filteredStates[i])/
-    setShowStates(false)}
-  >{state}
+    <div className='list-item' key={i} value={filteredStates[i] || state}  
+      onClick={(e) => setState(filteredStates[i])/
+      setShowStates(false)}
+    >{state}
   </div>));
 
   const todList = tod.map((item, i) => (
@@ -41,20 +42,6 @@ function Location(props){
       {item}
     </div>)
   );
-
-  // const capitalizeFirst=(str)=>{
-  //   const arr = str.split('')
-  //   const holder = []
-  //   for(let i=0; i<=arr.length; i++){
-  //     if(!arr[i-1] || arr[i-1] === ' '){
-  //       holder.push(arr[i].toUpperCase())
-  //     }else{
-  //       holder.push(arr[i])
-  //     }
-  //   }
-  //   const answer = holder.join(' ')
-  //   return answer
-  // };
 
   return(
     <div className='Form1' >
@@ -67,7 +54,8 @@ function Location(props){
       <div>
         <div className='list'>
           <input type="date" value={Day} onChange={e => setDay(e.target.value)} />
-          <input value={TOD} placeholder='time of day' onClick={() => setShowTOD(true)} onChange={e => setTOD(e.target.value)} />
+          <input value={TOD} placeholder='time of day' onClick={() => setShowTOD(true)} onChange={e => dispatch({type: 'TOD', payload: e.target.value})} />
+          {showTOD && <button onClick={() => setShowTOD(false)}>x</button>}
           {showTOD && todList}
         </div>
       </div>
