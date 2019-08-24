@@ -2,14 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 function Location(props){
-  const today=()=>{
-    let month = new Date().getMonth()
-    let day = new Date().getDate()
-    let year = new Date().getFullYear()
-    return `${year}-${month<10? `0${month +1}`: month + 1}-${day<10? `0${day}`: day}`
-  }
-
-  const tod = ['Early (before 7am)', 'Morning (7am - 11am)', 'Noon (11am - 1pm)', 'Mid-day (1pm - 4pm)', 'Evening (4pm - 7pm)', 'Night (after 7pm)'];
+  const tod = ['EarlyMorning (before-7am)', 'Morning (7am-11am)', 'Noon (11am-1pm)', 'Mid-day (1pm-4pm)', 'Evening (4pm-7pm)', 'Night (after-7pm)'];
   const States = [
     "Alaska", "Alabama", "Arkansas", "Arizona", "California", "Colorado", "Connecticut", "Delaware", "Florida","Georgia",
     "Hawaii", "Iowa", "Idaho", "Illinois", "Indiana", "Kansas","Kentucky","Louisiana","Massachusetts","Maryland","Maine", 
@@ -19,74 +12,126 @@ function Location(props){
   ];
 
   const dispatch = useDispatch();
-  const [Day, setDay] = useState(today());
-  const [TOD, setTOD] = useState('');
-  const [State, setState] = useState('');
-  const [WaterType, setWaterType] = useState('');
-  const [WaterName, setWaterName] = useState('');
+  const Day = useSelector(state => state.day);
+  const TOD = useSelector(state => state.tod);
+  const State = useSelector(state => state.usState);
+  const WaterType = useSelector(state => state.waterType);
+  const WaterName = useSelector(state => state.waterName);
 
   const [showTOD, setShowTOD] = useState(false);
   const [showStates, setShowStates] = useState(false);
 
   const filteredStates = States.filter(state => state.toLowerCase().startsWith(State));
   const stateList = filteredStates.map((state, i) => (
-    <div className='list-item' key={i} value={filteredStates[i] || state}  
-      onClick={(e) => setState(filteredStates[i])/
+    <div className='list-item' key={i} value={filteredStates[i] || `${state}`}  
+      onClick={(e) => dispatch({type: 'US_STATE', payload: filteredStates[i]})/
       setShowStates(false)}
-    >{state}
-  </div>));
+    >
+    {`${state}`}
+    </div>
+  ));
 
   const todList = tod.map((item, i) => (
     <div className='list-item' key={i} value={tod[i] || tod}  
-      onClick={(e) => setTOD(tod[i])/setShowTOD(false)}>
+      onClick={(e) => dispatch({type: 'TOD', payload: tod[i]})/setShowTOD(false)}>
       {item}
     </div>)
   );
 
+const today = () => {
+    let month = new Date().getMonth()+1
+    let day = new Date().getDate()
+    let year = new Date().getFullYear()
+    switch(month){
+      case 1:
+        return `Jan ${day}, ${year}`
+      case 2:
+        return `Feb ${day}, ${year}`
+      case 3:
+        return `Mar ${day}, ${year}`
+      case 4:
+        return `Apr ${day}, ${year}`
+      case 5:
+        return `May ${day}, ${year}`
+      case 6:
+        return `June ${day}, ${year}`
+      case 7:
+        return `July ${day}, ${year}`
+      case 8:
+        return `Aug ${day}, ${year}`
+      case 9:
+        return `Sept ${day}, ${year}`
+      case 10:
+        return `Oct ${day}, ${year}`
+      case 11:
+        return `Nov ${day}, ${year}`
+      case 12:
+        return `Dec ${day}, ${year}`
+      default:
+        return ''
+    }
+  };
+
   return(
-    <div className='Form1' >
+    <form className='Location' onSubmit={() => dispatch({type: 'NEXT'})} >
       <h2>Where was your catch?</h2>
       <div >
-        <h5>{(Day && TOD) && `${TOD} ${Day}`}</h5>
-        <h4>{(WaterType && WaterName) && `${WaterName} ${WaterType}`}</h4>
-        <h4>{State && `${State}`}</h4>
+        <h5>{(Day && TOD) && `${TOD.split(' ').shift()} ${today()}`}</h5>
+        <h4>{(WaterType && WaterName) && `${WaterName} ${WaterType}, ${State}`}</h4>
       </div>
       <div>
         <div className='list'>
-          <input type="date" value={Day} onChange={e => setDay(e.target.value)} />
-          <input value={TOD} placeholder='time of day' onClick={() => setShowTOD(true)} onChange={e => dispatch({type: 'TOD', payload: e.target.value})} />
+          <input type="date" value={Day} onChange={e => dispatch({type: 'DAY', payload: e.target.value})}/> {' '}
+          <input type='text' value={TOD} placeholder='time of day' onClick={() => setShowTOD(true)} onChange={e => dispatch({type: 'TOD', payload: e.target.value})} />
           {showTOD && <button onClick={() => setShowTOD(false)}>x</button>}
           {showTOD && todList}
         </div>
+        <br/>
+        <div className="btn-group btn-group-toggle" data-toggle="buttons">
+          <label className="btn btn-light" onClick={() => dispatch({type: 'WATER_TYPE', payload: 'River'})} >
+            <input type="radio" name="options" id="option1" /> River
+          </label>
+          <label className="btn btn-light" onClick={() => dispatch({type: 'WATER_TYPE', payload: 'Creek'})} >
+            <input type="radio" name="options" id="option2"/> Creek
+          </label>
+          <label className="btn btn-light" onClick={() => dispatch({type: 'WATER_TYPE', payload: 'Lake'})} >
+            <input type="radio" name="options" id="option3"/> Lake
+          </label>
+          <label className="btn btn-light" onClick={() => dispatch({type: 'WATER_TYPE', payload: 'Reservoir'})} >
+            <input type="radio" name="options" id="option3"/> Creek
+          </label>
+          <label className="btn btn-light" onClick={() => dispatch({type: 'WATER_TYPE', payload: 'Pond'})} >
+            <input type="radio" name="options" id="option4"/> Pond
+          </label>
+        </div>
+      <div>
+          *<input 
+            value={WaterName} 
+            type='text' 
+            placeholder={`name of ${WaterType.toLowerCase() || 'water'}`}
+            onChange={(e) => dispatch({type: 'WATER_NAME', payload: e.target.value})}
+            // required
+          />
+        {' ' + WaterType}
       </div>
-        <input 
+      <br/>    
+      </div>
+        *<input 
           className='state'
           value={State} 
           type='text'
-          placeholder='state'
+          placeholder='State'
           onClick={() => setShowStates(true)}
-          onChange={e => setState(e.target.value)}
+          onChange={e => dispatch({type: 'US_STATE', payload: e.target.value})}
           onKeyPress={() => setShowStates(true)}
+          // required
         />
-        {(showStates || State) && <button onClick={() => setShowStates(false)/setState('')}>x</button>}
       <div className='list'>{showStates && stateList}</div>
       <br/>
-      <div>
-        <button className='type' onClick={() => setWaterType('River')}>River</button>
-        <button className='type' onClick={() => setWaterType('Creek')}>Creek</button>
-        <button className='type' onClick={() => setWaterType('Lake')}>Lake</button>
-        <button className='type' onClick={() => setWaterType('Reservoir')}>Reservoir</button>
-        <button className='type' onClick={() => setWaterType('Pond')}>Pond</button>
+      <div>    
+        <input type='submit' value='Next >'/> 
       </div>
-      <div>{WaterType && 
-        <input 
-          value={WaterName} 
-          type='text' 
-          onChange={(e) => setWaterName(e.target.value)}
-        />}
-        {' ' + WaterType}
-      </div>    
-    </div>
+    </form>
   )
 };
 

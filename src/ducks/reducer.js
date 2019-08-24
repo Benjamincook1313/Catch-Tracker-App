@@ -1,9 +1,16 @@
 
+function today(){
+  let month = new Date().getMonth()+1
+  let day = new Date().getDate()
+  let year = new Date().getFullYear()
+  return `${year}-${month<10? `0${month}`: month}-${day<10? `0${day}`: day}`
+};
+
 const initialState = {
   user: {},
   loggedIn: false,
   page: 0,
-  date: '',
+  day: today(),
   tod: '',
   usState: '',
   waterType: '',
@@ -26,9 +33,9 @@ export const BACK = 'BACK';
 export const CLEAR_CATCH= 'CLEAR_CATCH';
 
 // location component
-export const DATE = 'DATE';
+export const DAY = 'DAY';
 export const TOD = 'TOD';
-export const STATE = 'STATE';
+export const US_STATE = 'US_STATE';
 export const WATER_TYPE = 'WATER_TYPE';
 export const WATER_NAME = 'WATER_NAME'
 // wheather component
@@ -40,10 +47,6 @@ export const SPECIES = 'SPECIES';
 // fly component
 export const FLY_TYPE = 'FLY_TYPE';
 export const FLY = 'Fly';
-// 
-export const saveCatch = async () => {
-  // let data = axios.post('/api/saveCatch', {})
-}
 
 export default function reducer(state = initialState, action){
   const { type, payload } = action
@@ -54,11 +57,11 @@ export default function reducer(state = initialState, action){
       return {...state, loggedIn: false}
     case UPDATE_USER:
       return {...state, user: payload}
-    case DATE:
-      return {...state, date: payload}
+    case DAY:
+      return {...state, day: payload}
     case TOD: 
       return {...state, tod: payload}
-    case STATE: 
+    case US_STATE: 
       return {...state, usState: payload}
     case WATER_TYPE:
       return {...state, waterType: payload}
@@ -69,7 +72,7 @@ export default function reducer(state = initialState, action){
     case TEMP:
       return {...state, temp: payload}
     case FISH_TYPE: 
-      return {...state, fishtype: payload}
+      return {...state, fishType: payload}
     case SPECIES:
       return {...state, species: payload}
     case FLY_TYPE:

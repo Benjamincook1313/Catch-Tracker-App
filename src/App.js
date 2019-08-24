@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Login from './Components/Login';
 import Catch from './Components/Catch/Catch';
 import UserCatches from './Components/UserCatches';
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
 // import styled, { css } from 'styled-components';
 import './App.css';
 
