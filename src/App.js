@@ -7,8 +7,7 @@ import axios from 'axios';
 // import styled, { css } from 'styled-components';
 import './App.css';
 
-function App(props) {;
-  // console.log(useSelector(state => state.user))
+function App() {;
   const loggedIn = useSelector(state => state.loggedIn)
   const User = useSelector(state => state.user)
   const dispatch = useDispatch();
@@ -37,11 +36,7 @@ function App(props) {;
         <div className='user-data'>
           {!ShowForm && <button onClick={() => setShowForm(true)}>^-^ Fish On!!! ^-^</button>}
           {ShowForm && <button onClick={() => setShowForm(false)}>Fish Off!</button>}
-          {ShowForm && 
-            <div>
-              <Catch/>
-            </div>
-          }
+          {ShowForm && <div> <Catch/> </div> }
           <UserCatches/>
         </div>
       }

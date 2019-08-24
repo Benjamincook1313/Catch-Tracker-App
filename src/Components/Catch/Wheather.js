@@ -53,8 +53,8 @@ function Wheather(){
       </div>
       <br/>
       <div>
-        <input type='button' value={'< Back'} onClick={() => (Wheather && Temp)? dispatch({type: 'BACK'}): alert('must select wheather & temp before continuing')}/>
-        <input type='button' value='Next >' onClick={() => dispatch({type: 'NEXT'})}/> 
+        <input type='button' value='< Back' onClick={() => dispatch({type: 'BACK'})}/> 
+        <input type='button' value={'Next >'} onClick={() => (Wheather && Temp)? dispatch({type: 'NEXT'}): alert('must select wheather & temp before continuing')}/>
       </div>
     </div>
   )

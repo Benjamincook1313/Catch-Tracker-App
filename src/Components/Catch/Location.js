@@ -105,26 +105,17 @@ const today = () => {
           </label>
         </div>
       <div>
-          *<input 
-            value={WaterName} 
-            type='text' 
+          *<input value={WaterName} type='text' 
             placeholder={`name of ${WaterType.toLowerCase() || 'water'}`}
             onChange={(e) => dispatch({type: 'WATER_NAME', payload: e.target.value})}
-            // required
           />
         {' ' + WaterType}
       </div>
       <br/>    
       </div>
-        *<input 
-          className='state'
-          value={State} 
-          type='text'
-          placeholder='State'
-          onClick={() => setShowStates(true)}
+        *<input className='state' value={State} type='text' placeholder='State'
+          onClick={() => setShowStates(true)} onKeyPress={() => setShowStates(true)}
           onChange={e => dispatch({type: 'US_STATE', payload: e.target.value})}
-          onKeyPress={() => setShowStates(true)}
-          // required
         />
       <div className='list'>{showStates && stateList}</div>
       <br/>

@@ -6,7 +6,7 @@ import Fish from './Fish/Fish';
 import Fly from './Fly'
 import ReviewCatch from './ReviewCatch';
 
-function Catch(props){
+function Catch(){
   const page = useSelector(state => state.page);
 
   const Form = [
@@ -20,11 +20,6 @@ function Catch(props){
   return(
     <div className='Catch'>
       {Form[page]}
-      {/* <div>    
-        <button onClick={() => dispatch({type: 'BACK'})}>Back</button>
-        <button onClick={() => dispatch({type: 'NEXT'})}>Next</button> 
-        <button onClick={() => dispatch({type: saveCatch})}>Save</button>
-      </div> */}
     </div>
   )
 };
