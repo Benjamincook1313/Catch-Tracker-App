@@ -73,7 +73,7 @@ const today = () => {
   };
 
   return(
-    <form className='Location' onSubmit={() => dispatch({type: 'NEXT'})} >
+    <div className='Location' >
       <h2>Where was your catch?</h2>
       <div >
         <h5>{(Day && TOD) && `${TOD.split(' ').shift()} ${today()}`}</h5>
@@ -129,9 +129,9 @@ const today = () => {
       <div className='list'>{showStates && stateList}</div>
       <br/>
       <div>    
-        <input type='submit' value='Next >'/> 
+        <input type='button' value='Next >' onClick={() => dispatch({type: 'NEXT'})}/> 
       </div>
-    </form>
+    </div>
   )
 };
 
