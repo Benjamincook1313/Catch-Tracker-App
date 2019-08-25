@@ -121,7 +121,7 @@ function Location(){
     if(State && !WaterType && !WaterName){return 'water type & water name'}
     else{return 'state, water type & water name'}
   };
-  console.log(reverseDate(Day))
+  
   return(
     <div className='Location' >
       <h2>Where was your catch?</h2>
@@ -135,7 +135,7 @@ function Location(){
           <input type='text' value={TOD} placeholder='time of day' 
             onClick={() => setShowTOD(true)} onChange={e => dispatch({type: 'TOD', payload: e.target.value})} 
           />
-          {showTOD && <button onClick={() => setShowTOD(false)}>x</button>}
+          {showTOD && <button className='btn btn-dark' onClick={() => setShowTOD(false)}>x</button>}
           {showTOD && todList}
         </div>
         <br/>
@@ -174,7 +174,7 @@ function Location(){
       </div>
       <br/>
       <div>    
-      <input type='button' value={'Next >'} 
+      <input className='btn btn-dark' type='button' value={'Next >'} 
         onClick={() => (State && WaterType && WaterName)? 
           dispatch({type: 'NEXT'}): 
           Swal.fire({title:`Enter ${infoChecker()} before continuing`,showConfirmButton: false, type: 'warning', timer: 4000})

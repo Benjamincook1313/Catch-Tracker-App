@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Location from './Location';
-import Wheather from './Wheather';
+import Weather from './Weather';
 import Fish from './Fish/Fish';
 import Fly from './Fly'
 import ReviewCatch from './ReviewCatch';
@@ -11,7 +11,7 @@ function Catch(){
 
   const Form = [
     <Location />, 
-    <Wheather />, 
+    <Weather />, 
     <Fish />, 
     <Fly />,
     <ReviewCatch />

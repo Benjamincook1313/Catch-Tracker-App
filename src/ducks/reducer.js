@@ -42,7 +42,7 @@ const initialState = {
   usState: '',
   waterType: '',
   waterName: '',
-  wheather: '',
+  weather: '',
   temp: '',
   fishType: '',
   species: '',
@@ -65,8 +65,8 @@ export const TOD = 'TOD';
 export const US_STATE = 'US_STATE';
 export const WATER_TYPE = 'WATER_TYPE';
 export const WATER_NAME = 'WATER_NAME'
-// wheather component
-export const WHEATHER = 'WHEATHER';
+// weather component
+export const WEATHER = 'WEATHER';
 export const TEMP = 'TEMP';
 // fish component
 export const FISH_TYPE = 'FISH_TYPE';
@@ -95,8 +95,8 @@ export default function reducer(state = initialState, action){
       return {...state, waterType: payload? payload: ''}
     case WATER_NAME:
       return {...state, waterName: payload? payload: ''}
-    case WHEATHER:
-      return {...state, wheather: payload? payload: ''}
+    case WEATHER:
+      return {...state, weather: payload? payload: ''}
     case TEMP:
       return {...state, temp: payload? payload: ''}
     case FISH_TYPE: 

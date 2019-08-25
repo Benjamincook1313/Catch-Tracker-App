@@ -34,8 +34,8 @@ function App() {;
       <br/>
       {loggedIn &&
         <div className='user-data'>
-          {!ShowForm && <button onClick={() => setShowForm(true)}>^-^ Fish On!!! ^-^</button>}
-          {ShowForm && <button onClick={() => setShowForm(false)}>Fish Off!</button>}
+          {!ShowForm && <button className='btn btn-dark' onClick={() => setShowForm(true)}>^-^ Fish On!!! ^-^</button>}
+          {ShowForm && <button className='btn btn-dark' onClick={() => setShowForm(false)}>Fish Off!</button>}
           {ShowForm && <div> <Catch/> </div> }
           <UserCatches/>
         </div>

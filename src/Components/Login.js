@@ -67,22 +67,15 @@ function Login(){
     <div className='Login'>
       {!loggedIn && 
         <div>
-          <button onClick={() => {if(setRegister){setRegister(false) && setLogin(true)} setLogin(!Login)}}>login</button>
-          <button onClick={() => {if(Login){setLogin(false) && setRegister(true)} setRegister(!Register)}}>register</button>
+          <button className='btn btn-dark' onClick={() => {if(setRegister){setRegister(false) && setLogin(true)} setLogin(!Login)}}>login</button>
+          <button className='btn btn-dark' onClick={() => {if(Login){setLogin(false) && setRegister(true)} setRegister(!Register)}}>register</button>
         </div> 
       }
       {loggedIn &&
-        <button onClick={logout}>logout</button>
+        <button className='btn btn-dark' onClick={logout}>logout</button>
       }
       {Register &&
         <div>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">First and last name</span>
-            </div>
-            <input type="text" aria-label="First name" class="form-control"/>
-            <input type="text" aria-label="Last name" class="form-control"/>
-          </div>
           <div className='register-name'>
             First name <input value={FirstName} onChange={ e => setFirstName(e.target.value)}/>
             Last name <input value={LastName} onChange={ e => setLastName(e.target.value)}/>
@@ -93,14 +86,12 @@ function Login(){
             Verify Password<input type='password' value={Verify} onChange={ e => setVerify(e.target.value)} onKeyPress={e => register(e)}/>
             <button onClick={() => setRegister(false)}>x</button>
           </div>
-          {/* <button onClick={() => register()}>Register</button> */}
         </div>
       }
       {Login &&
         <div>
           Email <input value={Email} type='email' onChange={e => setEmail(e.target.value)}/>
           Password <input value={Password} type='password' onChange={e => setPassword(e.target.value)} onKeyPress={e => login(e)}/>
-          {/* <button onClick={login}>Login</button> */}
           <button onClick={() => setLogin(false)}>x</button>
         </div>
       }
@@ -108,12 +99,4 @@ function Login(){
   )
 };
 
-// const mapStateToProps=(reduxState)=>{
-//   return {
-//     userData: reduxState.userData,
-//     loggedIn: reduxState.loggedIn 
-//   }
-// }
-
-// export default connect(mapStateToProps, {})(Login);
 export default Login;
