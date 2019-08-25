@@ -58,11 +58,12 @@ function Fish(){
           placeholder={'Species'}
           onClick={() => setShowSpecies(true)}
           onChange={e => dispatch({type: 'SPECIES', payload: e.target.value})}
-          // required
         /> {FishType}
         <div className='list'>{showSpecies && speciesList}</div>
       </div>
-      <ImageUpload />
+      <div>
+        <ImageUpload />
+      </div>
       <div>
         <input type='button' value={'< Back'} onClick={() => dispatch({type: 'BACK'})}/>
         {(Type && Species) && < input type='button' value={'Next >'} onClick={() => dispatch({type: 'NEXT'})}/> }

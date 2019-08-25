@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 
 function Wheather(){
   const dispatch = useDispatch();
@@ -7,13 +8,20 @@ function Wheather(){
   const Temp = useSelector(state => state.temp);
   const [showTemp, setShowTemp] = useState(false);
 
-  const wheather = ['Sunny', 'Cloudy', 'Rainy', 'Snowy'];
-  const temp = ['Freezing (below 32°)', 'Cold (32° - 60°)', 'Warm (60° - 85°)', 'Hot (Above 85°)', `${Temp}`];
+  const wheather = ['Sun', 'Cloud', 'Rain', 'Snow', 'Hail'];
+  const temp = ['Freezing <32°', 'Cold 32°- 60°', 'Warm 60°- 85°', 'Hot 85°>', `${Temp}`];
+
+  const kindOfWheather = () => {
+    if(Wheather === wheather[0]){return `and ${Wheather+'ny'}`}
+    if(Wheather === wheather[4]){return `and ${Wheather+'ing'}`}
+    if(Temp === temp[0] && Wheather === wheather[2]){return Wheather}
+    else{return `and ${Wheather+'y'}`}
+  };
 
   return(
     <div className='Wheather'>
       <h2>What is the Weather like ?</h2>
-      <h4>{(Wheather && Temp) && `${Temp} and ${Wheather}`}</h4>
+      <h4>{(Wheather && Temp) && `${Temp.split(' ').shift()} ${kindOfWheather()}`}</h4>
       <div>
         <div className="btn-group btn-group-toggle" data-toggle="buttons">
           <label className="btn btn-secondary" onClick={() => dispatch({type: 'TEMP', payload: temp[0]})}>
@@ -33,6 +41,9 @@ function Wheather(){
           </label>
         </div>
       </div>
+        <div>
+          {showTemp && <input type='text' value={Temp} onChange={e => dispatch({type: 'WHEATHER', payload: e.target.value})}/>}
+        </div>
       <br/>
       <div> 
         <div className="btn-group btn-group-toggle" data-toggle="buttons">
@@ -48,13 +59,17 @@ function Wheather(){
           <label className="btn btn-light" onClick={() => dispatch({type: 'WHEATHER', payload: wheather[3]})} >
             <input type="radio" name="options" id="option3"/> {wheather[3]}
           </label>
+          <label className="btn btn-light" onClick={() => dispatch({type: 'WHEATHER', payload: wheather[4]})} >
+            <input type="radio" name="options" id="option1" /> {wheather[4]}
+          </label>
         </div>
-        {showTemp && <input type='text' value={Temp} onChange={e => dispatch({type: 'WHEATHER', payload: e.target.value})}/>}
       </div>
       <br/>
       <div>
         <input type='button' value='< Back' onClick={() => dispatch({type: 'BACK'})}/> 
-        <input type='button' value={'Next >'} onClick={() => (Wheather && Temp)? dispatch({type: 'NEXT'}): alert('must select wheather & temp before continuing')}/>
+        <input type='button' value={'Next >'} onClick={() => (Wheather && Temp)? dispatch({type: 'NEXT'}): 
+          Swal.fire({type: 'warning', title: `must select wheather & temp before continuing`, showConfirmButton: false, timer: 3000 })}
+        />
       </div>
     </div>
   )

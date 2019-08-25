@@ -45,3 +45,7 @@
   background: black;
   color: white;
 }
+input{
+  text-align: center;
+  width: min-content
+}

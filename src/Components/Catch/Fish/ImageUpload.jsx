@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import ImageUploader from 'react-images-upload'
 import { storage } from '../../../Firebase/index'
 
 
-const ImageUpload=(props)=>{
+const ImageUpload=()=>{
   const [Image, setImage] = useState('');
   const [ImageName, setImageName] = useState('');
-  const [UploadedImage, setUploadedImage] = useState('')
+  const UploadedImage = useSelector(state => state.Image)
+  const dispatch = useDispatch();
 
   const onDrop=(image)=>{
     setImage(image[0])
@@ -24,7 +26,7 @@ const ImageUpload=(props)=>{
     }, () => {
       // complete
       storage.ref('images').child(Image.name).getDownloadURL().then(url => {
-        setUploadedImage(url)
+        dispatch({type: 'IMAGE', payload: url})
         setImage('')
         setImageName('')
       })

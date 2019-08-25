@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 
-function Location(props){
-  const tod = ['EarlyMorning (before-7am)', 'Morning (7am-11am)', 'Noon (11am-1pm)', 'Mid-day (1pm-4pm)', 'Evening (4pm-7pm)', 'Night (after-7pm)'];
+function Location(){
+  const tod = [
+    'EarlyMorning (before 7am)', 'Morning (7-11am)', 'Noon (11am-1pm)',
+    'Mid-day (1-4pm)', 'Evening (4-7pm)', 'Night (after 7pm)'
+  ];
   const States = [
     "Alaska", "Alabama", "Arkansas", "Arizona", "California", "Colorado", "Connecticut", "Delaware", "Florida","Georgia",
     "Hawaii", "Iowa", "Idaho", "Illinois", "Indiana", "Kansas","Kentucky","Louisiana","Massachusetts","Maryland","Maine", 
-    "Michigan", "Minnesota","Missouri", "Mississippi","Montana","North Carolina"," North Dakota","Nebraska","New Hampshire","New Jersey", 
-    "New Mexico", "Nevada", "New York", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", 
+    "Michigan", "Minnesota","Missouri", "Mississippi","Montana","North Carolina"," North Dakota","Nebraska","New Hampshire",
+    "New Jersey", "New Mexico", "Nevada", "New York", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", 
     "South Dakota", "Tennessee", "Texas", "Utah", "Virginia", "Vermont", "Washington", "Wisconsin", "West Virginia", "Wyoming"
   ];
 
@@ -21,7 +25,7 @@ function Location(props){
   const [showTOD, setShowTOD] = useState(false);
   const [showStates, setShowStates] = useState(false);
 
-  const filteredStates = States.filter(state => state.toLowerCase().startsWith(State));
+  const filteredStates = States.filter(state => state.toLowerCase().startsWith(State.toLowerCase()));
   const stateList = filteredStates.map((state, i) => (
     <div className='list-item' key={i} value={filteredStates[i] || `${state}`}  
       onClick={(e) => dispatch({type: 'US_STATE', payload: filteredStates[i]})/
@@ -33,58 +37,114 @@ function Location(props){
 
   const todList = tod.map((item, i) => (
     <div className='list-item' key={i} value={tod[i] || tod}  
-      onClick={(e) => dispatch({type: 'TOD', payload: tod[i]})/setShowTOD(false)}>
+      onClick={(e) => dispatch({type: 'TOD', payload: tod[i].split(' ').shift()})/setShowTOD(false)}>
       {item}
     </div>)
   );
 
-const today = () => {
-    let month = new Date().getMonth()+1
-    let day = new Date().getDate()
-    let year = new Date().getFullYear()
+  function dateConvertor(date){
+    let arr = date.split(' ')
+    let year = arr.pop()
+    let month = arr.shift()
+    let day = arr.toString().split(',').shift()
     switch(month){
-      case 1:
-        return `Jan ${day}, ${year}`
-      case 2:
-        return `Feb ${day}, ${year}`
-      case 3:
-        return `Mar ${day}, ${year}`
-      case 4:
-        return `Apr ${day}, ${year}`
-      case 5:
-        return `May ${day}, ${year}`
-      case 6:
-        return `June ${day}, ${year}`
-      case 7:
-        return `July ${day}, ${year}`
-      case 8:
-        return `Aug ${day}, ${year}`
-      case 9:
-        return `Sept ${day}, ${year}`
-      case 10:
-        return `Oct ${day}, ${year}`
-      case 11:
-        return `Nov ${day}, ${year}`
-      case 12:
-        return `Dec ${day}, ${year}`
-      default:
-        return ''
+      case 'Jan': month = '01'
+        break;
+      case 'Feb': month = '02'
+        break;
+      case 'Mar': month = '03'
+        break;
+      case 'Apr': month = '04'
+        break;
+      case 'May': month = '05'
+        break;
+      case 'June': month = '06'
+        break;
+      case 'July': month = '07'
+        break;
+      case 'Aug': month = '08'
+        break;
+      case 'Sept': month = '09'
+        break;
+      case 'Oct': month = '10'
+        break;
+      case 'Nov': month = '11'
+        break;
+      case 'Dec': month = '12'
+        break;
+      default: 
     }
-  };
+    return `${year}-${month}-${day}`
+  }
 
+  function reverseDate(date){
+    let arr = date.split('-')
+    let year = arr.shift()
+    let day = arr.pop('')
+    let month = arr.shift()
+    switch(month){
+      case '01': month = `Jan`
+        break;
+      case '02': month = `Feb`
+        break;
+      case '03': month = `Mar`
+        break;
+      case '04': month = `Apr`
+        break;
+      case '05': month = `May`
+        break;
+      case '06': month = `June`
+         break;
+      case '07': month = `July`
+        break;
+      case '08': month = `Aug` 
+        break;
+      case '09': month = `Sept` 
+        break;
+      case '10': month = `Oct` 
+        break;
+      case '11': month = `Nov` 
+        break;
+      case '12': month = `Dec`
+        break;
+      default: 
+    }
+    return `${month} ${day}, ${year}`
+  }
+
+  const infoChecker = () => {
+    if(State && !WaterType && WaterName){return 'water type'}
+    if(State && WaterType && !WaterName){return 'water name'}
+    if(!State && WaterType && WaterName){return 'state'}
+    if(!State && !WaterType && WaterName){return 'water type & state'}
+    if(!State && WaterType && !WaterName){return 'water name & state'}
+    if(State && !WaterType && !WaterName){return 'water type & water name'}
+    else{return 'state, water type & water name'}
+  };
+  console.log(reverseDate(Day))
   return(
     <div className='Location' >
       <h2>Where was your catch?</h2>
       <div >
-        <h5>{(Day && TOD) && `${TOD.split(' ').shift()} ${today()}`}</h5>
+        <h5>{(Day && TOD) && `${TOD} - ${Day}`}</h5>
         <h4>{(WaterType && WaterName) && `${WaterName} ${WaterType}, ${State}`}</h4>
       </div>
       <div>
         <div className='list'>
-          <input type="date" value={Day} onChange={e => dispatch({type: 'DAY', payload: e.target.value})}/> {' '}
-          <input type='text' value={TOD} placeholder='time of day' onClick={() => setShowTOD(true)} onChange={e => dispatch({type: 'TOD', payload: e.target.value})} />
+          <input type="date" value={`${dateConvertor(Day)}`} onChange={(e) => dispatch({type: 'DAY', payload: reverseDate(e.target.value)})}/> {' '}
+          <input type='text' value={TOD} placeholder='time of day' 
+            onClick={() => setShowTOD(true)} onChange={e => dispatch({type: 'TOD', payload: e.target.value})} 
+          />
           {showTOD && <button onClick={() => setShowTOD(false)}>x</button>}
           {showTOD && todList}
+        </div>
+        <br/>
+        <div>
+          <input className='state' value={State} type='text' placeholder='State'
+            onClick={() => setShowStates(true)} onKeyPress={() => setShowStates(true)}
+            onChange={e => dispatch({type: 'US_STATE', payload: e.target.value})}
+          />
+          <div className='list'>{showStates && stateList}</div>
         </div>
         <br/>
         <div className="btn-group btn-group-toggle" data-toggle="buttons">
@@ -104,23 +164,22 @@ const today = () => {
             <input type="radio" name="options" id="option4"/> Pond
           </label>
         </div>
-      <div>
-          *<input value={WaterName} type='text' 
-            placeholder={`name of ${WaterType.toLowerCase() || 'water'}`}
-            onChange={(e) => dispatch({type: 'WATER_NAME', payload: e.target.value})}
-          />
-        {' ' + WaterType}
+        <div>
+            <input value={WaterName} type='text' 
+              placeholder={`name of ${WaterType.toLowerCase() || 'water'}`}
+              onChange={(e) => dispatch({type: 'WATER_NAME', payload: e.target.value})}
+            />
+          {' ' + WaterType}
+        </div>
       </div>
-      <br/>    
-      </div>
-        *<input className='state' value={State} type='text' placeholder='State'
-          onClick={() => setShowStates(true)} onKeyPress={() => setShowStates(true)}
-          onChange={e => dispatch({type: 'US_STATE', payload: e.target.value})}
-        />
-      <div className='list'>{showStates && stateList}</div>
       <br/>
       <div>    
-        <input type='button' value='Next >' onClick={() => dispatch({type: 'NEXT'})}/> 
+      <input type='button' value={'Next >'} 
+        onClick={() => (State && WaterType && WaterName)? 
+          dispatch({type: 'NEXT'}): 
+          Swal.fire({title:`Enter ${infoChecker()} before continuing`,showConfirmButton: false, type: 'warning', timer: 4000})
+        }
+      />
       </div>
     </div>
   )

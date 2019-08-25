@@ -22,7 +22,7 @@
     "redux-promise-middleware": "^6.1.1",
     "sass": "^1.22.9",
     "styled-components": "^4.3.2",
-    "sweetalert2": "^8.15.3"
+    "sweetalert2": "^8.16.3"
   },
   "scripts": {
     "start": "react-scripts start",
