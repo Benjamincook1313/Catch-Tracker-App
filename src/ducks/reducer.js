@@ -112,7 +112,7 @@ export default function reducer(state = initialState, action){
     case BACK:
       return {...state, page: state.page - 1}
     case CLEAR_CATCH:
-      return {initialState}
+      return {...state, page: 0, day: today(), tod: '', usState: '', waterType: '', waterName: '', weather: '', temp: '', fishType: '', species: '', image: '', flyType: '', fly: ''}
     default:
       return state
   }

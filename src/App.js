@@ -23,7 +23,14 @@ function App() {;
   }, [dispatch]);
 
   return (
-    <div className="App">
+    <div className="App" 
+      style={{
+        height: '100vh',
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'center', 
+      }}
+      >
       <div>
         {loggedIn && `Hello, ${User? User.firstname: ''} ${User? User.lastname: ''} Welcome to your`}
         <h1>Catch - Tracker</h1> 
@@ -35,7 +42,7 @@ function App() {;
       {loggedIn &&
         <div className='user-data'>
           {!ShowForm && <button className='btn btn-dark' onClick={() => setShowForm(true)}>^-^ Fish On!!! ^-^</button>}
-          {ShowForm && <button className='btn btn-dark' onClick={() => setShowForm(false)}>Fish Off!</button>}
+          {ShowForm && <button className='btn btn-dark' onClick={() => setShowForm(false)/ dispatch({type: 'CLEAR_CATCH'})}>Fish Off!</button>}
           {ShowForm && <div> <Catch/> </div> }
           <UserCatches/>
         </div>

@@ -35,8 +35,8 @@ function Fly(){
         <input type='text' value={Fly} onChange={e => dispatch({type: 'FLY', payload: e.target.value})}/>{FlyType}
       </div>
       <div>
-        <input type='button' value={'< Back'} onClick={() => dispatch({type: 'BACK'})}/>        
-        <input type='button' value={'Next >'} onClick={() => dispatch({type: 'NEXT'})}/>
+        <input className='btn btn-dark' type='button' value={'< Back'} onClick={() => dispatch({type: 'BACK'})}/>        
+        <input className='btn btn-dark' type='button' value={'Next >'} onClick={() => dispatch({type: 'NEXT'})}/>
       </div>
     </div>
   )

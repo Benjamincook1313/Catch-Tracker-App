@@ -177,7 +177,7 @@ function Location(){
       <input className='btn btn-dark' type='button' value={'Next >'} 
         onClick={() => (State && WaterType && WaterName)? 
           dispatch({type: 'NEXT'}): 
-          Swal.fire({title:`Enter ${infoChecker()} before continuing`,showConfirmButton: false, type: 'warning', timer: 4000})
+          Swal.fire({title:`Enter ${infoChecker()} before continuing`, showConfirmButton: false, type: 'warning', timer: 4000})
         }
       />
       </div>

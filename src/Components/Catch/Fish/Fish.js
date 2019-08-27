@@ -65,8 +65,8 @@ function Fish(){
         <ImageUpload />
       </div>
       <div>
-        <input type='button' value={'< Back'} onClick={() => dispatch({type: 'BACK'})}/>
-        {(Type && Species) && < input type='button' value={'Next >'} onClick={() => dispatch({type: 'NEXT'})}/> }
+        <input className='btn btn-dark' type='button' value={'< Back'} onClick={() => dispatch({type: 'BACK'})}/>
+        {(Type && Species) && <input className='btn btn-dark' type='button' value={'Next >'} onClick={() => dispatch({type: 'NEXT'})}/> }
       </div>
     </div>
   )

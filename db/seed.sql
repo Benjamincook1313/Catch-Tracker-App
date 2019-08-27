@@ -1,20 +1,22 @@
 create table users(
 	user_id serial primary key,
-	first_name varchar(200) not null,
-	last_name varchar(200) not null,
+	first_name varchar(200),
+	last_name varchar(200),
+	state varchar(80) not null,
 	email varchar(200) not null,
-	hash varchar
+	user_name varchar(80) not null, 
+	hash varchar not null,
+	friends varchar(80),
 )
 
 create table catch(
-  catch_id serial primary key,
-  user_id int references users(user_id),
-  location varchar(200),
-  river varchar(200),
-  species varchar(200),
-  fly varchar(200),
-  wheather varchar(200),
-  image text,
-  date varchar(10),
-  tod varchar
+	user_id int references users(user_id),
+	catch_id serial primary key,
+	date varchar(20),
+	time varchar(50),
+	location varchar(100),
+	weather varchar(50),
+	fish varchar(100),
+	fly varchar(100),
+	comments varchar(250)
 )
