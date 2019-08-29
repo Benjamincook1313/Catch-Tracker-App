@@ -14,6 +14,7 @@
     "lodash": "^4.17.15",
     "massive": "^5.11.2",
     "react": "^16.9.0",
+    "react-bootstrap": "^1.0.0-beta.12",
     "react-dom": "^16.9.0",
     "react-images-upload": "^1.2.7",
     "react-redux": "^7.1.0",

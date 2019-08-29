@@ -5,18 +5,19 @@ import { storage } from '../../../Firebase/index'
 
 
 const ImageUpload=()=>{
-  const [Image, setImage] = useState('');
-  const [ImageName, setImageName] = useState('');
-  const UploadedImage = useSelector(state => state.Image)
   const dispatch = useDispatch();
+  const user = useSelector(state => state.user)
+  
+  const [Image, setImage] = useState('');
+  const [UploadedImage, setUploadedImage] = useState('')
 
   const onDrop=(image)=>{
     setImage(image[0])
-    setImageName(image[0].name)
+    dispatch({type: 'IMAGE', payload: image[0].name})
   };
 
   const handleUpload=()=>{
-    const uploadTask = storage.ref(`images/${ImageName}`).put(Image)
+    const uploadTask = storage.ref(`images/${user.user_name}/${Image.name}`).put(Image)
     uploadTask.on('state_changed', 
     (snapshot) => {
       // progress
@@ -25,10 +26,9 @@ const ImageUpload=()=>{
       console.log(error)
     }, () => {
       // complete
-      storage.ref('images').child(Image.name).getDownloadURL().then(url => {
-        dispatch({type: 'IMAGE', payload: url})
+      storage.ref(`images/${user.user_name}`).child(Image.name).getDownloadURL().then(url => {
+        setUploadedImage(url)
         setImage('')
-        setImageName('')
       })
     })
   };
@@ -46,10 +46,13 @@ const ImageUpload=()=>{
         imgExtension={['.jpg', '.gif', '.png', '.gif']} 
         maxFileSize={5242880}
       />
-      {/* <input type='file' onChange={e => onDrop(e.target.files)} /> */}
-      {ImageName} {Image && <input type='submit' value='Upload' onClick={handleUpload}/>}
-      {/* {Image && <div>{ImageName}<button onClick={handleUpload}>Upload</button></div>} */}
-      <img src={UploadedImage} alt='' height='200' />
+      {Image.name && 
+        <div>
+          {Image.name}
+          <button onClick={handleUpload}>Upload</button>
+        </div>
+      }
+      <div><img src={UploadedImage} alt='' height='200' /></div>
     </div>
   )
 }

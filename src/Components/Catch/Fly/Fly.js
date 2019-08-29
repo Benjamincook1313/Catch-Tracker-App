@@ -8,7 +8,7 @@ function Fly(){
   const FlyType = useSelector(state => state.flyType);
 
   return(
-    <div onSubmit={() => dispatch({type: 'BACK'})}>
+    <div>
       <h2>What fly did you use?</h2>
       <h3>{(Fly && FlyType) && `${Fly} - ${FlyType}`}</h3>
       <div className="btn-group btn-group-toggle" data-toggle="buttons">
@@ -32,7 +32,7 @@ function Fly(){
         </label>
       </div>
       <div>
-        <input type='text' value={Fly} onChange={e => dispatch({type: 'FLY', payload: e.target.value})}/>{FlyType}
+        <input type='text' value={Fly} onChange={e => dispatch({type: 'FLY', payload: `${e.target.value}`})}/>{FlyType}
       </div>
       <div>
         <input className='btn btn-dark' type='button' value={'< Back'} onClick={() => dispatch({type: 'BACK'})}/>        

@@ -9,24 +9,20 @@ module.exports = {
   },
 
   register: async (req, res) => {
-    const { State, FirstName, LastName, UserName, Email, Password } = req.body
+    const { State, UserName, Email, Password } = req.body
     const db = req.app.get('db')
-    const userArr = await db.find_user([Email])
+    const userArr = await db.find_user([UserName])
     if(userArr[0]){
       Swal.fire({title: 'User already exists please sign in}', showConfirmButton: false, type: 'warning', timer: 3000})
       return res.status(400).send({message: 'User Already exists'})
     }
     const salt = bcrypt.genSaltSync(10)
     const hash = bcrypt.hashSync(Password, salt)
-    let newUserArr = await db.register_user([State, FirstName, LastName, UserName, Email, hash])
+    let newUserArr = await db.register_user([State, UserName, Email, hash])
     req.session.user = {
-      id: newUserArr[0].user_id, 
       state: newUserArr[0].state,
-      firstname: newUserArr[0].first_name, 
-      lastname: newUserArr[0].last_name,
       username: newUserArr[0].user_name, 
-      email: newUserArr[0].email,
-      loggedIn: true
+      email: newUserArr[0].email
     }
     res.status(200).send({
       message: 'logged in',
@@ -43,7 +39,7 @@ module.exports = {
       Swal.fire({title: 'user not found please register', showConfirmButton: false, timer: 3000})
       return res.status(401).send({message: 'Username not found'})
     }
-    const result = bcrypt.compareSync(Password, userArr[0].hash)
+    const result = await bcrypt.compareSync(Password, userArr[0].hash)
     if(!result) {
       Swal.fire({title: 'incorrect password'})
       return res.status(401).send({message: 'Incorrect password'})

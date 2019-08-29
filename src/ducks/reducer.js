@@ -35,7 +35,9 @@ function today(){
 
 const initialState = {
   user: {},
+  catches: [],
   loggedIn: false,
+  showForm: false,
   page: 0,
   day: today(),
   tod: '',
@@ -52,9 +54,10 @@ const initialState = {
 };
 
 // authentication
-export const LOGOUT = 'LOGOUT';
 export const LOGIN = 'LOGIN';
 export const UPDATE_USER = 'UPDATE_USER';
+export const CATCHES = 'CATCHES';
+export const SHOW_FORM = 'SHOW_FORM'
 // page
 export const NEXT = 'NEXT';
 export const BACK = 'BACK';
@@ -80,11 +83,13 @@ export default function reducer(state = initialState, action){
   const { type, payload } = action
   switch(type) {
     case LOGIN:
-      return {...state, loggedIn: true}
-    case LOGOUT:
-      return {...state, loggedIn: false}
+      return {...state, loggedIn: payload}
     case UPDATE_USER:
       return {...state, user: payload}
+    case CATCHES:
+      return {...state, catches: payload}
+    case SHOW_FORM:
+      return {...state, showForm: payload}
     case DAY:
       return {...state, day: payload}
     case TOD: 
@@ -103,6 +108,8 @@ export default function reducer(state = initialState, action){
       return {...state, fishType: payload? payload: ''}
     case SPECIES:
       return {...state, species: payload? payload: ''}
+    case IMAGE:
+      return {...state, image: payload? payload: ''}
     case FLY_TYPE:
       return {...state, flyType: payload? payload: ''}
     case FLY:
@@ -112,7 +119,7 @@ export default function reducer(state = initialState, action){
     case BACK:
       return {...state, page: state.page - 1}
     case CLEAR_CATCH:
-      return {...state, page: 0, day: today(), tod: '', usState: '', waterType: '', waterName: '', weather: '', temp: '', fishType: '', species: '', image: '', flyType: '', fly: ''}
+      return {...state, showForm: false, page: 0, day: today(), tod: '', usState: '', waterType: '', waterName: '', weather: '', temp: '', fishType: '', species: '', image: '', flyType: '', fly: ''}  
     default:
       return state
   }

@@ -11,29 +11,46 @@ function Weather(){
   const weather = ['Sun', 'Cloud', 'Rain', 'Snow', 'Hail'];
   const temp = ['Freezing <32°', 'Cold 32°- 60°', 'Warm 60°- 85°', 'Hot 85°>', `${Temp}`];
 
-  const kindOfWeather = () => {
-    if(Weather === weather[0]){return `and ${Weather+'ny'}`}
-    if(Weather === weather[4]){return `and ${Weather+'ing'}`}
-    if(Temp === temp[0] && Weather === weather[2]){return Weather}
-    else{return `and ${Weather+'y'}`}
+  const kindOfWeather = (weather) => {
+    let temp = ''
+    switch(weather){
+      case 'Rain':
+        temp = 'Rainy'
+        break;
+      case 'Cloud':
+        temp = 'Cloudy'
+        break;
+      case 'Sun':
+        temp = 'Sunny'
+        break;
+      case 'Snow':
+        temp = 'Snowy'
+        break;
+      case 'Hail':
+        temp = 'Hailing'
+        break;
+      default:
+        temp = ''
+    }
+    return temp
   };
 
   return(
     <div className='Weather'>
       <h2>What is the Weather like ?</h2>
-      <h4>{(Weather && Temp) && `${Temp.split(' ').shift()} ${kindOfWeather()}`}</h4>
+      <h4>{(Weather && Temp) && `${Temp} and ${Weather}`}</h4>
       <div>
         <div className="btn-group btn-group-toggle" data-toggle="buttons">
-          <label className="btn btn-secondary" onClick={() => dispatch({type: 'TEMP', payload: temp[0]})}>
+          <label className="btn btn-secondary" onClick={() => dispatch({type: 'TEMP', payload: temp[0].split(' ').shift()})}>
             <input type="radio" name="temp" id="option1" /> {temp[0]}
           </label>
-          <label className="btn btn-secondary" onClick={() => dispatch({type: 'TEMP', payload: temp[1]})}>
+          <label className="btn btn-secondary" onClick={() => dispatch({type: 'TEMP', payload: temp[1].split(' ').shift()})}>
             <input type="radio" name="temp" id="option2" /> {temp[1]}
           </label>
-          <label className="btn btn-secondary" onClick={() => dispatch({type: 'TEMP', payload: temp[2]})}>
+          <label className="btn btn-secondary" onClick={() => dispatch({type: 'TEMP', payload: temp[2].split(' ').shift()})}>
             <input type="radio" name="temp" id="option3" /> {temp[2]}
           </label>
-          <label className="btn btn-secondary" onClick={() => dispatch({type: 'TEMP', payload: temp[3]})}>
+          <label className="btn btn-secondary" onClick={() => dispatch({type: 'TEMP', payload: temp[3].split(' ').shift()})}>
             <input type="radio" name="temp" id="option4" /> {temp[3]}
           </label>
           <label className="btn btn-secondary" onClick={() => setShowTemp(true)} >
@@ -47,19 +64,19 @@ function Weather(){
       <br/>
       <div> 
         <div className="btn-group btn-group-toggle" data-toggle="buttons">
-          <label className="btn btn-light" onClick={() => dispatch({type: 'WEATHER', payload: weather[0]})} >
+          <label className="btn btn-light" onClick={() => dispatch({type: 'WEATHER', payload: kindOfWeather('Sun')})} >
             <input type="radio" name="options" id="option1" /> {weather[0]}
           </label>
-          <label className="btn btn-light" onClick={() => dispatch({type: 'WEATHER', payload: weather[1]})} >
+          <label className="btn btn-light" onClick={() => dispatch({type: 'WEATHER', payload: kindOfWeather('Cloud')})} >
             <input type="radio" name="options" id="option2"/> {weather[1]}
           </label>
-          <label className="btn btn-light" onClick={() => dispatch({type: 'WEATHER', payload: weather[2]})} >
+          <label className="btn btn-light" onClick={() => dispatch({type: 'WEATHER', payload: kindOfWeather('Rain')})} >
             <input type="radio" name="options" id="option3"/> {weather[2]}
           </label>
-          <label className="btn btn-light" onClick={() => dispatch({type: 'WEATHER', payload: weather[3]})} >
+          <label className="btn btn-light" onClick={() => dispatch({type: 'WEATHER', payload: kindOfWeather('Snow')})} >
             <input type="radio" name="options" id="option3"/> {weather[3]}
           </label>
-          <label className="btn btn-light" onClick={() => dispatch({type: 'WEATHER', payload: weather[4]})} >
+          <label className="btn btn-light" onClick={() => dispatch({type: 'WEATHER', payload: kindOfWeather('Hail')})} >
             <input type="radio" name="options" id="option1" /> {weather[4]}
           </label>
         </div>

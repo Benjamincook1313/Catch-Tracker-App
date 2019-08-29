@@ -61,6 +61,7 @@ function Fish(){
         /> {FishType}
         <div className='list'>{showSpecies && speciesList}</div>
       </div>
+      <br/>
       <div>
         <ImageUpload />
       </div>
