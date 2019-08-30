@@ -8,9 +8,9 @@ module.exports = {
   },
 
   saveCatch: (req, res) => {
-    const {userName, date, TOD, Location, weather, ImageName, Fish, Fly } = req.body
+    const {userName, date, TOD, Location, weather, ImageName, Fish, fly } = req.body
     const db = req.app.get('db')
-    db.save_catch([userName, date, TOD, Location, weather, ImageName, Fish, Fly])
+    db.save_catch([userName, date, TOD, Location, weather, ImageName, Fish, fly])
     res.status(200).send({message: 'catch saved'})
   }
 }

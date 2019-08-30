@@ -42,7 +42,7 @@ const initialState = {
   day: today(),
   tod: '',
   usState: '',
-  waterType: '',
+  waterType: 'River',
   waterName: '',
   weather: '',
   temp: '',

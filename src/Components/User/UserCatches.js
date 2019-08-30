@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Catch from './Catch';
 import axios from 'axios';
+import './UserCatches.css'
 
 function MyCatches(props){
   const dispatch = useDispatch()
@@ -9,25 +10,22 @@ function MyCatches(props){
   const catches = useSelector(state => state.catches)
 
   useEffect(() => {
-    axios.get(`/api/catches`).then(res => {
-      if(res.data){
-        dispatch({type: 'CATCHES', payload: res.data})
-      }
-    })
-  }, [dispatch]);
+    
+  });
 
-  let userCatch = catches.map((userCatch) => {
+  let userCatch = catches.map((myCatch) => {
     return (
       <Catch 
-        key={userCatch.catch_id}
+        key={myCatch.catch_id}
+        myCatch={myCatch}
       />
     )
   })
 
   return (
-    <div>
+    <div className='UserCatches' >
       <h1>My Catches will appear hear.</h1>
-      {userCatch}
+      <div className='userCatch' >{userCatch}</div>
     </div>
   )
 };

@@ -19,7 +19,7 @@ function Fish(){
   const filtered = Type.filter(species => species === '' || species.toLowerCase().startsWith(Species))
   const speciesList = filtered.map((species, i) => (
   <div className='list-item' key={i} value={Type[i] || Species} 
-    onClick={() => dispatch({type: 'SPECIES', payload: filtered[i]})/setShowSpecies(false)}>
+    onClick={() => dispatch({type: 'SPECIES', payload: `${filtered[i]}`})/setShowSpecies(false)}>
     {species}
   </div>));
 

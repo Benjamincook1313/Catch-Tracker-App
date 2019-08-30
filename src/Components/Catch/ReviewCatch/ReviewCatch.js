@@ -22,6 +22,7 @@ function ReviewCatch(){
   const FlyType = useSelector(state => state.flyType)
 
   const [image, setImage] = useState('')
+  const [comment, setComment] = useState('')
 
   useEffect(() => {
     if(ImageName){storage.ref(`images/${user.user_name}`).child(ImageName).getDownloadURL().then(url => {
@@ -34,7 +35,7 @@ function ReviewCatch(){
     let Location = `${WaterName} ${WaterType}, ${State}`
     let weather = `${Temp} and ${Weather}`
     let Fish = `${Species} ${FishType}`
-    let fly = `${Fly} ${FlyType}`
+    let fly = `${Fly} - ${FlyType}`
     let userName = `${user.user_name}`
     const res = await axios.post('/api/saveCatch', {userName, date, TOD, Location, weather, ImageName, Fish, fly})
     if(res.data){
@@ -51,6 +52,8 @@ function ReviewCatch(){
       <img src={image} alt='' height='500' />
       <h3>{`${WaterName} ${WaterType}, ${State}`}</h3> 
       <h3>{`${Fly} - ${FlyType}`}</h3>
+      <p>{comment}</p>
+      Comments: <input type='text' value={comment} onChange={e => setComment(e.target.value)} />
       <div>
           <Button variant='dark' onClick={() => dispatch({type: 'BACK'})}>{'< Back'}</Button>
           <Button variant='dark' onClick={saveCatch}>save catch</Button>

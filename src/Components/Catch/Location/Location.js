@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
+import './Location.css'
 
 function Location(){
   const tod = [
@@ -148,7 +149,7 @@ function Location(){
         </div>
         <br/>
         <div className="btn-group btn-group-toggle" data-toggle="buttons">
-          <label className="btn btn-light" onClick={() => dispatch({type: 'WATER_TYPE', payload: 'River'})} >
+          <label className="btn btn-light active" autoComplete='on' checked onClick={() => dispatch({type: 'WATER_TYPE', payload: 'River'})} >
             <input type="radio" name="options" id="option1" /> River
           </label>
           <label className="btn btn-light" onClick={() => dispatch({type: 'WATER_TYPE', payload: 'Creek'})} >

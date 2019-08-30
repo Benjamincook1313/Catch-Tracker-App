@@ -16,6 +16,8 @@ function App() {;
   const loggedIn = useSelector(state => state.loggedIn)
   const User = useSelector(state => state.user)
   const page = useSelector(state => state.page);
+  const state = useSelector(state => state.usState)
+  console.log(state)
   
   const ShowForm = useSelector(state => state.showForm);
 
@@ -26,6 +28,9 @@ function App() {;
         dispatch({type: 'UPDATE_USER', payload: res.data.userData})
         dispatch({type: 'US_STATE', payload: res.data.userData.state})
       }
+      axios.get('/api/catches').then(res => {
+        dispatch({type: 'CATCHES', payload: res.data})
+      })
     })
   }, [dispatch]);
 
@@ -44,8 +49,7 @@ function App() {;
         display: 'flex', 
         flexDirection: 'column', 
         alignItems: 'center', 
-      }}
-      >
+      }}>
       <div>
         {loggedIn && `Hello, ${User? User.user_name: ''} Welcome to your`}
         <h1>Catch - Tracker</h1> 
@@ -59,9 +63,9 @@ function App() {;
           {!ShowForm && <Button variant='dark' onClick={() => dispatch({type: 'SHOW_FORM', payload: true})}>^-^ Fish On!!! ^-^</Button>}
           {ShowForm && <Button variant='dark' onClick={() => dispatch({type: 'SHOW_FORM', payload: false})/ dispatch({type: 'CLEAR_CATCH'})}>Fish Off!</Button>}
           {ShowForm && <div>{Form[page]}</div> }
-          <UserCatches/>
         </div>
       }
+      {loggedIn && <UserCatches/>}
     </div>
   );
 };
