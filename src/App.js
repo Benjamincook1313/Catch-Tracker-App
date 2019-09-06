@@ -16,22 +16,24 @@ function App() {;
   const loggedIn = useSelector(state => state.loggedIn)
   const User = useSelector(state => state.user)
   const page = useSelector(state => state.page);
-  const state = useSelector(state => state.usState)
-  console.log(state)
   
   const ShowForm = useSelector(state => state.showForm);
 
   useEffect(() => {
-    axios.get('/auth/checkForUser').then(res => {
-      if(res.data.userData){
-        dispatch({type: 'LOGIN', payload: true})
-        dispatch({type: 'UPDATE_USER', payload: res.data.userData})
-        dispatch({type: 'US_STATE', payload: res.data.userData.state})
-      }
+    let f = async function(){
+      await axios.get('/auth/checkForUser').then(res => {
+        if(res.data.userData){
+          dispatch({type: 'LOGIN', payload: true})
+          dispatch({type: 'UPDATE_USER', payload: res.data.userData})
+          dispatch({type: 'US_STATE', payload: res.data.userData.state})
+        }
+      })
+    }
+    f().then(res => 
       axios.get('/api/catches').then(res => {
         dispatch({type: 'CATCHES', payload: res.data})
-      })
-    })
+      })  
+    )
   }, [dispatch]);
 
   const Form = [

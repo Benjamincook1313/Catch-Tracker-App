@@ -33,7 +33,7 @@ function Login(){
     if(!res.data.loggedIn){
       dispatch({type: 'LOGIN', payload: false})
       dispatch({type: 'UPDATE_USER', payload: {}})
-      Swal.fire({title: 'logged out', showConfirmButton: false, timer: 3000})
+      Swal.fire({type: 'success', title: 'logged out', showConfirmButton: false, timer: 1000})
     }
   };
 

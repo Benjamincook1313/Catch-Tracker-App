@@ -20,6 +20,7 @@ function ReviewCatch(){
   const Species = useSelector(state => state.species)
   const Fly = useSelector(state => state.fly)
   const FlyType = useSelector(state => state.flyType)
+  const Size = useSelector(state => state.size)
 
   const [image, setImage] = useState('')
   const [comment, setComment] = useState('')
@@ -35,7 +36,7 @@ function ReviewCatch(){
     let Location = `${WaterName} ${WaterType}, ${State}`
     let weather = `${Temp} and ${Weather}`
     let Fish = `${Species} ${FishType}`
-    let fly = `${Fly} - ${FlyType}`
+    let fly = `size ${Size}, ${Fly} - ${FlyType}`
     let userName = `${user.user_name}`
     const res = await axios.post('/api/saveCatch', {userName, date, TOD, Location, weather, ImageName, Fish, fly})
     if(res.data){
@@ -51,7 +52,7 @@ function ReviewCatch(){
       <h2>{`${Species} ${FishType}`}</h2> 
       <img src={image} alt='' height='500' />
       <h3>{`${WaterName} ${WaterType}, ${State}`}</h3> 
-      <h3>{`${Fly} - ${FlyType}`}</h3>
+      <h4>{`size ${Size}, ${Fly} - ${FlyType}`}</h4>
       <p>{comment}</p>
       Comments: <input type='text' value={comment} onChange={e => setComment(e.target.value)} />
       <div>

@@ -5,8 +5,8 @@ import './Location.css'
 
 function Location(){
   const tod = [
-    'EarlyMorning (before 7am)', 'Morning (7-11am)', 'Noon (11am-1pm)',
-    'Mid-day (1-4pm)', 'Evening (4-7pm)', 'Night (after 7pm)'
+    'early-morning (before 7am)', 'morning (7-11am)', 'noon (11am-1pm)',
+    'mid-day (1-4pm)', 'evening (4-7pm)', 'night (after 7pm)'
   ];
   const States = [
     "Alaska", "Alabama", "Arkansas", "Arizona", "California", "Colorado", "Connecticut", "Delaware", "Florida","Georgia",
@@ -43,6 +43,7 @@ function Location(){
     </div>)
   );
 
+// changes date format to yyyy-mm-dd
   function dateConvertor(date){
     let arr = date.split(' ')
     let year = arr.pop()
@@ -75,9 +76,10 @@ function Location(){
         break;
       default: 
     }
-    return `${year}-${month}-${day}`
+    return `${year}-${month}-${day<10? `${0+day}`: `${day}`}`
   }
 
+// changes date format to MMM-dd-yyyy
   function reverseDate(date){
     let arr = date.split('-')
     let year = arr.shift()
@@ -131,8 +133,8 @@ function Location(){
         <h4>{(WaterType && WaterName) && `${WaterName} ${WaterType}, ${State}`}</h4>
       </div>
       <div>
-        <div className='list'>
-          <input type="date" value={`${dateConvertor(Day)}`} onChange={(e) => dispatch({type: 'DAY', payload: reverseDate(e.target.value)})}/> {' '}
+        <div>
+          <input type="date" value={dateConvertor(Day)} onChange={(e) => dispatch({type: 'DAY', payload: reverseDate(e.target.value)})}/> {' '}
           <input type='text' value={TOD} placeholder='time of day' 
             onClick={() => setShowTOD(true)} onChange={e => dispatch({type: 'TOD', payload: e.target.value})} 
           />
@@ -141,11 +143,15 @@ function Location(){
         </div>
         <br/>
         <div>
-          <input className='state' value={State} type='text' placeholder='State'
-            onClick={() => setShowStates(true)} onKeyPress={() => setShowStates(true)}
+          <input className='state' value={State} type='text'
+            onClick={() => setShowStates(true)/dispatch({type: 'US_STATE', payload: ''})} onKeyPress={() => setShowStates(true)}
             onChange={e => dispatch({type: 'US_STATE', payload: e.target.value})}
           />
-          <div className='list'>{showStates && stateList}</div>
+          {showStates && 
+            <div className='list'>
+              {stateList}
+            </div>
+          }
         </div>
         <br/>
         <div className="btn-group btn-group-toggle" data-toggle="buttons">

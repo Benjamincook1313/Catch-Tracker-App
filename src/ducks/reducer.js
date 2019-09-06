@@ -50,7 +50,8 @@ const initialState = {
   species: '',
   image: '',
   flyType: '',
-  fly: ''
+  fly: '',
+  size: '',
 };
 
 // authentication
@@ -61,7 +62,7 @@ export const SHOW_FORM = 'SHOW_FORM'
 // page
 export const NEXT = 'NEXT';
 export const BACK = 'BACK';
-export const CLEAR_CATCH= 'CLEAR_CATCH';
+export const CLEAR_CATCH = 'CLEAR_CATCH';
 // location component
 export const DAY = 'DAY';
 export const TOD = 'TOD';
@@ -78,6 +79,7 @@ export const IMAGE = 'IMAGE';
 // fly component
 export const FLY_TYPE = 'FLY_TYPE';
 export const FLY = 'FLY';
+export const SIZE = 'SIZE';
 
 export default function reducer(state = initialState, action){
   const { type, payload } = action
@@ -114,6 +116,8 @@ export default function reducer(state = initialState, action){
       return {...state, flyType: payload? payload: ''}
     case FLY:
       return {...state, fly: payload? payload: ''}
+    case SIZE:
+      return {...state, size: payload? payload: ''}
     case NEXT:
       return {...state, page:  state.page + 1}
     case BACK:

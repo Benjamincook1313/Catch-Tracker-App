@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Catch from './Catch';
-import axios from 'axios';
+// import axios from 'axios';
 import './UserCatches.css'
 
 function MyCatches(props){
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   // const user = useSelector(state => state.user)
   const catches = useSelector(state => state.catches)
 

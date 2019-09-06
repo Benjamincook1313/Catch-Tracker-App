@@ -2,4 +2,14 @@
   text-align: center;
 }
 
+.list{
+  height: 200px;
+  overflow-y: scroll;
+  border: 2px solid black;
+}
+.list-item:hover{
+  background: black;
+  color: white;
+}
+
 

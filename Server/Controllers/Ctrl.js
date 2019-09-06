@@ -1,10 +1,12 @@
 
 module.exports = {
   getCatches: async (req, res) => {
-    const username = req.session.user.user_name
-    const db = req.app.get('db')
-    const data = await db.get_user_catches(username)
-    res.status(200).send(data)
+    if(req.session.user){
+      const username = req.session.user.user_name
+      const db = req.app.get('db')
+      const data = await db.get_user_catches(username)
+      res.status(200).send(data)
+    }
   },
 
   saveCatch: (req, res) => {
