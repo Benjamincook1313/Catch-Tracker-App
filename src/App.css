@@ -1,6 +1,9 @@
 h1 {
   font-size: 70px
 }
+input {
+  text-align: center;
+}
 
 .App {
   text-align: center;
@@ -23,5 +26,12 @@ h1 {
   display: flex;
   flex-direction: column;
 }
+
+.form-page-wrapper {
+  border: 2px solid black;
+  padding: 20px 50px;
+}
+
+
 
 

@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { storage } from '../../../Firebase/index' 
 import { Button } from 'react-bootstrap';
-import axios from 'axios';
 import Swal from 'sweetalert2';
+import axios from 'axios';
+import '../Catch.css';
 
 function ReviewCatch(){
   const dispatch = useDispatch()
@@ -18,6 +19,7 @@ function ReviewCatch(){
   const ImageName = useSelector(state => state.image)
   const FishType = useSelector(state => state.fishType)
   const Species = useSelector(state => state.species)
+  const Length = useSelector(state => state.length)
   const Fly = useSelector(state => state.fly)
   const FlyType = useSelector(state => state.flyType)
   const Size = useSelector(state => state.size)
@@ -34,9 +36,9 @@ function ReviewCatch(){
   
   const saveCatch = async () => {
     let Location = `${WaterName} ${WaterType}, ${State}`
-    let weather = `${Temp} and ${Weather}`
-    let Fish = `${Species} ${FishType}`
-    let fly = `size ${Size}, ${Fly} - ${FlyType}`
+    let weather = `${Temp} ${Weather}`
+    let Fish = `${Length}" ${Species} ${FishType}`
+    let fly = `${Size}, ${Fly} - ${FlyType}`
     let userName = `${user.user_name}`
     const res = await axios.post('/api/saveCatch', {userName, date, TOD, Location, weather, ImageName, Fish, fly})
     if(res.data){

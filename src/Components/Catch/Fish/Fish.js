@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { Button } from 'react-bootstrap';
 import ImageUpload from './ImageUpload'; 
-import './Fish.css'
+import '../Catch.css'
 
 function Fish(){
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ function Fish(){
   </div>));
 
   const inchList = inches.map((inch, i) => (
-    <div className='list-item' key={i} onClick={() => dispatch({type: 'SIZE', payload: inches[i]})/setShowInches(false)} >
+    <div className='list-item' key={i} onClick={() => dispatch({type: 'LENGTH', payload: inches[i]})/setShowInches(false)} >
       {inch}
     </div>  
   ))
@@ -83,7 +83,7 @@ function Fish(){
           /> {FishType}
         </div>
         {showSpecies && <div className='list'> {speciesList}</div>}
-        <input placeholder='length' value={Length} onClick={() => setShowInches(true)} readOnly/>
+        <input type='text' placeholder='length' value={Length} onClick={() => setShowInches(true)} readOnly/>
         {showInches && <div className='list'>{inchList}</div> }
       </div>
       <div>

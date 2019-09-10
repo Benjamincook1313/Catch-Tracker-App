@@ -38,7 +38,7 @@ const initialState = {
   catches: [],
   loggedIn: false,
   showForm: false,
-  page: 2,
+  page: 0,
   day: today(),
   tod: '',
   usState: '',
@@ -128,7 +128,7 @@ export default function reducer(state = initialState, action){
       return {...state, page: state.page - 1}
     case CLEAR_CATCH:
       return {
-        ...state, showForm: false, page: 0, day: today(), tod: '', usState: '', waterType: '', 
+        ...state, showForm: false, page: 0, day: today(), tod: '', usState: `${state.user.state}`, waterType: 'River', 
         waterName: '', weather: '', temp: '', fishType: '', species: '', length: '', image: '', 
         flyType: '', fly: '', size: ''
       }  

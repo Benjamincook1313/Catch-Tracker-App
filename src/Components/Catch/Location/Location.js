@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
-import './Location.css'
+import '../Catch.css'
 
 function Location(){
   const tod = [
-    'early-morning (before 7am)', 'morning (7-11am)', 'noon (11am-1pm)',
-    'mid-day (1-4pm)', 'evening (4-7pm)', 'night (after 7pm)'
+    'Early-Morning (before 7am)', 'Morning (7-11am)', 'Noon (11am-1pm)',
+    'Midday (1-4pm)', 'Evening (4-7pm)', 'Night (after 7pm)'
   ];
   const States = [
     "Alaska", "Alabama", "Arkansas", "Arizona", "California", "Colorado", "Connecticut", "Delaware", "Florida","Georgia",
@@ -129,7 +129,8 @@ function Location(){
     <div className='Location' >
       <h2>Where was your catch?</h2>
       <div >
-        <h5>{(Day && TOD) && `${TOD} - ${Day}`}</h5>
+        <h5>{`${TOD}`}</h5>
+        <h5>{(Day && TOD) && `${Day}`}</h5>
         <h4>{(WaterType && WaterName) && `${WaterName} ${WaterType}, ${State}`}</h4>
       </div>
       <div>
@@ -165,7 +166,7 @@ function Location(){
             <input type="radio" name="options" id="option3"/> Lake
           </label>
           <label className="btn btn-light" onClick={() => dispatch({type: 'WATER_TYPE', payload: 'Reservoir'})} >
-            <input type="radio" name="options" id="option3"/> Creek
+            <input type="radio" name="options" id="option3"/> Reservoir
           </label>
           <label className="btn btn-light" onClick={() => dispatch({type: 'WATER_TYPE', payload: 'Pond'})} >
             <input type="radio" name="options" id="option4"/> Pond
@@ -173,7 +174,7 @@ function Location(){
         </div>
         <div>
             <input value={WaterName} type='text' 
-              placeholder={`name of ${WaterType.toLowerCase() || 'water'}`}
+              placeholder={`name of`}
               onChange={(e) => dispatch({type: 'WATER_NAME', payload: e.target.value})}
             />
           {' ' + WaterType}

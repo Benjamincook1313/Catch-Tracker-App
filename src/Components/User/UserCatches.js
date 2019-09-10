@@ -24,7 +24,7 @@ function MyCatches(props){
 
   return (
     <div className='UserCatches' >
-      <h1>My Catches will appear hear.</h1>
+      {/* <h1>My Catches will appear hear.</h1> */}
       <div className='userCatch' >{userCatch}</div>
     </div>
   )

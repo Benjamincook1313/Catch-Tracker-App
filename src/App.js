@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
-// import Login from './Components/Login/Login';
 import Nav from './Components/Nav/Nav'
 import Location from './Components/Catch/Location/Location';
 import Weather from './Components/Catch/Weather/Weather';
@@ -54,7 +53,7 @@ function App() {;
         <div className='user-data'>
           {!ShowForm && <Button variant='dark' onClick={() => dispatch({type: 'SHOW_FORM', payload: true})}>^-^ Fish On!!! ^-^</Button>}
           {ShowForm && <Button variant='dark' onClick={() => dispatch({type: 'SHOW_FORM', payload: false})/ dispatch({type: 'CLEAR_CATCH'})}>Fish Off!</Button>}
-          {ShowForm && <div>{Form[page]}</div> }
+          {ShowForm && <div className='form-page-wrapper'>{Form[page]}</div> }
         </div>
       }
       {loggedIn && <UserCatches/>}
