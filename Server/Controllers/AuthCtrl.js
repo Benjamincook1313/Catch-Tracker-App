@@ -46,10 +46,12 @@ module.exports = {
     }
     req.session.user = userArr[0]
     delete req.session.user.hash
+    const catches = await db.get_user_catches([req.session.user.user_name])
     res.status(200).send({
       message: 'logged in',
       userData: req.session.user,
-      loggedIn: true
+      loggedIn: true,
+      catches: catches
     })
   },
 

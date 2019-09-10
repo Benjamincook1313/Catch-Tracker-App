@@ -38,7 +38,7 @@ const initialState = {
   catches: [],
   loggedIn: false,
   showForm: false,
-  page: 0,
+  page: 2,
   day: today(),
   tod: '',
   usState: '',
@@ -48,6 +48,7 @@ const initialState = {
   temp: '',
   fishType: '',
   species: '',
+  length: '',
   image: '',
   flyType: '',
   fly: '',
@@ -75,6 +76,7 @@ export const TEMP = 'TEMP';
 // fish component
 export const FISH_TYPE = 'FISH_TYPE';
 export const SPECIES = 'SPECIES';
+export const LENGTH = 'LENGTH';
 export const IMAGE = 'IMAGE';
 // fly component
 export const FLY_TYPE = 'FLY_TYPE';
@@ -110,6 +112,8 @@ export default function reducer(state = initialState, action){
       return {...state, fishType: payload? payload: ''}
     case SPECIES:
       return {...state, species: payload? payload: ''}
+    case LENGTH:
+      return {...state, length: payload? payload: ''}
     case IMAGE:
       return {...state, image: payload? payload: ''}
     case FLY_TYPE:
@@ -123,7 +127,11 @@ export default function reducer(state = initialState, action){
     case BACK:
       return {...state, page: state.page - 1}
     case CLEAR_CATCH:
-      return {...state, showForm: false, page: 0, day: today(), tod: '', usState: '', waterType: '', waterName: '', weather: '', temp: '', fishType: '', species: '', image: '', flyType: '', fly: ''}  
+      return {
+        ...state, showForm: false, page: 0, day: today(), tod: '', usState: '', waterType: '', 
+        waterName: '', weather: '', temp: '', fishType: '', species: '', length: '', image: '', 
+        flyType: '', fly: '', size: ''
+      }  
     default:
       return state
   }

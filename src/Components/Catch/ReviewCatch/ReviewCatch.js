@@ -53,9 +53,11 @@ function ReviewCatch(){
       <img src={image} alt='' height='500' />
       <h3>{`${WaterName} ${WaterType}, ${State}`}</h3> 
       <h4>{`size ${Size}, ${Fly} - ${FlyType}`}</h4>
-      <p>{comment}</p>
-      Comments: <input type='text' value={comment} onChange={e => setComment(e.target.value)} />
-      <div>
+      <div className='column'>
+        Comments
+        <textarea rows='5' cols='50' value={comment} onChange={e => setComment(e.target.value)} />
+      </div>
+      <div >
           <Button variant='dark' onClick={() => dispatch({type: 'BACK'})}>{'< Back'}</Button>
           <Button variant='dark' onClick={saveCatch}>save catch</Button>
       </div>

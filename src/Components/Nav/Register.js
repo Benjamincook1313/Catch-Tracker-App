@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Button } from 'react-bootstrap';
+import { Button, InputGroup, FormControl } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
@@ -34,22 +34,23 @@ function Register(props){
     </div>
   ));
 
-  const registerUser = async () => {
-    if(Password !== Verify){ Swal.fire({title:'Passwords do not match'}) }
-    if(State && Email && Password && UserName && Email.includes('@') && Verify === Password){
-      const res = await axios.post('/auth/register', { State, UserName, Email, Password })
-      if(!res.data){ Swal.fire({title: 'Login Failed', showConfirmButton: false, timer: 3000})}
-      Swal.fire({type: 'success', title: 'you are logged in', showConfirmButton: false, timer: 3000})
-      dispatch({type: 'LOGIN', payload: true})
-      dispatch({type: 'UPDATE_USER', payload: res.data.userData})
-      props.setShowRegister(false)
+  const registerUser = async (e) => {
+    if(e.key === 'Enter'){
+      if(Password !== Verify){ Swal.fire({title:'Passwords do not match'}) }
+      if(State && Email && Password && UserName && Email.includes('@') && Verify === Password){
+        const res = await axios.post('/auth/register', { State, UserName, Email, Password })
+        if(!res.data){ Swal.fire({title: 'Login Failed', showConfirmButton: false, timer: 3000})}
+        Swal.fire({type: 'success', title: 'you are logged in', showConfirmButton: false, timer: 3000})
+        dispatch({type: 'LOGIN', payload: true})
+        dispatch({type: 'UPDATE_USER', payload: res.data.userData})
+        props.setShowRegister(false)
+      }
     }
-    
   };
 
   return(
-  <div onSubmit={registerUser}>
-      <div >
+    <div className='Register'>
+      <div>
         State<input value={State} onClick={() => setShowStates(true)} onChange={ e => setState(e.target.value)} required/>
         {(State || showStates) && <Button variant='light' onClick={() => setState('')/setShowStates(false)}>x</Button>}
       </div>
@@ -65,11 +66,10 @@ function Register(props){
       <div>
         password and verify
         <input value={Password} type={showPassword? 'text':'password'} onChange={ e => setPassword(e.target.value)}/>
-        <input value={Verify} type={showPassword? 'text':'password'} onChange={ e => setVerify(e.target.value)}/>
+        <input value={Verify} type={showPassword? 'text':'password'} onChange={ e => setVerify(e.target.value)} onkeypress={(e) => registerUser(e)}/>
         {(Password && Verify) && <Button variant='light' onClick={() => setPassword('')/ setVerify('')}>x</Button>}
       </div>
       <div style={{display: 'flex', alignItems: 'space-between'}}>
-        <Button variant='dark' onClick={registerUser}>register</Button>
         <Button variant='light' onClick={() => setShowPassword(!showPassword)}>show passwords</Button>
       </div>
     </div>

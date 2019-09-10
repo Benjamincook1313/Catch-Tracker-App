@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
-import Login from './Components/Login/Login';
+// import Login from './Components/Login/Login';
+import Nav from './Components/Nav/Nav'
 import Location from './Components/Catch/Location/Location';
 import Weather from './Components/Catch/Weather/Weather';
 import Fish from './Components/Catch/Fish/Fish';
@@ -14,10 +15,9 @@ import './App.css';
 function App() {;
   const dispatch = useDispatch();
   const loggedIn = useSelector(state => state.loggedIn)
-  const User = useSelector(state => state.user)
-  const page = useSelector(state => state.page);
-  
-  const ShowForm = useSelector(state => state.showForm);
+  // const User = useSelector(state => state.user)
+  const page = useSelector(state => state.page)
+  const ShowForm = useSelector(state => state.showForm)
 
   useEffect(() => {
     let f = async function(){
@@ -45,19 +45,9 @@ function App() {;
   ];
 
   return (
-    <div className="App" 
-      style={{
-        height: '100vh',
-        display: 'flex', 
-        flexDirection: 'column', 
-        alignItems: 'center', 
-      }}>
+    <div className="App">
       <div>
-        {loggedIn && `Hello, ${User? User.user_name: ''} Welcome to your`}
-        <h1>Catch - Tracker</h1> 
-      </div>
-      <div>
-        <Login />
+        <Nav />
       </div>
       <br/>
       {loggedIn &&

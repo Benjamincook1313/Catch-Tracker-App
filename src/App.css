@@ -1,7 +1,15 @@
-.App {
-  text-align: center;
+h1 {
+  font-size: 70px
 }
 
+.App {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  display: flex; 
+  flex-direction: column; 
+  align-items: center;
+}
 .list{
   height: 200px;
   overflow-y: scroll;
@@ -10,6 +18,10 @@
 .list-item:hover{
   background: black;
   color: white;
+}
+.column {
+  display: flex;
+  flex-direction: column;
 }
 
 
