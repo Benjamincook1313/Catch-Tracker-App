@@ -1,17 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import Catch from './Catch';
-// import axios from 'axios';
-import './UserCatches.css'
+import './User.css';
 
 function MyCatches(props){
-  // const dispatch = useDispatch()
-  // const user = useSelector(state => state.user)
   const catches = useSelector(state => state.catches)
-
-  useEffect(() => {
-    
-  });
 
   let userCatch = catches.map((myCatch) => {
     return (
@@ -24,8 +17,7 @@ function MyCatches(props){
 
   return (
     <div className='UserCatches' >
-      {/* <h1>My Catches will appear hear.</h1> */}
-      <div className='userCatch' >{userCatch}</div>
+      <div className='userCatch'>{userCatch}</div>
     </div>
   )
 };

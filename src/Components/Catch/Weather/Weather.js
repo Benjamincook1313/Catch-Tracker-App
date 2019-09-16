@@ -74,7 +74,7 @@ function Weather(){
       <div> 
       <ButtonGroup toggle>
         <OverlayTrigger overlay={<Tooltip id="tooltip">Sunny</Tooltip>}>
-          <ToggleButton variant='light' type='radio' name='weather' onClick={() => dispatch({type: 'WEATHER', payload: 'sunny'})}>
+          <ToggleButton variant='light' type='radio' name='weather' onClick={() => dispatch({type: 'WEATHER', payload: 'Sunny'})}>
             {Sun}
           </ToggleButton>
         </OverlayTrigger>

@@ -25,7 +25,7 @@ function ReviewCatch(){
   const Size = useSelector(state => state.size)
 
   const [image, setImage] = useState('')
-  const [comment, setComment] = useState('')
+  const [details, setDetails] = useState('')
 
   useEffect(() => {
     if(ImageName){storage.ref(`images/${user.user_name}`).child(ImageName).getDownloadURL().then(url => {
@@ -35,12 +35,12 @@ function ReviewCatch(){
   });
   
   const saveCatch = async () => {
-    let Location = `${WaterName} ${WaterType}, ${State}`
-    let weather = `${Temp} ${Weather}`
-    let Fish = `${Length}" ${Species} ${FishType}`
-    let fly = `${Size}, ${Fly} - ${FlyType}`
     let userName = `${user.user_name}`
-    const res = await axios.post('/api/saveCatch', {userName, date, TOD, Location, weather, ImageName, Fish, fly})
+    const res = await axios.post('/api/saveCatch', {
+      userName, date, TOD, WaterName, WaterType, State, Temp, 
+      Weather, ImageName, Length, Species, FishType, Size, 
+      Fly, FlyType, details
+    })
     if(res.data){
       dispatch({type: 'CLEAR_CATCH'})
       Swal.fire({type: 'success', title: 'Success', showConfirmButton: false, timer: 3000})
@@ -56,8 +56,8 @@ function ReviewCatch(){
       <h3>{`${WaterName} ${WaterType}, ${State}`}</h3> 
       <h4>{`size ${Size}, ${Fly} - ${FlyType}`}</h4>
       <div className='column'>
-        Comments
-        <textarea rows='5' cols='50' value={comment} onChange={e => setComment(e.target.value)} />
+        details
+        <textarea rows='5' cols='50' value={details} onChange={e => setDetails(e.target.value)} />
       </div>
       <div >
           <Button variant='dark' onClick={() => dispatch({type: 'BACK'})}>{'< Back'}</Button>

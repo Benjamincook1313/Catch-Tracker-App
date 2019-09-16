@@ -7,12 +7,21 @@ create table users(
 )
 
 create table catch(
-	user_name int references users(user_name),
-	date varchar(20),
-	time varchar(50),
-	location varchar(100),
-	weather varchar(50),
-	fish varchar(100),
-	fly varchar(100),
-	comments varchar(250)
+  catch_id serial,
+  user_name varchar references users(user_name), 
+  date varchar(20),
+  tod varchar(50), 
+  water_name varchar(150),
+  water_type varchar(50),
+  state varchar(100),
+  temperature varchar(50),
+  weather varchar(50),
+  image_name varchar,
+  length varchar(10),
+  species varchar(100),
+  fish_type varchar(50),
+  size varchar(5),
+  fly varchar(100),
+  fly_type varchar(50),
+  comments varchar(350)
 )

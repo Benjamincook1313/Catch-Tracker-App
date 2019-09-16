@@ -1,0 +1,53 @@
+.UserCatches{
+  display: flex;
+  flex-direction: column;
+}
+.userCatch{
+  height: 700px;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+h4{
+  margin: 0px;
+}
+h5{
+  margin: 0px;
+  position: relative;
+  top: 4px;
+}
+h6{
+  margin: 0px;
+  text-decoration: underline;
+}
+p{
+  margin: 0px;
+}
+
+.Catch{
+  position: relative;
+  border: 2px solid black;
+  border-radius: 5px;
+  margin: 5px;
+  height: 400px;
+}
+.date-location{
+  display: flex;
+  flex-direction: column;
+}
+.date{
+  text-align: right;
+  margin-right: 5px;
+}
+.location{
+  background: lightblue;
+  display: flex;
+  justify-content: space-between;
+  margin: 0px 5px;
+}
+.comment{
+  border: 1px solid lightgray;
+  display: flex;
+  margin: 5px;
+}
