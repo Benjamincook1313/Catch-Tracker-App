@@ -1,22 +1,40 @@
 .Nav {
   width: 100vw;
   height: 90px;
-  border-bottom: 2px solid black;
-  background: lightcyan;
   display: flex;
   justify-content: center;
 }
 .title {
   position: absolute;
   top: 10px;
+  color: #b9e496;
 }
 .nav-items {
   width: 98%;
-  height: 40px;
-  margin: 10px; 
+  height: 50%;
+  margin: 10px 50px; 
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.name{
+  font-size: 35px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.water{
+  font-size: 40px;
+  /* position: absolute;
+  left: 110px;
+  top: 70px; */
+}
+.water:hover{
+  color: yellow;
+}
+.water:active{
+  font-size: 35px;
+  margin-top: 5px;
 }
 
 .auth-wrapper {

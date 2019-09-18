@@ -22,21 +22,21 @@ function Catch(props){
     <div className='Catch'>
       <OverlayTrigger overlay={
         <Tooltip>
-          <h6>Weather</h6> <p>{` ${temperature}, ${weather}`}</p>
-          <h6>Fish</h6> <p>{`${length}" ${species} ${fish_type}`}</p> 
-          <h6>Fly</h6> <p>{`${fly}, ${fly_type}`}</p>
+          <p className='date'>{date}</p>
+          <h6>weather</h6> <p>{` ${temperature}, ${weather}`}</p>
+          <h6>fish</h6> <p>{`${length}" ${species} ${fish_type}`}</p> 
+          <h6>fly</h6> <p>{`${fly}, ${fly_type}`}</p>
+          <h6>details</h6> <p className='comment'>{comments}</p>
         </Tooltip>
         }>
         <div className='catch'>
           <div className='date-location'>
-            <p className='date'>{date}</p>
             <div className='location'>
               <h5>{`${water_name} ${water_type}`}</h5> 
               <h4>{`${state}`}</h4>
             </div>
           </div>
           <img src={Image} alt='' height='200' />
-          <p className='comment'>{comments}</p>
         </div>
       </OverlayTrigger>
     </div>

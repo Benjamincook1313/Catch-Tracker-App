@@ -3,11 +3,14 @@
   flex-direction: column;
 }
 .userCatch{
-  height: 700px;
+  height: 300px;
   width: 100vw;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
 }
 h4{
   margin: 0px;
@@ -24,13 +27,15 @@ h6{
 p{
   margin: 0px;
 }
+img{
+  border-radius: 5px;
+}
 
 .Catch{
   position: relative;
   border: 2px solid black;
   border-radius: 5px;
   margin: 5px;
-  height: 400px;
 }
 .date-location{
   display: flex;
@@ -41,7 +46,6 @@ p{
   margin-right: 5px;
 }
 .location{
-  background: lightblue;
   display: flex;
   justify-content: space-between;
   margin: 0px 5px;

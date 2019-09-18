@@ -8,6 +8,8 @@ import Fish from './Components/Catch/Fish/Fish';
 import Fly from './Components/Catch/Fly/Fly';
 import ReviewCatch from './Components/Catch/ReviewCatch/ReviewCatch';
 import UserCatches from './Components/User/UserCatches';
+import Creek from './Images/Creek.mp4'
+import River from './Images/River.mp4'
 import axios from 'axios';
 import './App.css';
 
@@ -44,15 +46,17 @@ function App() {;
   ];
 
   return (
-    <div className="App">
+    <div className="App" >
+      <video className='background-video'  src={River} poster='./Images/fish-161320_1280.png' autoPlay='true' loop muted />
       <div>
         <Nav />
       </div>
       <br/>
       {loggedIn &&
-        <div className='user-data'>
-          {!ShowForm && <Button variant='dark' onClick={() => dispatch({type: 'SHOW_FORM', payload: true})}>^-^ Fish On!!! ^-^</Button>}
-          {ShowForm && <Button variant='dark' onClick={() => dispatch({type: 'SHOW_FORM', payload: false})/ dispatch({type: 'CLEAR_CATCH'})}>Fish Off!</Button>}
+        <div className='fish-on'>
+          {!ShowForm && <Button className='Button' onClick={() => dispatch({type: 'SHOW_FORM', payload: true})}>^-^ Fish On!!! ^-^</Button>}
+          {ShowForm && <Button className='Button' onClick={() => dispatch({type: 'SHOW_FORM', payload: false})/ dispatch({type: 'CLEAR_CATCH'})}>Fish Off!</Button>}
+          <div>{' '}</div>
           {ShowForm && <div className='form-page-wrapper'>{Form[page]}</div> }
         </div>
       }
