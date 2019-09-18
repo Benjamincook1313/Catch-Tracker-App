@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Login from './Login';
 import Register from './Register';
+import FlyRod from './Fly-Rod/Fly-Rod';
 import axios from 'axios';
 import {Button} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -45,7 +46,9 @@ function Nav(){
           </div> 
         }
       </div>
-      <h1 className='title'>Catch - Tracker</h1> 
+      <h1 className='title'>Catch-Tracker
+        <FlyRod />
+      </h1> 
       <div className='auth-wrapper'>
         {showLogin &&<Login setShowLogin={() => setShowLogin()}/>}
         {showRegister && <Register setShowRegister={() => setShowRegister()} />}

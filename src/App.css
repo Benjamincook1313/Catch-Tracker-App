@@ -4,9 +4,23 @@ h1 {
 input {
   text-align: center;
 }
-.Button{
+.Button-primary{
   color: #b9e496;
   background-color: white;
+  border: none;
+}
+.Button-primary:hover{
+  background: darkseagreen;
+  color: white;
+}
+.Button-secondary{
+  color: white;
+  background: darkseagreen;
+  border: none;
+}
+.Button-secondary:hover{
+  color: #b9e496;
+  background: white;
 }
 
 .App {
@@ -24,21 +38,22 @@ input {
   width: 100;
 }
 .list{
-  height: 200px;
-  overflow-y: scroll;
+  max-height: 200px;
+  /* overflow-y: scroll; */
   border: 2px solid black;
 }
 .list-item:hover{
   color: white;
+  background: #b9e496;
   font-weight: bold;
 }
-.fish-on{
 
-}
 .form-page-wrapper {
   border: 2px solid black;
   border-radius: 5px;
   padding: 20px 50px;
+  margin-top: 30px;
+  background-color: rgb(255, 255, 255, 0.9)
 }
 
 

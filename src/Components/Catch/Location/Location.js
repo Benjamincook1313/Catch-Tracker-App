@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import {Button} from 'react-bootstrap';
+import Scroll from 'react-scrollbar';
 import Swal from 'sweetalert2';
 import '../Catch.css'
 
@@ -128,11 +130,8 @@ function Location(){
   return(
     <div className='Location' >
       <h2>Where was your catch?</h2>
-      <div >
-        <h5>{`${TOD}`}</h5>
-        <h5>{(Day && TOD) && `${Day}`}</h5>
-        <h4>{(WaterType && WaterName) && `${WaterName} ${WaterType}, ${State}`}</h4>
-      </div>
+      <h4>{(WaterType && WaterName) && `${WaterName} ${WaterType}, ${State}`}</h4>
+      <br/>
       <div>
         <div>
           <input type="date" value={dateConvertor(Day)} onChange={(e) => dispatch({type: 'DAY', payload: reverseDate(e.target.value)})}/> {' '}
@@ -144,19 +143,13 @@ function Location(){
         </div>
         <br/>
         <div>
-          <input className='state' value={State} type='text'
-            onClick={() => setShowStates(true)/dispatch({type: 'US_STATE', payload: ''})} onKeyPress={() => setShowStates(true)}
-            onChange={e => dispatch({type: 'US_STATE', payload: e.target.value})}
+          <input value={WaterName} type='text' 
+            placeholder={`name of`}
+            onChange={(e) => dispatch({type: 'WATER_NAME', payload: e.target.value})}
           />
-          {showStates && 
-            <div className='list'>
-              {stateList}
-            </div>
-          }
         </div>
-        <br/>
         <div className="btn-group btn-group-toggle" data-toggle="buttons">
-          <label className="btn btn-light active" autoComplete='on' checked onClick={() => dispatch({type: 'WATER_TYPE', payload: 'River'})} >
+          <label className="btn btn-dark active" autoComplete='on' checked onClick={() => dispatch({type: 'WATER_TYPE', payload: 'River'})} >
             <input type="radio" name="options" id="option1" /> River
           </label>
           <label className="btn btn-light" onClick={() => dispatch({type: 'WATER_TYPE', payload: 'Creek'})} >
@@ -172,23 +165,25 @@ function Location(){
             <input type="radio" name="options" id="option4"/> Pond
           </label>
         </div>
+        <br/>
         <div>
-            <input value={WaterName} type='text' 
-              placeholder={`name of`}
-              onChange={(e) => dispatch({type: 'WATER_NAME', payload: e.target.value})}
-            />
-          {' ' + WaterType}
+          <input className='state' value={State} type='text'
+            onClick={() => setShowStates(true)/dispatch({type: 'US_STATE', payload: ''})} onKeyPress={() => setShowStates(true)}
+            onChange={e => dispatch({type: 'US_STATE', payload: e.target.value})}
+          />
+          {showStates && 
+            <Scroll className='list'>
+              {stateList}
+            </Scroll>
+          }
         </div>
       </div>
       <br/>
-      <div>    
-      <input className='btn btn-dark' type='button' value={'Next >'} 
-        onClick={() => (State && WaterType && WaterName)? 
-          dispatch({type: 'NEXT'}): 
-          Swal.fire({title:`Enter ${infoChecker()} before continuing`, showConfirmButton: false, type: 'warning', timer: 4000})
-        }
-      />
-      </div>
+      <Button variant='dark'
+        onClick={() => (State && WaterType && WaterName)? dispatch({type: 'NEXT'}): 
+          Swal.fire({title:`Enter ${infoChecker()} before continuing`, showConfirmButton: false, type: 'warning', timer: 4000})}>
+        {'Next >'}
+      </Button>
     </div>
   )
 };
