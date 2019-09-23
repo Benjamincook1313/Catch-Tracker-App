@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {Button} from 'react-bootstrap';
+import {Button, ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
 import Scroll from 'react-scrollbar';
 import Swal from 'sweetalert2';
-import '../Catch.css'
+import './Location.css'
 
 function Location(){
   const tod = [
     'Early-Morning (before 7am)', 'Morning (7-11am)', 'Noon (11am-1pm)',
-    'Midday (1-4pm)', 'Evening (4-7pm)', 'Night (after 7pm)'
+    'Mid-day (1-4pm)', 'Evening (4-7pm)', 'Night (after 7pm)'
   ];
   const States = [
     "Alaska", "Alabama", "Arkansas", "Arizona", "California", "Colorado", "Connecticut", "Delaware", "Florida","Georgia",
@@ -130,7 +130,7 @@ function Location(){
   return(
     <div className='Location' >
       <h2>Where was your catch?</h2>
-      <h4>{(WaterType && WaterName) && `${WaterName} ${WaterType}, ${State}`}</h4>
+      <h4 className='preview'>{(WaterType && WaterName) && `${WaterName} ${WaterType}, ${State}`}</h4>
       <br/>
       <div>
         <div>
@@ -138,41 +138,44 @@ function Location(){
           <input type='text' value={TOD} placeholder='time of day' 
             onClick={() => setShowTOD(true)} onChange={e => dispatch({type: 'TOD', payload: e.target.value})} 
           />
-          {showTOD && <button className='btn btn-dark' onClick={() => setShowTOD(false)}>x</button>}
+          {showTOD && <button className='btn' onClick={() => setShowTOD(false)}>X</button>}
           {showTOD && todList}
         </div>
-        <br/>
         <div>
-          <input value={WaterName} type='text' 
-            placeholder={`name of`}
+          <input className='water-name' value={WaterName} type='text' placeholder={`name of`}
             onChange={(e) => dispatch({type: 'WATER_NAME', payload: e.target.value})}
           />
         </div>
-        <div className="btn-group btn-group-toggle" data-toggle="buttons">
-          <label className="btn btn-dark active" autoComplete='on' checked onClick={() => dispatch({type: 'WATER_TYPE', payload: 'River'})} >
-            <input type="radio" name="options" id="option1" /> River
-          </label>
-          <label className="btn btn-light" onClick={() => dispatch({type: 'WATER_TYPE', payload: 'Creek'})} >
-            <input type="radio" name="options" id="option2"/> Creek
-          </label>
-          <label className="btn btn-light" onClick={() => dispatch({type: 'WATER_TYPE', payload: 'Lake'})} >
-            <input type="radio" name="options" id="option3"/> Lake
-          </label>
-          <label className="btn btn-light" onClick={() => dispatch({type: 'WATER_TYPE', payload: 'Reservoir'})} >
-            <input type="radio" name="options" id="option3"/> Reservoir
-          </label>
-          <label className="btn btn-light" onClick={() => dispatch({type: 'WATER_TYPE', payload: 'Pond'})} >
-            <input type="radio" name="options" id="option4"/> Pond
-          </label>
-        </div>
-        <br/>
+        <ToggleButtonGroup className='ButtonGroup' type='radio' name='water' defaultValue='1'>
+          <ToggleButton variant='outline-secondary' value="1"
+            onClick={() => dispatch({type: 'WATER_TYPE', payload: 'River'})}>
+            <div className='location-btn'>River</div>
+          </ToggleButton>
+          <ToggleButton variant='outline-secondary' value="2"
+            onClick={() => dispatch({type: 'WATER_TYPE', payload: 'Creek'})}>
+            <div className='location-btn'>Creek</div>
+          </ToggleButton>
+          <ToggleButton variant='outline-secondary' value="3"
+            onClick={() => dispatch({type: 'WATER_TYPE', payload: 'Lake'})}>
+            <div className='location-btn'>Lake</div>
+          </ToggleButton>
+          <ToggleButton variant='outline-secondary' value="4"
+            onClick={() => dispatch({type: 'WATER_TYPE', payload: 'Reservoir'})}>
+            <div className='location-btn'>Reservoir</div>
+          </ToggleButton>
+          <ToggleButton variant='outline-secondary' value="5"
+            onClick={() => dispatch({type: 'WATER_TYPE', payload: 'Pond'})}>
+            <div className='location-btn'>Pond</div>
+          </ToggleButton>
+        </ToggleButtonGroup>
         <div>
           <input className='state' value={State} type='text'
-            onClick={() => setShowStates(true)/dispatch({type: 'US_STATE', payload: ''})} onKeyPress={() => setShowStates(true)}
+            onClick={() => setShowStates(true)/dispatch({type: 'US_STATE', payload: ''})} 
+            onKeyPress={() => setShowStates(true)}
             onChange={e => dispatch({type: 'US_STATE', payload: e.target.value})}
           />
           {showStates && 
-            <Scroll className='list'>
+            <Scroll className='list '>
               {stateList}
             </Scroll>
           }

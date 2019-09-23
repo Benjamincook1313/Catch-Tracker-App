@@ -1,26 +1,11 @@
 h1 {
   font-size: 70px
 }
+h4{
+  text-transform: capitalize;
+}
 input {
   text-align: center;
-}
-.Button-primary{
-  color: #b9e496;
-  background-color: white;
-  border: none;
-}
-.Button-primary:hover{
-  background: darkseagreen;
-  color: white;
-}
-.Button-secondary{
-  color: white;
-  background: darkseagreen;
-  border: none;
-}
-.Button-secondary:hover{
-  color: #b9e496;
-  background: white;
 }
 
 .App {
@@ -39,12 +24,13 @@ input {
 }
 .list{
   max-height: 200px;
-  /* overflow-y: scroll; */
   border: 2px solid black;
+  margin: 5px;
+  overflow: hidden;
 }
 .list-item:hover{
   color: white;
-  background: #b9e496;
+  background: #b9b9b9;
   font-weight: bold;
 }
 
@@ -53,7 +39,8 @@ input {
   border-radius: 5px;
   padding: 20px 50px;
   margin-top: 30px;
-  background-color: rgb(255, 255, 255, 0.9)
+  background-color: rgba(255, 255, 255, 0.9);
+  margin: 10px;
 }
 
 

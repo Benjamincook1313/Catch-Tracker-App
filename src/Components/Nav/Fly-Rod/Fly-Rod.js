@@ -5,17 +5,23 @@ function flyRod(){
   return(
     <div className='flyRod'>
       <div className='cork'></div>
+      <div className='cork2'></div>
       <div className='rod'>
         <div className='eye1'></div>
         <div className='eye2'></div>
         <div className='eye3'></div>
         <div className='eye4'></div>
         <div className='eye5'></div>
+        <div className='eye6'></div>
+        <div className='eye7'></div>
+        <div className='eye8'></div>
       </div>
+      {/* <div className='fly-line'></div> */}
       <div className='reel'>
-      <div className='foot'></div>
-      <div className='knob'></div>
+        <div className='foot'></div>
+        <div className='knob'></div>
       </div>
+      
     </div>
   )
 };

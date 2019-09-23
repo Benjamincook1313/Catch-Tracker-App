@@ -15,7 +15,7 @@ import './App.css';
 function App() {;
   const dispatch = useDispatch();
   const loggedIn = useSelector(state => state.loggedIn)
-  // const User = useSelector(state => state.user)
+
   const page = useSelector(state => state.page)
   const ShowForm = useSelector(state => state.showForm)
 
@@ -53,8 +53,8 @@ function App() {;
       <br/>
       {loggedIn &&
         <div className='fish-on'>
-          {!ShowForm && <Button className='Button-primary' onClick={() => dispatch({type: 'SHOW_FORM', payload: true})}>^-^ Fish On!!! ^-^</Button>}
-          {ShowForm && <Button className='Button-secondary' onClick={() => dispatch({type: 'SHOW_FORM', payload: false})/ dispatch({type: 'CLEAR_CATCH'})}>Fish Off!</Button>}
+          {!ShowForm && <Button variant='light' onClick={() => dispatch({type: 'SHOW_FORM', payload: true})}>^-^ Fish On!!! ^-^</Button>}
+          {ShowForm && <Button variant='dark' onClick={() => dispatch({type: 'SHOW_FORM', payload: false})/ dispatch({type: 'CLEAR_CATCH'})}>Fish Off!</Button>}
           {ShowForm && <div className='form-page-wrapper'>{Form[page]}</div> }
         </div>
       }

@@ -48,7 +48,7 @@ function ReviewCatch(){
   };
 
   return(
-    <div>
+    <div className='ReviewCatch'>
       <h1>New Catch Review</h1>
       <h5><div>{`${TOD} ${date}`}</div>  <div>{`${Temp}-${Weather}`}</div></h5>
       <h2>{`${Species} ${FishType}`}</h2> 

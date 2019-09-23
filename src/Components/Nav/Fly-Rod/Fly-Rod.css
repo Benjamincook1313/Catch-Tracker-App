@@ -1,14 +1,21 @@
-.flyRod{
 
-}
 .cork{
-  border: 2.5px solid white;
-  width: 80px;
-  border-radius: 1.2px;
+  border: 2.8px solid white;
+  width: 55px;
+  border-radius: 2px;
   position: absolute;
   bottom: -1px;
-  left: 10px;
-  z-index: 2;
+  left: 35px;
+}
+.cork2{
+  border-left: 10px solid white;
+  border-bottom: 1.5px solid transparent;
+  border-top: 1.5px solid transparent;
+  border-radius: 2px;
+  height: 7px;
+  position: absolute;
+  bottom: -1.5px;
+  left: 4px;
 }
 .rod{
   position: relative;
@@ -16,9 +23,8 @@
   border-left: 500px solid white;
   border-bottom: 2px solid transparent;
   border-right: 25px solid transparent;
-  height: 3px;
+  height: 3.4px;
   border-radius: 1px;
-  z-index: 1;
 }
 .eye1{
   border: 1px solid white;
@@ -26,7 +32,7 @@
   height: 4px;
   width: 1px;
   position: absolute;
-  z-index: 0
+  right: 0px;
 }
 .eye2{
   border: 1px solid white;
@@ -34,46 +40,91 @@
   height: 4px;
   width: 3px;
   position: absolute;
-  right: 82px;
-  top: -0.5px;
+  right: 35px;
+  top: 0px;
   z-index: 0;
 }
 .eye3{
   border: 1px solid white;
   border-radius: 50%;
-  height: 5px;
+  height: 4px;
   width: 3px;
   position: absolute;
-  right: 164px;
+  right: 75px;
   top: 0px;
   z-index: 0;
 }
 .eye4{
   border: 1px solid white;
   border-radius: 50%;
+  height: 4.5px;
+  width: 3px;
+  position: absolute;
+  right: 120px;
+  top: 0px;
+}
+.eye5{
+  border: 1px solid white;
+  border-radius: 50%;
+  height: 4.5px;
+  width: 3px;
+  position: absolute;
+  right: 165px;
+  top: 0px;
+}
+.eye6{
+  border: 1px solid white;
+  border-radius: 50%;
   height: 5px;
   width: 3px;
   position: absolute;
-  right: 246px;
-  top: .5px;
+  right: 225px;
+  top: 0.5px;
 }
-.eye5{
+.eye7{
+  border: 1px solid white;
+  border-radius: 50%;
+  height: 5px;
+  width: 3px;
+  position: absolute;
+  right: 285px;
+  top: .8px;
+}
+.eye8{
   border: 1px solid white;
   border-radius: 50%;
   height: 6px;
   width: 2px;
   position: absolute;
-  right: 328px;
+  right: 350px;
   top: 1px;
+}
+.fly-line{
+  width:500px; height:100px;  
+  border:solid 5px #000;
+  border-color:#000 transparent transparent transparent;
+  border-radius: 50%/100px 100px 0 0;
+  position: absolute;
 }
 .reel{
   border: 2px solid white;
   border-radius: 50%;
-  height:23px;
-  width: 23px;
+  height:25px;
+  width: 25px;
   position: absolute;
-  left: 20px;
-  bottom: -23px;
+  left: 12px;
+  bottom: -26px;
+}
+.foot{
+  border-top: 4px solid white;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  height: 0;
+  width: 30px;
+  position: relative;
+  top: -4px;
+  right: 4px;
+
 }
 .knob{
   border: 2px solid white;

@@ -1,0 +1,12 @@
+.Fish{
+  color: salmon
+}
+.fishItem:hover{
+  background: salmon
+}
+.length{
+  margin-top: 15px;
+}
+.type-btn{
+  color: salmon
+}
