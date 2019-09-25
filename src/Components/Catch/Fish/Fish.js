@@ -87,10 +87,10 @@ function Fish(){
       </div>
       <br/>
       <div>
-        <Button variant='dark' onClick={() => dispatch({type: 'BACK'})}>
+        <Button className='page-nav' variant='dark' onClick={() => dispatch({type: 'BACK'})}>
           {'< Back'}
         </Button>
-        <Button variant='dark' onClick={() => dispatch({type: 'NEXT'})}>
+        <Button className='page-nav' variant='dark' onClick={() => dispatch({type: 'NEXT'})}>
           {'Next >'}
         </Button>
       </div>

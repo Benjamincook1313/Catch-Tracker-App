@@ -1,7 +1,18 @@
 
+input{
+  margin: 5px 5px 0px 5px;
+}
 .Fly{
   color: orange;
 }
+.Fly-title{
+  margin-bottom: 15px;
+}
 .fly-btn{
   color: orange;
+  /* width: 75px; */
 }
+.Button-Group{
+  margin-top: 5px;
+}
+

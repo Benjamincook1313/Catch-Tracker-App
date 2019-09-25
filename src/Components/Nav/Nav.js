@@ -37,12 +37,12 @@ function Nav(){
           </h3>: <h3>''</h3>
         }
         {loggedIn &&
-          <Button className='Button' onClick={logout}>logout</Button>
+          <Button variant='dark' onClick={logout}>logout</Button>
         }
         {!loggedIn && 
           <div className='login-buttons'>
-            <Button className='Button' onClick={() => showLogin? setShowLogin(false): setShowLogin(true)/setShowRegister(false)}>login</Button>
-            <Button className='Button' onClick={() => showRegister? setShowRegister(false): setShowRegister(true)/setShowLogin(false)}>register</Button>
+            <Button variant='light' onClick={() => showLogin? setShowLogin(false): setShowLogin(true)/setShowRegister(false)}>login</Button>
+            <Button variant='light' onClick={() => showRegister? setShowRegister(false): setShowRegister(true)/setShowLogin(false)}>register</Button>
           </div> 
         }
       </div>

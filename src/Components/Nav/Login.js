@@ -31,12 +31,6 @@ function Login(props){
 
   return(
     <div className='Login'>
-      {/* <div className='login-inputs'>
-        <input value={UserName} placeholder='user name' onChange={e => setUserName(e.target.value)} />
-        <input value={Password} placeholder='password' type='password' 
-          onChange={e => setPassword(e.target.value)} onKeyPress={e => login(e)}
-        />
-      </div> */}
       <h4>Login</h4>
       <div className='auth-box'>
         <div className="input-group">

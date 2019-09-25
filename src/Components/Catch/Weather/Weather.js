@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { OverlayTrigger, Tooltip, ToggleButton, ButtonGroup } from 'react-bootstrap';
+import { OverlayTrigger, Tooltip, ToggleButton, ButtonGroup, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './Weather.css'
 import { faSnowflake, faCloudRain, faCloudSunRain, faCloudSun, faSun, faCloud } from '@fortawesome/free-solid-svg-icons'
 import Swal from 'sweetalert2';
+import './Weather.css'
 
 function Weather(){
   const dispatch = useDispatch();
@@ -49,25 +49,25 @@ function Weather(){
       <ButtonGroup toggle className='ButtonGroup'>
         <OverlayTrigger overlay={<Tooltip id="tooltip">{'< 32°'}</Tooltip>}>
           <ToggleButton variant='light' type='radio' name='temp' 
-            onClick={() => dispatch({type: 'TEMP', payload: 'Freezing'})/setShowTemp(false)}>
+            onClick={() => dispatch({type: 'TEMP', payload: 'freezing'})/setShowTemp(false)}>
             <div className='weather-btn'>Freezing</div>
           </ToggleButton>
         </OverlayTrigger>
         <OverlayTrigger overlay={<Tooltip id="tooltip">{'32°- 60°'}</Tooltip>}>
           <ToggleButton variant='light' type='radio' name='temp' 
-            onClick={() => dispatch({type: 'TEMP', payload: 'Cold'})/setShowTemp(false)}>
+            onClick={() => dispatch({type: 'TEMP', payload: 'cold'})/setShowTemp(false)}>
             <div className='weather-btn'>Cold</div>
           </ToggleButton>
         </OverlayTrigger>
         <OverlayTrigger overlay={<Tooltip id="tooltip">{'60°- 85°'}</Tooltip>}>
           <ToggleButton variant='light' type='radio' name='temp' 
-            onClick={() => dispatch({type: 'TEMP', payload: 'Warm'})/setShowTemp(false)}>
+            onClick={() => dispatch({type: 'TEMP', payload: 'warm'})/setShowTemp(false)}>
             <div className='weather-btn'>Warm</div>
           </ToggleButton>
         </OverlayTrigger>
         <OverlayTrigger overlay={<Tooltip id="tooltip">{'85° >'}</Tooltip>}>
           <ToggleButton variant='light' type='radio' name='temp' 
-            onClick={() => dispatch({type: 'TEMP', payload: 'Hot'})/setShowTemp(false)}>
+            onClick={() => dispatch({type: 'TEMP', payload: 'hot'})/setShowTemp(false)}>
             <div className='weather-btn'>Hot</div>
           </ToggleButton>
         </OverlayTrigger>
@@ -128,10 +128,15 @@ function Weather(){
       </div>
       <br/>
       <div>
-        <input className='btn btn-dark' type='button' value='< Back' onClick={() => dispatch({type: 'BACK'})}/> 
-        <input className='btn btn-dark' type='button' value={'Next >'} onClick={() => (Weather && Temp)? dispatch({type: 'NEXT'}): 
-          Swal.fire({type: 'warning', title: `must select weather & temp before continuing`, showConfirmButton: false, timer: 3000 })}
-        />
+        <Button className='page-nav' variant='dark' onClick={() => dispatch({type: 'BACK'})}>{'< Back'}</Button> 
+        <Button className='page-nav' variant='dark' onClick={() => (Weather && Temp)? dispatch({type: 'NEXT'}): 
+          Swal.fire({
+            type: 'warning', 
+            title: `must select weather & temp before continuing`, 
+            showConfirmButton: false, timer: 3000 }
+          )}>
+          {'Next >'}
+        </Button>
       </div>
     </div>
   )

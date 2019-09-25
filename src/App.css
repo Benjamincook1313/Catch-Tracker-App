@@ -43,6 +43,25 @@ input {
   margin: 10px;
 }
 
+.sun{
+  color: orange;
+}
+.pc{
+  color: wheat;
+}
+.cloud{
+  color: gainsboro;
+}
+.pcr{
+  color: lightsteelblue;
+}
+.rain{
+  color: skyblue;
+}
+.snow{
+  color: ivory;
+}
+
 
 
 

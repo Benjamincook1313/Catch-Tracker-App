@@ -4,7 +4,7 @@ import { storage } from '../../../Firebase/index'
 import { Button } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import axios from 'axios';
-import '../Catch.css';
+import './ReviewCatch.css';
 
 function ReviewCatch(){
   const dispatch = useDispatch()
@@ -23,6 +23,7 @@ function ReviewCatch(){
   const Fly = useSelector(state => state.fly)
   const FlyType = useSelector(state => state.flyType)
   const Size = useSelector(state => state.size)
+  const Color = useSelector(state => state.color)
 
   const [image, setImage] = useState('')
   const [details, setDetails] = useState('')
@@ -39,8 +40,7 @@ function ReviewCatch(){
     const res = await axios.post('/api/saveCatch', {
       userName, date, TOD, WaterName, WaterType, State, Temp, 
       Weather, ImageName, Length, Species, FishType, Size, 
-      Fly, FlyType, details
-    })
+      Fly, FlyType, Color, details})
     if(res.data){
       dispatch({type: 'CLEAR_CATCH'})
       Swal.fire({type: 'success', title: 'Success', showConfirmButton: false, timer: 3000})
@@ -55,13 +55,14 @@ function ReviewCatch(){
       <img src={image} alt='' height='500' />
       <h3>{`${WaterName} ${WaterType}, ${State}`}</h3> 
       <h4>{`size ${Size}, ${Fly} - ${FlyType}`}</h4>
-      <div className='column'>
         details
-        <textarea rows='5' cols='50' value={details} onChange={e => setDetails(e.target.value)} />
+      <div className='column'>
+        <textarea rows='4' cols='50' value={details} onChange={e => setDetails(e.target.value)} />
       </div>
+      <br/>
       <div >
-          <Button variant='dark' onClick={() => dispatch({type: 'BACK'})}>{'< Back'}</Button>
-          <Button variant='dark' onClick={saveCatch}>save catch</Button>
+          <Button className='page-nav' variant='dark' onClick={() => dispatch({type: 'BACK'})}>{'< Back'}</Button>
+          <Button className='page-nav' variant='dark' onClick={saveCatch}>Save</Button>
       </div>
     </div>
   )

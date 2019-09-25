@@ -10,6 +10,7 @@ function Fly(){
   const Fly = useSelector(state => state.fly);
   const FlyType = useSelector(state => state.flyType);
   const Size = useSelector(state => state.size);
+  const Color = useSelector(state => state.color)
 
   const [showSizes, setShowSizes] = useState(false);
 
@@ -27,49 +28,72 @@ function Fly(){
 
   return(
     <div className='Fly'>
-      <h2>What fly did you use?</h2>
-      <h3 className='preview'>{(Fly && FlyType) && `${Fly} - ${FlyType}`}</h3>
-      <h5>{Size && `size: ${Size}`}</h5>
-      <div>
-        <input type='text' value={Fly} placeholder='fly' 
-          onChange={e => dispatch({type: 'FLY', payload: `${e.target.value}`})}/>
+      <h2 className='Fly-title'>What fly did you use?</h2>
+      <h5 className='preview'>{Size && `size: ${Size}`}</h5>
+      <h3 className='preview'>{(Fly && FlyType) && `${Color} ${ Fly} - ${FlyType}`}</h3>
+      <div className='Button-Group'>
+        <ToggleButtonGroup type='radio' name='fly'>
+          <ToggleButton variant='outline-secondary' value="6" 
+            onClick={() => dispatch({type: 'FLY_TYPE', payload: 'dry'})}>
+            <div className='fly-btn'>Dry</div>
+          </ToggleButton>
+          <ToggleButton variant='outline-secondary' value="4" 
+            onClick={() => dispatch({type: 'FLY_TYPE', payload: 'streamer'})}>
+            <div className='fly-btn'>Streamer</div>
+          </ToggleButton>
+          <ToggleButton variant='outline-secondary' value="1" 
+            onClick={() => dispatch({type: 'FLY_TYPE', payload: 'nymph'})}>
+            <div className='fly-btn'>Nymph</div>
+          </ToggleButton>
+        </ToggleButtonGroup>
       </div>
-      <ToggleButtonGroup className='ButtonGroup' type='radio' name='fly' >
-        <ToggleButton variant='outline-secondary' value="1" 
-          onClick={() => dispatch({type: 'FLY_TYPE', payload: 'Nymph'})}>
-          <div className='fly-btn'>Nymph</div>
-        </ToggleButton>
-        <ToggleButton variant='outline-secondary' value="2" 
-          onClick={() => dispatch({type: 'FLY_TYPE', payload: 'Dry'})}>
-          <div className='fly-btn'>Dry</div>
-        </ToggleButton>
-        <ToggleButton variant='outline-secondary' value="3" 
-          onClick={() => dispatch({type: 'FLY_TYPE', payload: 'Streamer'})}>
-          <div className='fly-btn'>Streamer</div>
-        </ToggleButton>
-        <ToggleButton variant='outline-secondary' value="6" 
-          onClick={() => dispatch({type: 'FLY_TYPE', payload: 'Bead'})}>
-          <div className='fly-btn'>Bead</div>
-        </ToggleButton>
-      </ToggleButtonGroup>
-      <div>
+      <div className='Button-Group'>
+        <ToggleButtonGroup type='radio' name='fly' >
+          <ToggleButton variant='outline-secondary' value="3" 
+            onClick={() => dispatch({type: 'FLY_TYPE', payload: 'wet'})}>
+            <div className='fly-btn'>Wet</div>
+          </ToggleButton>
+          <ToggleButton variant='outline-secondary' value="2" 
+            onClick={() => dispatch({type: 'FLY_TYPE', payload: 'emerger'})}>
+            <div className='fly-btn'>Emerger</div>
+          </ToggleButton>
+          <ToggleButton variant='outline-secondary' value="7" 
+            onClick={() => dispatch({type: 'FLY_TYPE', payload: 'terrestrial'})}>
+            <div className='fly-btn'>Terrestrial</div>
+          </ToggleButton>
+          <ToggleButton variant='outline-secondary' value="2" 
+            onClick={() => dispatch({type: 'FLY_TYPE', payload: 'salt water'})}>
+            <div className='fly-btn'>Salt Water</div>
+          </ToggleButton>
+          <ToggleButton variant='outline-secondary' value="5" 
+            onClick={() => dispatch({type: 'FLY_TYPE', payload: 'bead'})}>
+            <div className='fly-btn'>Bead</div>
+          </ToggleButton>
+        </ToggleButtonGroup>
+      </div>
+      <div className='size'>
         <input className='size' type='text' value={Size} placeholder='size' 
           onClick={() => setShowSizes(true)}
           onChange={e => dispatch({type: 'SIZE', payload: `${e.target.value}`})}
           readOnly
         />
+        <input placeholder='color' value={Color} onChange={e => dispatch({type: 'COLOR', payload: e.target.value})}/>
         {showSizes && 
         <Scroll className='list'>
           {size}
         </Scroll>
         }
       </div>
+      <div>
+        <input type='text' value={Fly} placeholder='fly' 
+          onChange={e => dispatch({type: 'FLY', payload: `${e.target.value}`})}/>
+      </div>
       <br/>
       <div>
-        <Button variant='dark' onClick={() => dispatch({type: 'BACK'})}>
+        <Button className='page-nav' variant='dark' onClick={() => dispatch({type: 'BACK'})}>
           {'< Back'}   
         </Button>     
-        <Button variant='dark' onClick={() => dispatch({type: 'NEXT'})}>
+        <Button className='page-nav' variant='dark' onClick={() => dispatch({type: 'NEXT'})}>
           {'Next >'}
         </Button>
       </div>

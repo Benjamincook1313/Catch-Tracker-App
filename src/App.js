@@ -11,6 +11,7 @@ import UserCatches from './Components/User/UserCatches';
 import River from './Images/River.mp4'
 import axios from 'axios';
 import './App.css';
+import './Components/Catch/Catch.css'
 
 function App() {;
   const dispatch = useDispatch();
@@ -53,7 +54,11 @@ function App() {;
       <br/>
       {loggedIn &&
         <div className='fish-on'>
-          {!ShowForm && <Button variant='light' onClick={() => dispatch({type: 'SHOW_FORM', payload: true})}>^-^ Fish On!!! ^-^</Button>}
+          {!ShowForm && 
+            <Button variant='light' onClick={() => dispatch({type: 'SHOW_FORM', payload: true})}>
+              ^-^ Fish On!!! ^-^
+            </Button>
+          }
           {ShowForm && <Button variant='dark' onClick={() => dispatch({type: 'SHOW_FORM', payload: false})/ dispatch({type: 'CLEAR_CATCH'})}>Fish Off!</Button>}
           {ShowForm && <div className='form-page-wrapper'>{Form[page]}</div> }
         </div>

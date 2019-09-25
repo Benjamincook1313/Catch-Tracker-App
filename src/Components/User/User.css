@@ -8,6 +8,8 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  position: relative;
+  top: 100px;
 }
 h4{
   margin: 0px;
@@ -19,37 +21,109 @@ h5{
 }
 h6{
   margin: 0px;
-  text-decoration: underline;
+  font-size: 14px;
+  font-weight: bold;
 }
 p{
   margin: 0px;
 }
 img{
   border-radius: 5px;
+
 }
 
 .Catch{
   position: relative;
-  border: 2px solid black;
+  border: 2px solid ivory;
   border-radius: 5px;
-  margin: 5px;
-  z-index: 0;
+  margin: 25px 45px 5px 5px;
+  /* padding: 10px; */
 }
-.date-location{
+.weather{
+  font-size: 10px;
+}
+/* .temp{
+  position: relative;
+  bottom: 5px;
+} */
+.date-time{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 .date{
-  text-align: right;
-  margin-right: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 10px;
 }
 .location{
   display: flex;
   justify-content: space-between;
-  margin: 0px 5px;
-}
-.comment{
-  border: 1px solid lightgray;
-  display: flex;
+  align-items: center;
   margin: 5px;
+}
+.fish-info{
+  border-top: 1px solid white;
+  padding-top: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+.fly{
+  display: flex;
+  justify-content: space-between;
+}
+.fly-info{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-transform: capitalize;
+}
+.details{
+  border: 1px solid white;
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+.d-title{
+  text-decoration: underline;
+}
+ 
+.fish{
+  font-size: 10px;
+  margin: 1px;
+}
+.options-btn{
+  border: 2px solid white;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  position: absolute;
+  right: 2px;
+  top: -24px;
+}
+.options{
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: absolute;
+  right: -50px;
+  top: 0px;
+}
+.option-btns{
+  background: none;
+  border: none;
+  color: #b9e496;
+  font-weight: bold;
+  text-decoration: underline;
+}
+.option-btns:hover{
+  color: white;
+}
+.weather-icon2{
+  font-size: 15px;
 }

@@ -1,14 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { storage } from '../../Firebase/index';
 import { useSelector } from 'react-redux';
-import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSnowflake, faCloudRain, faCloudSunRain, faCloudSun, faSun, faCloud, faFish } from '@fortawesome/free-solid-svg-icons'
 
 function Catch(props){
   const { date, tod, water_name, water_type, state, temperature, 
-    weather, image_name, length, fish_type, species, fly, fly_type, comments } = props.myCatch
+    weather, image_name, length, fish_type, species, size, fly, fly_type, color, comments } = props.myCatch
 
   const user = useSelector(state => state.user)
+
   const [Image, setImage] = useState('')
+  const [showOptions, setShowOptions] = useState(false)
+
+  const Sun = <FontAwesomeIcon className='weather-icon2 sun' icon={faSun} />
+  const Cloud = <FontAwesomeIcon className='weather-icon2 cloud' icon={faCloud}/>
+  const Rain = <FontAwesomeIcon className='weather-icon2 rain' icon={faCloudRain}/>
+  const Snow = <FontAwesomeIcon className='weather-icon2 snow' icon={faSnowflake}/>
+  const Pc = <FontAwesomeIcon className='weather-icon2 pc' icon={faCloudSun}/>
+  const Pcr = <FontAwesomeIcon className='weather-icon2 pcr' icon={faCloudSunRain}/>
+  const fish = <FontAwesomeIcon className='fish' icon={faFish}/>
 
   useEffect(() => {
     if(user.user_name){
@@ -18,26 +30,80 @@ function Catch(props){
     }
   })
 
+  const kindOfWeather = (Weather) => {
+    switch(Weather){
+      case 'Rainy':
+        return Rain
+      case 'Cloudy':
+        return Cloud
+      case 'Sunny':
+        return Sun
+      case 'Snowy':
+        return Snow
+      case 'Partly-Cloudy':
+        return Pc
+      case 'Light-Showers':
+        return Pcr
+      default:
+        return ''
+    }
+  };
+
   return(
     <div className='Catch'>
-      <OverlayTrigger overlay={
+      <Button className='options-btn' 
+        size='sm' variant='outline-light'
+        onClick={() => setShowOptions(!showOptions)} >
+        {fish}{fish}{fish}
+      </Button>
+      {showOptions &&
+        <div className='options'>
+          <button className='option-btns'>edit</button>
+          <button className='option-btns'>delete</button>
+        </div>
+      }
+      <div className='location'>
+        <h5>{`${water_name} ${water_type}`}</h5> 
+        <h4>{`${state}`}</h4>
+      </div>
+      <OverlayTrigger placement='bottom' overlay={
         <Tooltip>
-          <p className='date'>{date}</p>
-          <h6>weather</h6> <p>{` ${temperature}, ${weather}`}</p>
-          <h6>fish</h6> <p>{`${length}" ${species} ${fish_type}`}</p> 
-          <h6>fly</h6> <p>{`${fly}, ${fly_type}`}</p>
-          <h6>details</h6> <p className='comment'>{comments}</p>
-        </Tooltip>
-        }>
-        <div className='catch'>
-          <div className='date-location'>
-            <div className='location'>
-              <h5>{`${water_name} ${water_type}`}</h5> 
-              <h4>{`${state}`}</h4>
+          <div className='date-time'>
+            <div className='weather'>
+              <p>{kindOfWeather(weather)}</p>
+              <p className='temp'>{temperature}</p>
+            </div>
+            {tod?
+              <div className='date'>
+                <p>{tod}</p>
+                <p>{date}</p>
+            </div>:
+            <div className='date'>
+              <p>{date.split(' ').shift()}</p>
+              <p>{date.split(' ').slice(1,3).join(' ')}</p>
+            </div>
+            }
+          </div>
+          <div className='fish-info'>
+            <h6>Fish:</h6>
+            <p>{`${length}" ${species} ${fish_type}`}</p>
+          </div>
+          <div className='fly'>
+            <h6>Fly:</h6>
+            <div className='fly-info'>
+              <p>#{size} {fly_type}</p> 
+              <p>{color} {fly}</p>
             </div>
           </div>
-          <img src={Image} alt='' height='200' />
-        </div>
+          {comments &&
+            <div className='details'>
+              <h6 className='d-title'>Details</h6>
+              <p>{comments}</p> 
+            </div>
+          }
+        </Tooltip>
+        }>
+        <img src={Image} alt='' height='200' />
       </OverlayTrigger>
     </div>
   )

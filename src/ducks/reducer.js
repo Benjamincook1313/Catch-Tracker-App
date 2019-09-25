@@ -37,8 +37,8 @@ const initialState = {
   user: {},
   catches: [],
   loggedIn: false,
-  showForm: true,
-  page: 2,
+  showForm: false,
+  page: 0,
   day: today(),
   tod: '',
   usState: '',
@@ -53,6 +53,7 @@ const initialState = {
   flyType: '',
   fly: '',
   size: '',
+  color: '',
 };
 
 // authentication
@@ -82,6 +83,7 @@ export const IMAGE = 'IMAGE';
 export const FLY_TYPE = 'FLY_TYPE';
 export const FLY = 'FLY';
 export const SIZE = 'SIZE';
+export const COLOR = 'COLOR'
 
 export default function reducer(state = initialState, action){
   const { type, payload } = action
@@ -122,6 +124,8 @@ export default function reducer(state = initialState, action){
       return {...state, fly: payload? payload: ''}
     case SIZE:
       return {...state, size: payload? payload: ''}
+    case COLOR:
+      return {...state, color: payload? payload: ''}
     case NEXT:
       return {...state, page:  state.page + 1}
     case BACK:
@@ -130,7 +134,7 @@ export default function reducer(state = initialState, action){
       return {
         ...state, showForm: false, page: 0, day: today(), tod: '', usState: `${state.user.state}`, waterType: 'River', 
         waterName: '', weather: '', temp: '', fishType: '', species: '', length: '', image: '', 
-        flyType: '', fly: '', size: ''
+        flyType: '', fly: '', size: '', color: ''
       }  
     default:
       return state

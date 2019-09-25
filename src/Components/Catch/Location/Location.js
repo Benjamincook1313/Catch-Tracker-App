@@ -7,8 +7,8 @@ import './Location.css'
 
 function Location(){
   const tod = [
-    'Early-Morning (before 7am)', 'Morning (7-11am)', 'Noon (11am-1pm)',
-    'Mid-day (1-4pm)', 'Evening (4-7pm)', 'Night (after 7pm)'
+    'early (before 7am)', 'morning (7-11am)', 'noon (11am-1pm)',
+    'midday (1-4pm)', 'evening (4-7pm)', 'night (after 7pm)'
   ];
   const States = [
     "Alaska", "Alabama", "Arkansas", "Arizona", "California", "Colorado", "Connecticut", "Delaware", "Florida","Georgia",
@@ -131,7 +131,6 @@ function Location(){
     <div className='Location' >
       <h2>Where was your catch?</h2>
       <h4 className='preview'>{(WaterType && WaterName) && `${WaterName} ${WaterType}, ${State}`}</h4>
-      <br/>
       <div>
         <div>
           <input type="date" value={dateConvertor(Day)} onChange={(e) => dispatch({type: 'DAY', payload: reverseDate(e.target.value)})}/> {' '}
@@ -182,9 +181,13 @@ function Location(){
         </div>
       </div>
       <br/>
-      <Button variant='dark'
+      <Button className='page-nav' variant='dark'
         onClick={() => (State && WaterType && WaterName)? dispatch({type: 'NEXT'}): 
-          Swal.fire({title:`Enter ${infoChecker()} before continuing`, showConfirmButton: false, type: 'warning', timer: 4000})}>
+        Swal.fire({
+          title:`Enter ${infoChecker()} before continuing`, 
+          showConfirmButton: false, 
+          type: 'warning', timer: 4000}
+        )}>
         {'Next >'}
       </Button>
     </div>
