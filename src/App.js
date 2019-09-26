@@ -63,6 +63,7 @@ function App() {;
           {ShowForm && <div className='form-page-wrapper'>{Form[page]}</div> }
         </div>
       }
+      <br/>
       {loggedIn && <UserCatches/>}
     </div>
   );

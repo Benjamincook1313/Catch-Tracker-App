@@ -1,15 +1,12 @@
-.UserCatches{
-  display: flex;
-  flex-direction: column;
-}
+
 .userCatch{
-  height: 300px;
-  width: 100vw;
+  width: 90vw;
+  height: unset;
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-evenly;
-  position: relative;
-  top: 100px;
 }
 h4{
   margin: 0px;
@@ -37,15 +34,14 @@ img{
   border: 2px solid ivory;
   border-radius: 5px;
   margin: 25px 45px 5px 5px;
-  /* padding: 10px; */
 }
 .weather{
   font-size: 10px;
 }
-/* .temp{
+.temp{
   position: relative;
   bottom: 5px;
-} */
+}
 .date-time{
   display: flex;
   flex-direction: row;
@@ -62,7 +58,8 @@ img{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 5px;
+  height: 20px;
+  margin: 0px 5px 8px ;
 }
 .fish-info{
   border-top: 1px solid white;

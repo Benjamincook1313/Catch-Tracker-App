@@ -4,10 +4,11 @@ import { useSelector } from 'react-redux';
 import { OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSnowflake, faCloudRain, faCloudSunRain, faCloudSun, faSun, faCloud, faFish } from '@fortawesome/free-solid-svg-icons'
+import Fish from '../../Images/fish.png'
 
 function Catch(props){
   const { date, tod, water_name, water_type, state, temperature, 
-    weather, image_name, length, fish_type, species, size, fly, fly_type, color, comments } = props.myCatch
+    weather, image_name, length, fish_type, species, size, fly, fly_type, color, comments } = props.userCatch
 
   const user = useSelector(state => state.user)
 
@@ -28,7 +29,7 @@ function Catch(props){
         setImage(url)
       })
     }
-  })
+  });
 
   const kindOfWeather = (Weather) => {
     switch(Weather){
@@ -63,10 +64,10 @@ function Catch(props){
         </div>
       }
       <div className='location'>
-        <h5>{`${water_name} ${water_type}`}</h5> 
-        <h4>{`${state}`}</h4>
+        <h6 className='water-name'>{`${water_name} ${water_type}`}</h6> 
+        <h5>{`${state}`}</h5>
       </div>
-      <OverlayTrigger placement='bottom' overlay={
+      <OverlayTrigger placement='right' overlay={
         <Tooltip>
           <div className='date-time'>
             <div className='weather'>
@@ -103,7 +104,7 @@ function Catch(props){
           }
         </Tooltip>
         }>
-        <img src={Image} alt='' height='200' />
+        <img src={Image} alt={Fish} height='265' />
       </OverlayTrigger>
     </div>
   )

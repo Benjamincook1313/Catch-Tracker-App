@@ -1,0 +1,17 @@
+
+.carousel{
+  
+}
+.Image{
+}
+.img-opts-btn{
+  position: absolute;
+  margin: 5px;
+  right: 0px;
+  z-index: 10;
+}
+.img-opts{
+  display: flex;
+  position: absolute;
+  right: 0px;
+}
