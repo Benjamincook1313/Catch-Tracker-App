@@ -24,7 +24,7 @@ function CatchCarousel(){
         <Carousel.Item>
           {userCatch[0]}
           <Carousel.Caption>
-            {/* <h3>{userCatch[0].water_name}</h3> */}
+            {/* <h3>`${catchInfo[0]}`</h3> */}
             <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
           </Carousel.Caption>
         </Carousel.Item>
@@ -49,13 +49,13 @@ function CatchCarousel(){
             <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
           </Carousel.Caption>
         </Carousel.Item>
-        {/* <Carousel.Item>
+        <Carousel.Item>
         {userCatch[4]}
           <Carousel.Caption>
             <h3>Third slide label</h3>
             <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
           </Carousel.Caption>
-        </Carousel.Item> */}
+        </Carousel.Item>
       </Carousel>
     </div>
   )

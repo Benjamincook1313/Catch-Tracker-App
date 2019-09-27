@@ -5,7 +5,7 @@ import { OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFish } from '@fortawesome/free-solid-svg-icons';
 import Fish from '../../../Images/fish.png';
-import './Carousel.css'
+import './Carousel.css';
 
 
 function Catch(props){
@@ -18,7 +18,7 @@ function Catch(props){
   const fish = <FontAwesomeIcon className='fish' icon={faFish}/>
 
   useEffect(() => {
-    if(user.user_name){
+    if(user.user_name && image_name){
       storage.ref(`images/${user.user_name}`).child(image_name).getDownloadURL().then(url => {
         setImage(url)
       })
@@ -29,7 +29,7 @@ function Catch(props){
   return(
     <div className='Image'>
       <Button className='img-opts-btn' 
-        size='sm' variant='outline-light'
+        size='sm' variant='dark'
         onClick={() => setShowOptions(!showOptions)} >
         {fish}{fish}{fish}
       </Button>
@@ -39,7 +39,10 @@ function Catch(props){
           <button className='option-btns'>delete</button>
         </div>
       }
-      <img src={Image} alt={Fish} height='500'/>
+      {Image? 
+        <img src={Image} alt='' height='500'/>:
+        <img src={Fish} alt='' width='400'/>
+      }
     </div>
   )
 };

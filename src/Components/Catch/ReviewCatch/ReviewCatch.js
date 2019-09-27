@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { storage } from '../../../Firebase/index' 
 import { Button } from 'react-bootstrap';
+import Fish from '../../../Images/fish.png'
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import './ReviewCatch.css';
@@ -52,7 +53,7 @@ function ReviewCatch(){
       <h1>New Catch Review</h1>
       <h5><div>{`${TOD} ${date}`}</div>  <div>{`${Temp}-${Weather}`}</div></h5>
       <h2>{`${Species} ${FishType}`}</h2> 
-      <img src={image} alt='' height='500' />
+      <img src={image? image: Fish} alt='' height='500' />
       <h3>{`${WaterName} ${WaterType}, ${State}`}</h3> 
       <h4>{`size ${Size}, ${Fly} - ${FlyType}`}</h4>
         details

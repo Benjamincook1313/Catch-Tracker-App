@@ -7,7 +7,7 @@ import Weather from './Components/Catch/Weather/Weather';
 import Fish from './Components/Catch/Fish/Fish';
 import Fly from './Components/Catch/Fly/Fly';
 import ReviewCatch from './Components/Catch/ReviewCatch/ReviewCatch';
-import UserCatches from './Components/User/UserCatches';
+import UserCatches from './Components/User/Catches.js/UserCatches';
 import River from './Images/River.mp4'
 import axios from 'axios';
 import './App.css';

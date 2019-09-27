@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { storage } from '../../Firebase/index';
-import { useSelector } from 'react-redux';
+import { storage } from '../../../Firebase/index';
+import { useSelector, useDispatch } from 'react-redux';
 import { OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSnowflake, faCloudRain, faCloudSunRain, faCloudSun, faSun, faCloud, faFish } from '@fortawesome/free-solid-svg-icons'
-import Fish from '../../Images/fish.png'
+import Fish from '../../../Images/fish.png';
+import axios from 'axios';
 
 function Catch(props){
   const { date, tod, water_name, water_type, state, temperature, 
     weather, image_name, length, fish_type, species, size, fly, fly_type, color, comments } = props.userCatch
-
+    
+  const dispatch = useDispatch()
   const user = useSelector(state => state.user)
 
   const [Image, setImage] = useState('')
-  const [showOptions, setShowOptions] = useState(false)
+  const [showOptions, setShowOptions] = useState(true)
 
   const Sun = <FontAwesomeIcon className='weather-icon2 sun' icon={faSun} />
   const Cloud = <FontAwesomeIcon className='weather-icon2 cloud' icon={faCloud}/>
@@ -50,23 +52,36 @@ function Catch(props){
     }
   };
 
+  const handleEdit = (id) => {
+    console.log(id)
+    axios.get('/api/getCatch:`${id}`')
+  };
+
+  console.log(props.userCatch)
   return(
     <div className='Catch'>
+      <div className='location'>
+        <h6 className='location-item'>{`${water_name} ${water_type}`}</h6> 
+        <h5 className='location-item'>{`${state}`}</h5>
+      </div>
       <Button className='options-btn' 
         size='sm' variant='outline-light'
-        onClick={() => setShowOptions(!showOptions)} >
+        onClick={() => setShowOptions(!showOptions)}>
         {fish}{fish}{fish}
       </Button>
       {showOptions &&
         <div className='options'>
-          <button className='option-btns'>edit</button>
+          <button className='option-btns'
+            onClick={() => (
+              dispatch({type: 'EDIT_CATCH', payload: true})/
+              dispatch({type: 'SET_CATCH', payload: props.userCatch[props.key]})/
+              console.log(props.userCatch)
+            )}>
+            edit
+          </button>
           <button className='option-btns'>delete</button>
         </div>
       }
-      <div className='location'>
-        <h6 className='water-name'>{`${water_name} ${water_type}`}</h6> 
-        <h5>{`${state}`}</h5>
-      </div>
       <OverlayTrigger placement='right' overlay={
         <Tooltip>
           <div className='date-time'>
@@ -104,7 +119,10 @@ function Catch(props){
           }
         </Tooltip>
         }>
-        <img src={Image} alt={Fish} height='265' />
+        {Image?
+          <img className='catch-img' src={Image} alt='' height='210' />:
+          <img className='d-img' src={Fish} alt='' height='200'/>
+        }
       </OverlayTrigger>
     </div>
   )
