@@ -54,7 +54,8 @@ const initialState = {
   fly: '',
   size: '',
   color: '',
-  edit: 'false'
+  details: '',
+  edit: false,
 };
 
 // authentication
@@ -140,8 +141,13 @@ export default function reducer(state = initialState, action){
         flyType: '', fly: '', size: '', color: ''
       }  
     case EDIT_CATCH:
+      const { date, tod, water_name, water_type, temperature, weather, 
+        length, fish_type, species, size, fly, fly_type, color, comments 
+        } = payload
       return {
-        ...state,
+        ...state, day: date, tod: tod, waterName: water_name, waterType: water_type, 
+        state: state, temp: temperature, weather: weather, length: length, fishType: fish_type,
+        species: species, size: size, fly: fly, flyType: fly_type, color: color, details: comments
       }
     default:
       return state

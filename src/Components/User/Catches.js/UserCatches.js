@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Button } from 'react-bootstrap';
-import Carousel from '../Carousel./Carousel'
-import Edit from './EditCatch';
+import Carousel from '../Carousel./Carousel';
+import EditCatch from './Edit/EditCatch';
 import Catch from './Catch';
 import './User.css';
 
@@ -18,10 +18,7 @@ function MyCatches(){
 
   return (
     <div className='UserCatches' >
-      {Edit?
-        <Edit />:
-        <Carousel />
-      }
+      <Carousel />
       <br/>
       <Button variant='light' onClick={() => setShowAll(!showAll)}>All Catches</Button>
       <br/>

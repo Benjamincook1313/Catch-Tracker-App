@@ -28,7 +28,7 @@ function Catch(props){
 
   return(
     <div className='Image'>
-      <Button className='img-opts-btn' 
+      {/* <Button className='img-opts-btn' 
         size='sm' variant='dark'
         onClick={() => setShowOptions(!showOptions)} >
         {fish}{fish}{fish}
@@ -38,7 +38,7 @@ function Catch(props){
           <button className='option-btns'>edit</button>
           <button className='option-btns'>delete</button>
         </div>
-      }
+      } */}
       {Image? 
         <img src={Image} alt='' height='500'/>:
         <img src={Fish} alt='' width='400'/>

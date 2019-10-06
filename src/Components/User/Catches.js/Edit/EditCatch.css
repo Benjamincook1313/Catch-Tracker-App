@@ -1,0 +1,19 @@
+input{
+  text-align: center;
+  text-transform: capitalize;
+}
+.Edit{
+  position: absolute;
+  left: -10px;
+  width: 100%;
+  z-index: 11;
+}
+.section{
+  color: darkgray;
+}
+.section:hover{
+  color: black;
+}
+.section:focus{
+  color: black;
+}
