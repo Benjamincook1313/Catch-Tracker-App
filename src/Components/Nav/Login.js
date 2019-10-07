@@ -33,18 +33,25 @@ function Login(props){
     <div className='Login'>
       <h4>Login</h4>
       <div className='auth-box'>
-        <div className="input-group">
-          <div className="input-group-prepend">
-            <span className="input-group-text">username</span>
-          </div>
-          <input type="text" aria-label="First name" placeholder='user name' className="form-control" onChange={e => setUserName(e.target.value)}/>
-        </div>
+        <InputGroup className='mb-3'>
+          <FormControl
+            value={UserName}
+            placeholder='username'
+            onChange={e => setUserName(e.target.value)}
+            aria-label="Default"
+            aria-describedby="inputGroup-sizing-default"
+          />
+        </InputGroup>
         <InputGroup className="mb-3">
-          <InputGroup.Prepend>
-            <InputGroup.Text>password</InputGroup.Text>
-          </InputGroup.Prepend>
-          <FormControl value={Password} placeholder='password' type={!showPassword? 'password': 'text' } 
-          onChange={e => setPassword(e.target.value)} onKeyPress={e => login(e)}/>
+          <FormControl 
+            value={Password} 
+            placeholder='password' 
+            type={!showPassword? 'password': 'text' } 
+            onChange={e => setPassword(e.target.value)} 
+            onKeyPress={e => login(e)} 
+            aria-label="Default"
+            aria-describedby="inputGroup-sizing-default"
+          />
         </InputGroup>
         <div className='show-password-icon'>
           <FontAwesomeIcon icon={!showPassword? faEye: faEyeSlash} 

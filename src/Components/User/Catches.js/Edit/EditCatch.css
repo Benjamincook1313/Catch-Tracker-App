@@ -1,19 +1,60 @@
-input{
-  text-align: center;
-  text-transform: capitalize;
-}
+
 .Edit{
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255);
   position: absolute;
-  left: -10px;
-  width: 100%;
+  top: 0px;
+  min-height: 100%;
+  min-width: 100%;
   z-index: 11;
+  display: flex;
+  flex-direction: column;
+}
+.x-btn{
+  border: none;
+  background: none;
+  position: absolute;
+  top: 2px;
+  right: -3px;
 }
 .section{
   color: darkgray;
+  width: unset;
+  cursor: pointer;
 }
 .section:hover{
   color: black;
 }
-.section:focus{
+.section:active{
   color: black;
+}
+.input-title{
+  text-decoration: underline;
+  margin-bottom: 5px;
+}
+.DateTime{
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px 0px;
+}
+.edit-location{
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.water-btn{
+  margin: 0px;
+}
+
+.edit-weather{
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 5px;
 }

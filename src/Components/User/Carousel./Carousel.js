@@ -17,7 +17,7 @@ function CatchCarousel(){
     });
     const catchInfo = Catches.reverse().slice(0,4)
 
-    console.log(catchInfo[0])
+    // console.log(catchInfo[0])
   return(
     <div className='Carousel'>
       <Carousel className='carousel'>
@@ -49,13 +49,13 @@ function CatchCarousel(){
             <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
           </Carousel.Caption>
         </Carousel.Item>
-        <Carousel.Item>
+        {/* <Carousel.Item>
         {userCatch[4]}
           <Carousel.Caption>
             <h3>Third slide label</h3>
             <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
           </Carousel.Caption>
-        </Carousel.Item>
+        </Carousel.Item> */}
       </Carousel>
     </div>
   )

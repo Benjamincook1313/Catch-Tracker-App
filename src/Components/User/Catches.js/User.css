@@ -16,11 +16,11 @@
 
 img{
   border-radius: 5px;
+  min-width: 173px;
 }
 
 .Catch{
   position: relative;
-  /* border: 2px solid ivory; */
   border-radius: 5px;
   margin: 25px 45px 25px 5px;
 }
@@ -92,8 +92,8 @@ img{
   justify-content: center;
   width: 45px;
   position: absolute;
-  right: 5px;
-  top: 25px;
+  right: 0px;
+  top: 23px;
 }
 .options{
   font-size: 12px;
@@ -101,7 +101,7 @@ img{
   flex-direction: column;
   align-items: flex-start;
   position: absolute;
-  right: -50px;
+  right: -45px;
   top: 25px;
 }
 .option-btns{
@@ -110,7 +110,6 @@ img{
   color: #b9e496;
   font-weight: bold;
   text-decoration: underline;
-  margin-bottom: 5px;
   z-index: 10;
 }
 .option-btns:hover{
@@ -118,14 +117,4 @@ img{
 }
 .weather-icon2{
   font-size: 15px;
-}
-/* Edit Catch */
-
-.Edit{
-  border: 2px solid black;
-  border-radius: 5px;
-  padding: 20px 50px;
-  margin-top: 30px;
-  background-color: rgba(255, 255, 255, 0.9);
-  margin: 10px;
 }

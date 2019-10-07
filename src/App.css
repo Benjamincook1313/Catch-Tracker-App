@@ -47,13 +47,24 @@ table {
 	border-spacing: 0;
 }
 h1 {
-  font-size: 70px
+  font-size: 70px;
+  margin: 5px;
+}
+h2{
+  font-size: 50px;
+  margin: 10px;
 }
 h4{
   text-transform: capitalize;
 }
+h6{
+  font-size: 18px;
+}
 input {
   text-align: center;
+  border: 2px solid black;
+  border-radius: 2px;
+  height: 30px;
 }
 
 .App {
@@ -75,11 +86,13 @@ input {
   border: 2px solid black;
   margin: 5px;
   overflow: hidden;
+  cursor: pointer;
 }
 .list-item:hover{
   color: white;
   background: #b9b9b9;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .form-page-wrapper {

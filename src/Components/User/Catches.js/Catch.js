@@ -56,9 +56,12 @@ function Catch(props){
     }
   };
 
-  console.log(props.userCatch)
+  // console.log(props.userCatch)
   return(
     <div className='Catch'>
+      {edit && 
+        <EditCatch userCatch={userCatch} Image={Image} setEdit={() => setEdit(false)}/>
+      }
       <div className='location'>
         <h6 className='location-item'>{`${water_name} ${water_type}`}</h6> 
         <h5 className='location-item'>{`${state}`}</h5>
@@ -116,9 +119,6 @@ function Catch(props){
           <img className='d-img' src={Fish} alt='' height='200'/>
         }
       </OverlayTrigger>
-      {edit && 
-        <EditCatch userCatch={userCatch} Image={Image}/>
-      }
     </div>
   )
 };

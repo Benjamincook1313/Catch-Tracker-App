@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import EditLocation from './Location';
-import EditWeather from './Weather'
-import EditFish from './Fish';
-import EditFly from './Fly'
+import DateTime from './DateTime'
+import Location from './Location';
+import Weather from './Weather'
+import Fish from './Fish';
+import Fly from './Fly'
 import { Button } from 'react-bootstrap';
 import './EditCatch.css';
 
@@ -14,23 +15,28 @@ function Edit(props){
 
   return(
     <div className='Edit'>
-      <p className='section' onClick={() => setSection('location')}>Location</p>
+      <button className='x-btn' onClick={() => dispatch({type: 'CLEAR_CATCH'})/props.setEdit()}>X</button>
+      <h5 className='section' onClick={() => setSection('date/time')}>Date/Time</h5>
+      {(section === 'date/time') &&
+        <DateTime />
+      }
+      <h5 className='section' onClick={() => setSection('location')}>Location</h5>
         {(section === 'location') && 
-          <EditLocation /> 
+          <Location /> 
         }
-      <p className='section' onClick={() => setSection('weather')}>Weather</p>
+      <h5 className='section' onClick={() => setSection('weather')}>Weather</h5>
       {(section === 'weather') && 
-        <EditWeather />
+        <Weather />
       }
-      <p className='section' onClick={() => setSection('fish')}>Fish</p>
+      <h5 className='section' onClick={() => setSection('fish')}>Fish</h5>
         {(section === 'fish') && 
-          <EditFish />
+          <Fish />
         }
-      <p className='section' onClick={() => setSection('fly')}>Fly</p>
+      <h5 className='section' onClick={() => setSection('fly')}>Fly</h5>
       {(section === 'fly') && 
-        <EditFly />
+        <Fly />
       }
-      <p className='section' onClick={() => setSection('comment')}>Details</p>
+      <h5 className='section' onClick={() => setSection('comment')}>Details</h5>
       {(section === 'details') && 
         <div className='section-info'>
           comments: <input/> 
