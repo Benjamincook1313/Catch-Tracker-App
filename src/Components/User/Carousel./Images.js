@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { storage } from '../../../Firebase/index';
 import { useSelector } from 'react-redux';
-import { OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
+// import Img from 'react-bootstrap/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFish } from '@fortawesome/free-solid-svg-icons';
 import Fish from '../../../Images/fish.png';
@@ -13,7 +13,6 @@ function Catch(props){
   const user = useSelector(state => state.user)
 
   const [Image, setImage] = useState('')
-  const [showOptions, setShowOptions] = useState(false)
 
   const fish = <FontAwesomeIcon className='fish' icon={faFish}/>
 
@@ -28,19 +27,8 @@ function Catch(props){
 
   return(
     <div className='Image'>
-      {/* <Button className='img-opts-btn' 
-        size='sm' variant='dark'
-        onClick={() => setShowOptions(!showOptions)} >
-        {fish}{fish}{fish}
-      </Button>
-      {showOptions &&
-        <div className='img-opts'>
-          <button className='option-btns'>edit</button>
-          <button className='option-btns'>delete</button>
-        </div>
-      } */}
       {Image? 
-        <img src={Image} alt='' height='500'/>:
+        <img src={Image} alt='' height='500' />:
         <img src={Fish} alt='' width='400'/>
       }
     </div>

@@ -18,7 +18,9 @@ function MyCatches(){
 
   return (
     <div className='UserCatches' >
-      <Carousel />
+      <div className='carousel-wrapper'>
+        <Carousel />
+      </div>
       <br/>
       <Button variant='light' onClick={() => setShowAll(!showAll)}>All Catches</Button>
       <br/>

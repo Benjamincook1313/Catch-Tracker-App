@@ -54,11 +54,21 @@ h2{
   font-size: 50px;
   margin: 10px;
 }
+h3{
+  font-size: 35px
+}
 h4{
+  font-size: 25px;
   text-transform: capitalize;
+}
+h5{
+  font-size: 20px;
 }
 h6{
   font-size: 18px;
+}
+p{
+  font-size: 14px;
 }
 input {
   text-align: center;

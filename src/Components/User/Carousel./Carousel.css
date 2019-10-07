@@ -1,6 +1,9 @@
 
-.Carousel{
-  max-width: 500px;
+.carousel-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 500px;
 }
 .img-opts-btn{
   position: absolute;
@@ -15,6 +18,26 @@
   right: 0px;
   top: 40px;
 }
-.opt-btns:hover{
+.length{
+  width: 50px;
+  position: relative;
+  left: 43%
+}
 
+.c-fish{
+  color: rgb(201, 106, 72);
+  font-weight: bold;
+  text-decoration: underline;
+  margin: 5px;
+  text-transform: capitalize;
+}
+.c-water{
+  margin: 6px 0px;
+  font-weight: bold;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px;
+  border-radius: 3px;
+  background-color: rgb(54, 58, 58, .8);
 }
