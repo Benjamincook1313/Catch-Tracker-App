@@ -76,6 +76,9 @@ input {
   border-radius: 2px;
   height: 30px;
 }
+.input{
+  margin: 5px;
+}
 
 .App {
   text-align: center;

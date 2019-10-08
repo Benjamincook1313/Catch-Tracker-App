@@ -97,7 +97,10 @@ function Catch(props){
           </div>
           <div className='fish-info'>
             <h6>Fish:</h6>
-            <p>{`${length}" ${species} ${fish_type}`}</p>
+            <div className='fishInfo'>
+              <p>{`${length}" ${fish_type}`}</p>
+              <p>{species}</p>
+            </div>
           </div>
           <div className='fly'>
             <h6>Fly:</h6>

@@ -20,8 +20,8 @@ function CatchCarousel(){
               {species} {(species !== 'Steelhead')? fish_type: ''}
             </h3>
             <div className='c-water'>
-              <h5>{water_name} {water_type+','}</h5>
-              <h5>{state}</h5>
+              <h5 >{`${water_name} ${water_type },`}</h5> 
+              <h5 className='c-water-info'>{' '+state}</h5>
             </div>
           </Carousel.Caption>
         </Carousel.Item>

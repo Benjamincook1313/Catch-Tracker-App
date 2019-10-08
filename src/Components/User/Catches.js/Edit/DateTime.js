@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { FormControl, InputGroup } from 'react-bootstrap';
+import { FormControl, InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 
 function DateTime(){
-  const [showTOD, setShowTOD] = useState(false)
+  // const [showTOD, setShowTOD] = useState(false)
 
   const dispatch = useDispatch()
   const Date = useSelector(state => state.day)
@@ -85,27 +85,23 @@ function DateTime(){
       'midday (1-4pm)', 'evening (4-7pm)', 'night (after 7pm)'
     ];
     const todList = tod.map((item, i) => (
-      <div className='list-item' key={i} value={tod[i] || tod}  
-        onClick={(e) => dispatch({type: 'TOD', payload: tod[i].split(' ').shift()})/setShowTOD(false)}>
+      <Dropdown.Item  key={i}   
+        onClick={(e) => dispatch({type: 'TOD', payload: item.split(' ').shift()})}>
         {item}
-      </div>)
+      </Dropdown.Item>)
     );
 
   return(
     <div className='DateTime'>
-      <h6 className='input-title'>date</h6>
-      <input className='mb-3' type='date' size='sm' value={dateConvertor(Date)}
-        onChange={e => dispatch({type: 'DAY', payload: reverseDate(e.target.value)})}
-      />
-      <h6 className='input-title'>time of day</h6>
-      <input 
-        value={Tod}
-        onClick={() => setShowTOD(true)} 
-        aria-label="Small" 
-        aria-describedby="inputGroup-sizing-sm"
-        onChange={() => {}}
-      />
-      {showTOD && todList}
+      <FormControl type='date' value={dateConvertor(Date)} onChange={e => dispatch({type: 'DAY', payload: reverseDate(e.target.value)})}/>
+      <InputGroup className='inputGroup input'>
+        <FormControl placeholder='specify time' type='time' onChange={e => dispatch({type: 'TOD', payload: e.target.value})}/>
+        <p className='or'>or</p>
+        <DropdownButton as={InputGroup.Append} variant="outline-secondary" 
+          title={Tod} id="input-group-dropdown-2">
+          {todList}
+        </DropdownButton>
+      </InputGroup>
     </div>
   )
 };

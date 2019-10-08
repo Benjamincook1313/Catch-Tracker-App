@@ -29,15 +29,24 @@
   font-weight: bold;
   text-decoration: underline;
   margin: 5px;
-  text-transform: capitalize;
+}
+.carousel-caption{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .c-water{
-  margin: 6px 0px;
-  font-weight: bold;
+  text-transform: capitalize;
   color: #ffffff;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   padding: 5px 10px;
   border-radius: 3px;
   background-color: rgb(54, 58, 58, .8);
+  width: unset;
+  overflow: hidden;
 }
+.c-water-info{
+  margin-left: 10px;
+}
+

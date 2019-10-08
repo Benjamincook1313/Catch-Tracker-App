@@ -37,17 +37,22 @@
 .DateTime{
   border: 2px solid black;
   border-radius: 5px;
-  padding: 5px;
-  margin: 5px 0px;
+  padding: 10px;
+  margin: 0px 0px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .edit-location{
   border: 2px solid black;
   border-radius: 5px;
-  padding: 5px;
-  margin: 5px 0px;
-  display: flex;
+  padding: 10px;
+  margin: 0px 0px 10px;
+  display: flex; 
   flex-direction: column;
   align-items: center;
+  color: black;
 }
 .water-btn{
   margin: 0px;
@@ -56,5 +61,23 @@
 .edit-weather{
   border: 2px solid black;
   border-radius: 5px;
-  padding: 5px;
+  padding: 10px;
+  margin: 0px 0px 10px;
+  display: flex;
+  flex-direction: column;
+}
+.input-group{
+  display: flex;
+  justify-content: space-evenly;
+  width: unset;
+}
+.inputGroup{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.or{
+  color: black;
+  right: 80px;
+  margin: 0px 5px;
 }

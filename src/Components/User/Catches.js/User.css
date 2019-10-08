@@ -16,7 +16,7 @@
 
 img{
   border-radius: 5px;
-  min-width: 173px;
+  min-width: 185px;
 }
 
 .Catch{
@@ -60,6 +60,13 @@ img{
   display: flex;
   justify-content: space-between;
 }
+.fishInfo{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  margin-top: 5px;
+}
 .fly{
   display: flex;
   justify-content: space-between;
@@ -69,6 +76,7 @@ img{
   flex-direction: column;
   align-items: flex-end;
   text-transform: capitalize;
+  margin-top: 5px;
 }
 .details{
   border: 1px solid white;
@@ -93,7 +101,7 @@ img{
   width: 45px;
   position: absolute;
   right: 0px;
-  top: 23px;
+  top: 25px;
 }
 .options{
   font-size: 12px;
@@ -102,7 +110,7 @@ img{
   align-items: flex-start;
   position: absolute;
   right: -45px;
-  top: 25px;
+  top: 28px;
 }
 .option-btns{
   background: none;
