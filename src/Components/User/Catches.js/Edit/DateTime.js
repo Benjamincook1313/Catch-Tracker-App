@@ -92,7 +92,7 @@ function DateTime(){
     );
 
   return(
-    <div className='DateTime'>
+    <div className='Edit-Section'>
       <FormControl type='date' value={dateConvertor(Date)} onChange={e => dispatch({type: 'DAY', payload: reverseDate(e.target.value)})}/>
       <InputGroup className='inputGroup input'>
         <FormControl placeholder='specify time' type='time' onChange={e => dispatch({type: 'TOD', payload: e.target.value})}/>

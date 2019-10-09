@@ -5,13 +5,16 @@ import Location from './Location';
 import Weather from './Weather'
 import Fish from './Fish';
 import Fly from './Fly'
-import { Button } from 'react-bootstrap';
+import { Button, FormControl } from 'react-bootstrap';
 import './EditCatch.css';
 
 function Edit(props){
+  const {Image} = props
   const { comments } = props.userCatch
   const dispatch = useDispatch()
-  const [section, setSection] = useState('') 
+
+  const [Details, setDetails] = useState(comments)
+  const [section, setSection] = useState('fly') 
 
   return(
     <div className='Edit'>
@@ -20,26 +23,26 @@ function Edit(props){
       {(section === 'date/time') &&
         <DateTime />
       }
-      <h5 className='section' onClick={() => setSection('location')}>Location</h5>
+      <h5 className='section' onClick={() => (section === 'location')? setSection(''): setSection('location')}>Location</h5>
         {(section === 'location') && 
           <Location /> 
         }
-      <h5 className='section' onClick={() => setSection('weather')}>Weather</h5>
+      <h5 className='section' onClick={() => (section === 'weather')? setSection(''): setSection('weather')}>Weather</h5>
       {(section === 'weather') && 
         <Weather />
       }
-      <h5 className='section' onClick={() => setSection('fish')}>Fish</h5>
+      <h5 className='section' onClick={() => (section === 'fish')? setSection(''): setSection('fish')}>Fish</h5>
         {(section === 'fish') && 
-          <Fish />
+          <Fish Image={Image} />
         }
-      <h5 className='section' onClick={() => setSection('fly')}>Fly</h5>
+      <h5 className='section' onClick={() => (section === 'fly')? setSection(''): setSection('fly')}>Fly</h5>
       {(section === 'fly') && 
         <Fly />
       }
-      <h5 className='section' onClick={() => setSection('comment')}>Details</h5>
+      <h5 className='section' onClick={() => (section === 'details')? setSection(''): setSection('details')}>Details</h5>
       {(section === 'details') && 
         <div className='section-info'>
-          comments: <input/> 
+          <FormControl as='textarea' rows='4' max-cols='50' value={Details} onChange={e => setDetails(e.target.value)}/> 
         </div>
       }
       <br/>

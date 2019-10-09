@@ -9,7 +9,7 @@ function EditWeather(){
   const Temp = useSelector(state => state.temp)
 
   return(
-    <div className='edit-weather'>
+    <div className='Edit-Section'>
       <InputGroup className='weatherGroup' >
         <DropdownButton as={InputGroup.Prepend} variant="outline-secondary" title={Temp} >
           <Dropdown.Item onClick={() => dispatch({type: 'TEMP', payload: 'Freezing'})}>{'Freezing < 32°'}</Dropdown.Item>

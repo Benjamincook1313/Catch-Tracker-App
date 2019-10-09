@@ -34,7 +34,7 @@
   text-decoration: underline;
   margin-bottom: 5px;
 }
-.DateTime{
+.Edit-Section{
   border: 2px solid black;
   border-radius: 5px;
   padding: 10px;
@@ -44,27 +44,8 @@
   justify-content: center;
   align-items: center;
 }
-.edit-location{
-  border: 2px solid black;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 0px 0px 10px;
-  display: flex; 
-  flex-direction: column;
-  align-items: center;
-  color: black;
-}
 .water-btn{
   margin: 0px;
-}
-
-.edit-weather{
-  border: 2px solid black;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 0px 0px 10px;
-  display: flex;
-  flex-direction: column;
 }
 .input-group{
   display: flex;
@@ -80,4 +61,10 @@
   color: black;
   right: 80px;
   margin: 0px 5px;
+}
+.x{
+  color: black;
+  border: none;
+  background: none;
+  margin-left: 100px;
 }

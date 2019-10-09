@@ -53,12 +53,12 @@ function ReviewCatch(){
       <h1>New Catch Review</h1>
       <h5><div>{`${TOD} ${date}`}</div>  <div>{`${Temp}-${Weather}`}</div></h5>
       <h2>{`${Species} ${FishType}`}</h2> 
-      <img src={image? image: Fish} alt='' height='500' />
+      <img src={image? image: Fish} alt='' height='200' />
       <h3>{`${WaterName} ${WaterType}, ${State}`}</h3> 
       <h4>{`size ${Size}, ${Fly} - ${FlyType}`}</h4>
-        details
+        Details
       <div className='column'>
-        <textarea rows='4' cols='50' value={details} onChange={e => setDetails(e.target.value)} />
+        <textarea rows='5' cols='50' value={details} onChange={e => setDetails(e.target.value)} />
       </div>
       <br/>
       <div >

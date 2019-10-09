@@ -29,7 +29,7 @@ function EditLocation(){
   );
 
   return(
-    <div className='edit-location'>
+    <div className='Edit-Section'>
       <InputGroup className='mb-3'>
         <FormControl value={WaterName} onChange={e => dispatch({type: 'WATER_NAME', payload: e.target.value})}/>
         <DropdownButton as={InputGroup.Append} variant="outline-secondary" 
