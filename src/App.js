@@ -67,8 +67,9 @@ function App() {;
       <br/>
       {loggedIn && <UserCatches setRefresh={() => setRefresh(!refresh)}/>}
       {loggedIn &&
-        <footer></footer>
+        <footer className='footer'></footer>
       }  
+      <footer></footer>
     </div>
   );
 };

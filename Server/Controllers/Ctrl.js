@@ -33,12 +33,12 @@ module.exports = {
     res.status(200).send(data)
   },
 
-  // deleteCatch: await (req, res) => {
-  //   const {id} = req.params
-  //   const user_name = req.body.user.user_name
-  //   const db = req.app.get('db')
-  //   const data = await db.delete_catch([id, user_name])
-  //   .catch(err => {err, console.log(err)})
-  //   res.status(200).send(data)
-  // },
+  deleteCatch: async (req, res) => {
+    const {id} = req.params
+    // const user_name = req.body.user.user_name
+    const db = req.app.get('db')
+    const data = await db.delete_catch(id)
+    .catch(err => {err, console.log(err)})
+    res.status(200).send(data)
+  }
 }

@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import EditCatch from './Edit/EditCatch';
+import Delete from './Delete';
 import { OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSnowflake, faCloudRain, faCloudSunRain, faCloudSun, faSun, faCloud, faFish } from '@fortawesome/free-solid-svg-icons'
 import Fish from '../../../Images/fish.png';
+import axios from 'axios';
 
 function Catch(props){
   const { userCatch } = props
-  const { date, tod, water_name, water_type, us_state, temperature, 
+  const { catch_id, date, tod, water_name, water_type, us_state, temperature, 
     weather, image_url, length, fish_type, species, size, color, fly, 
     fly_type, details } = userCatch
     
-  const dispatch = useDispatch()
+  const dispatch = useDispatch(props)
   const user = useSelector(state => state.user)
   const [showOptions, setShowOptions] = useState(true)
   const [edit, setEdit] = useState(false)
+  const [Dlt, setDelete] = useState(false)
 
   const Sun = <FontAwesomeIcon className='weather-icon2 sun' icon={faSun} />
   const Cloud = <FontAwesomeIcon className='weather-icon2 cloud' icon={faCloud}/>
@@ -44,8 +47,14 @@ function Catch(props){
     }
   };
 
+  const handleDelete=()=>{
+    console.log(props)
+    axios.delete(`/api/deleteCatch/:${catch_id}`)
+  };
+
   return(
     <div className='Catch'>
+      {Dlt && <Delete setDelete={() => setDelete(false)} handleDelete={handleDelete} />}
       {edit && 
         <EditCatch userCatch={userCatch} setEdit={() => setEdit(false)} setRefresh={props.setRefresh} />
       }
@@ -61,7 +70,7 @@ function Catch(props){
       {showOptions &&
         <div className='options'>
           <button className='option-btns' onClick={() => setEdit(true)/dispatch({type: 'EDIT_CATCH', payload: userCatch})}>Edit</button>
-          <button className='option-btns'>Delete</button>
+          <button className='option-btns' onClick={() => setDelete(true)}>Delete</button>
         </div>
       }
       <OverlayTrigger placement='right' overlay={

@@ -11,7 +11,7 @@ function UserCatches(props){
 
   let userCatch = Catches.map((userCatch, i) => {
     return (
-      <Catch key={i} userCatch={userCatch} setRefresh={props.setRefresh} />
+      <Catch key={userCatch.catch_id} userCatch={userCatch} setRefresh={props.setRefresh} />
     )
   });
 
