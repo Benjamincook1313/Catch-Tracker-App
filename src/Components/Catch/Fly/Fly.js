@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ToggleButton, ToggleButtonGroup, Button, FormControl } from 'react-bootstrap';
+import { InputGroup, ToggleButton, ToggleButtonGroup, Button, FormControl, Dropdown, DropdownButton } from 'react-bootstrap';
 import Scroll from 'react-scrollbar';
 import './Fly.css';
 
@@ -12,18 +12,16 @@ function Fly(){
   const Size = useSelector(state => state.size);
   const Color = useSelector(state => state.color)
 
-  const [showSizes, setShowSizes] = useState(false);
-
   const sizes = ['5/0', '4/0', '3/0', '2/0', '1/0', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 
     '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', 
     '28', '29', '30', '31', '32'
   ];
+  // const colors = ['red', 'yellow', 'black', 'brown', 'purple', 'green', 'olive', 'blue', 'pink', 'chartreuse', 'salmon', 'orange', '' ]
 
   let size = sizes.map((size, i) => 
-    <div className='list-item' key={i} onClick={() => dispatch({type: 'SIZE', payload: sizes[i]})/
-      setShowSizes(false)}>
+    <Dropdown.Item className='list-item' key={i} onClick={() => dispatch({type: 'SIZE', payload: sizes[i]})}>
       {size}
-    </div>  
+    </Dropdown.Item>  
   );
 
   return(
@@ -35,8 +33,12 @@ function Fly(){
       <div className='Button-Group'>
         <ToggleButtonGroup type='radio' name='fly' defaultValue={FlyType}>
           <ToggleButton variant='outline-secondary' value="dry" 
-            onClick={() => dispatch({type: 'FLY_TYPE', payload: 'dry'})}>
-            <div className='fly-btn'>Dry</div>
+            onClick={() => dispatch({type: 'FLY_TYPE', payload: 'dryfly'})}>
+            <div className='fly-btn'>DryFly</div>
+          </ToggleButton>
+          <ToggleButton variant='outline-secondary' value="wet" 
+            onClick={() => dispatch({type: 'FLY_TYPE', payload: 'wetfly'})}>
+            <div className='fly-btn'>WetFly</div>
           </ToggleButton>
           <ToggleButton variant='outline-secondary' value="streamer" 
             onClick={() => dispatch({type: 'FLY_TYPE', payload: 'streamer'})}>
@@ -50,10 +52,6 @@ function Fly(){
       </div>
       <div className='Button-Group'>
         <ToggleButtonGroup type='radio' name='fly' defaultValue={FlyType}>
-          <ToggleButton variant='outline-secondary' value="wet" 
-            onClick={() => dispatch({type: 'FLY_TYPE', payload: 'wet'})}>
-            <div className='fly-btn'>Wet</div>
-          </ToggleButton>
           <ToggleButton variant='outline-secondary' value="emerger" 
             onClick={() => dispatch({type: 'FLY_TYPE', payload: 'emerger'})}>
             <div className='fly-btn'>Emerger</div>
@@ -72,29 +70,34 @@ function Fly(){
           </ToggleButton>
         </ToggleButtonGroup>
       </div>
-      <div className='size-color'>
-        <input className='input' type='text' value={Size} placeholder='size' 
-          onClick={() => setShowSizes(true)}
-          onChange={e => dispatch({type: 'SIZE', payload: `${e.target.value}`})}
-          readOnly
-        />
-        <input className='input' placeholder='color' value={Color} onChange={e => dispatch({type: 'COLOR', payload: e.target.value})}/>
-        {showSizes && 
-        <Scroll className='list'>
-          {size}
-        </Scroll>
-        }
-      </div>
-      <div>
-        <input type='text' value={Fly} placeholder='fly' 
+      <FormControl 
+        style={{margin: '5px 0px'}}
+        placeholder='color' 
+        value={Color} 
+        onChange={e => dispatch({type: 'COLOR', payload: e.target.value})}
+      />
+      <InputGroup>
+        <DropdownButton variant='outline-secondary' as={InputGroup.Prepend} title={`#${Size}`}>
+          <Scroll className='list'>
+            {size}
+          </Scroll>
+        </DropdownButton>
+        <FormControl 
+          type='text' 
+          value={Fly} 
+          placeholder='fly' 
           onChange={e => dispatch({type: 'FLY', payload: `${e.target.value}`})}/>
+      </InputGroup>
+      <div>
       </div>
       <br/>
       <div>
         <Button className='page-nav' variant='dark' onClick={() => dispatch({type: 'BACK'})}>
           {'< Back'}   
         </Button>     
-        <Button className='page-nav' variant='dark' onClick={() => dispatch({type: 'NEXT'})}>
+        <Button className='page-nav' variant='dark' 
+          onClick={() => dispatch({type: 'NEXT'})}
+        >
           {'Next >'}
         </Button>
       </div>

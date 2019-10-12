@@ -56,7 +56,7 @@ module.exports = {
   },
 
   logout: async (req, res) => {
-    req.session.destroy();
-    res.status(200).send({});
+    req.session.destroy()
+    res.status(200).send({})
   },
 }

@@ -4,6 +4,7 @@
   height: 90px;
   display: flex;
   justify-content: center;
+  color: darkslategrey;
 }
 .title {
   position: absolute;
@@ -31,9 +32,6 @@
 }
 .water{
   font-size: 40px;
-  /* position: absolute;
-  left: 110px;
-  top: 70px; */
 }
 .water:hover{
   color: yellow;
@@ -45,7 +43,7 @@
 
 .auth-wrapper {
   position: fixed;
-  top: 100px;
+  top: 150px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -55,12 +53,17 @@
   position: relative;
   border: 2px solid black;
   border-radius: 5px;
-  padding: 20px;
+  padding: 10px 20px;
+  font-weight: bold;
   width: 450px;
+  margin: 10px;
+  background: rgb(255, 255, 255, .9);
 }
 .show-password-icon {
   position: absolute;
   right: 20px;
-  bottom: 20px;
+  bottom: 5px;
+  font-size: 25px;
+  padding: 5px;
 }
 

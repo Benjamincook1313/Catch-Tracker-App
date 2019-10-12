@@ -16,12 +16,10 @@ function flyRod(){
         <div className='eye7'></div>
         <div className='eye8'></div>
       </div>
-      {/* <div className='fly-line'></div> */}
       <div className='reel'>
         <div className='foot'></div>
         <div className='knob'></div>
       </div>
-      
     </div>
   )
 };

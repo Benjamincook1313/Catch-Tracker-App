@@ -76,6 +76,11 @@ input {
   border-radius: 2px;
   height: 30px;
 }
+footer{
+  min-height: 60px;
+  width: 100vw;
+  background: rgb(0, 0, 0, .7);
+}
 .input{
   margin: 5px;
 }
@@ -96,8 +101,8 @@ input {
 }
 .list{
   max-height: 200px;
-  border: 2px solid black;
-  margin: 5px;
+  /* border: 2px solid black; */
+  /* border-radius: 5px; */
   overflow: hidden;
   cursor: pointer;
 }

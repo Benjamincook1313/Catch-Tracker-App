@@ -1,23 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { storage } from '../../../Firebase/index';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import EditCatch from './Edit/EditCatch';
 import { OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSnowflake, faCloudRain, faCloudSunRain, faCloudSun, faSun, faCloud, faFish } from '@fortawesome/free-solid-svg-icons'
 import Fish from '../../../Images/fish.png';
-import axios from 'axios';
 
 function Catch(props){
   const { userCatch } = props
-  const { date, tod, water_name, water_type, state, temperature, 
-    weather, image_name, length, fish_type, species, size, fly, fly_type, color, comments } = props.userCatch
+  const { date, tod, water_name, water_type, us_state, temperature, 
+    weather, image_url, length, fish_type, species, size, color, fly, 
+    fly_type, details } = userCatch
     
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
-  // const Edit = useSelector(state => state.edit)
-
-  const [Image, setImage] = useState('')
   const [showOptions, setShowOptions] = useState(true)
   const [edit, setEdit] = useState(false)
 
@@ -28,14 +24,6 @@ function Catch(props){
   const Pc = <FontAwesomeIcon className='weather-icon2 pc' icon={faCloudSun}/>
   const Pcr = <FontAwesomeIcon className='weather-icon2 pcr' icon={faCloudSunRain}/>
   const fish = <FontAwesomeIcon className='fish' icon={faFish}/>
-
-  useEffect(() => {
-    if(user.user_name){
-      storage.ref(`images/${user.user_name}`).child(image_name).getDownloadURL().then(url => {
-        setImage(url)
-      })
-    }
-  });
 
   const kindOfWeather = (Weather) => {
     switch(Weather){
@@ -56,15 +44,14 @@ function Catch(props){
     }
   };
 
-  // console.log(props.userCatch)
   return(
     <div className='Catch'>
       {edit && 
-        <EditCatch userCatch={userCatch} Image={Image} setEdit={() => setEdit(false)}/>
+        <EditCatch userCatch={userCatch} setEdit={() => setEdit(false)} setRefresh={props.setRefresh} />
       }
       <div className='location'>
         <h6 className='location-item'>{`${water_name} ${water_type}`}</h6> 
-        <h5 className='location-item'>{`${state}`}</h5>
+        <h5 className='location-item'>{`${us_state}`|| user.state}</h5>
       </div>
       <Button className='options-btn' 
         size='sm' variant='outline-light'
@@ -73,12 +60,12 @@ function Catch(props){
       </Button>
       {showOptions &&
         <div className='options'>
-          <button className='option-btns' onClick={() => setEdit(!edit)/dispatch({type: 'EDIT_CATCH', payload: userCatch})}>Edit</button>
-          <button className='option-btns' >Delete</button>
+          <button className='option-btns' onClick={() => setEdit(true)/dispatch({type: 'EDIT_CATCH', payload: userCatch})}>Edit</button>
+          <button className='option-btns'>Delete</button>
         </div>
       }
       <OverlayTrigger placement='right' overlay={
-        <Tooltip>
+        <Tooltip className='tooltip'>
           <div className='date-time'>
             <div className='weather'>
               <p>{kindOfWeather(weather)}</p>
@@ -90,35 +77,36 @@ function Catch(props){
                 <p>{date}</p>
             </div>:
             <div className='date'>
-              <p>{date.split(' ').shift()}</p>
-              <p>{date.split(' ').slice(1,3).join(' ')}</p>
+              <p>{date? date.split(' ').shift(): ''}</p>
+              <p>{date? date.split(' ').slice(1,3).join(' '): ''}</p>
             </div>
             }
           </div>
           <div className='fish-info'>
             <h6>Fish:</h6>
             <div className='fishInfo'>
-              <p>{`${length}" ${fish_type}`}</p>
+              <p>{`${length} ${fish_type}`}</p>
               <p>{species}</p>
             </div>
           </div>
           <div className='fly'>
             <h6>Fly:</h6>
             <div className='fly-info'>
-              <p>#{size} {fly_type}</p> 
+              <p>#{size} </p> 
               <p>{color} {fly}</p>
+              <p>{fly_type}</p>
             </div>
           </div>
-          {comments &&
+          {details &&
             <div className='details'>
               <h6 className='d-title'>Details</h6>
-              <p>{comments}</p> 
+              <p>{details}</p> 
             </div>
           }
         </Tooltip>
         }>
-        {Image?
-          <img className='catch-img' src={Image} alt='' height='210' />:
+        {image_url?
+          <img className='catch-img' src={image_url} alt='' height='200' />:
           <img className='d-img' src={Fish} alt='' height='200'/>
         }
       </OverlayTrigger>

@@ -1,5 +1,5 @@
-.water-name{
-  margin-top: 15px;
+.date-time{
+  margin-bottom: 5px;
 }
 .state{
   margin-top: 10px;
@@ -9,4 +9,9 @@
 }
 .Location{
   color: #7dc244;
+}
+.x-btn{
+  position: relative;
+  top: 0px;
+  right: 0px;
 }

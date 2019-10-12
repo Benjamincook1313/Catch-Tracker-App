@@ -24,15 +24,16 @@ function Login(props){
         setPassword('')
         setUserName('')
         props.setShowLogin(false)
-        Swal.fire({type: 'success', title: 'logged in', showConfirmButton: false, timer: 1000})
+        Swal.fire({type: 'success', title: 'logged in', showConfirmButton: false, timer: 2000, toast: true, position: 'top-end'})
       }
     }
   };
 
   return(
     <div className='Login'>
-      <h4>Login</h4>
       <div className='auth-box'>
+      <h4 style={{textDecoration: 'underline'}}>Login</h4>
+      <br/>
         <InputGroup className='mb-3'>
           <FormControl
             value={UserName}
@@ -55,11 +56,10 @@ function Login(props){
         </InputGroup>
         <div className='show-password-icon'>
           <FontAwesomeIcon icon={!showPassword? faEye: faEyeSlash} 
-            onClick={() => setShowPassword(!showPassword)} style={{fontSize: '35px', padding: 5, }}
+            onClick={() => setShowPassword(!showPassword)}
           />
         </div>
         {'( press enter to submit )'}
-        <br/>
       </div>
     </div>
   )

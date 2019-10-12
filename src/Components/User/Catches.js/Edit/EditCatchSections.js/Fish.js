@@ -1,18 +1,16 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { FormControl, InputGroup, Dropdown, DropdownButton, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
-import ImageUploader from '../../../Catch/Fish/ImageUpload';
+import ImageUploader from '../../../../Catch/Fish/ImageUpload';
 import Scroll from 'react-scrollbar';
 
 function EditFish(props){
-  const { Image } = props
   const dispatch = useDispatch();
   const image = useSelector(state => state.image)
   const Species = useSelector(state => state.species)
   const Length = useSelector(state => state.length)
   const fishType = useSelector(state => state.fishType)
   const [Type, setType] = useState(fishType.toLowerCase())
-  const [showOther, setShowOther] = useState(false)
 
   const trout = ['Apache', 'Bull', 'Brook','Brown', 'Cutthroat', 'DollyVarden','Golden', 'Lake', 'Rainbow', 'Splake', 'Tiger'];
   const salmon = ['Atlantic', 'Chinook (King)', 'Coho (Silver)', 'Humpy (Pink)', 'Keta (Chum)',  'Kokanee', 'Sockeye (Red)', 'Steelhead (Rainbow)'];
@@ -23,11 +21,10 @@ function EditFish(props){
     '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60', '61', '62', '63', '64', '65', '66', '67', 
     '68', '69', '70'
   ];
-
+  // console.log(window[trout])
   const speciesList = eval(Type).map((species, i) => (
     <Dropdown.Item key={i} value={Type[i] || Species} 
-    onClick={() => dispatch({type: 'SPECIES', payload: `${Type[i].split(' ').shift()}`})/
-    setShowOther(false)}>
+    onClick={() => dispatch({type: 'SPECIES', payload: `${Type[i].split(' ').shift()}`})}>
       {species}
     </Dropdown.Item>));
 
@@ -41,20 +38,19 @@ function EditFish(props){
       <Scroll>
         <ToggleButtonGroup  type='radio' name='fishType' defaultValue={`${fishType}`}>
           <ToggleButton variant='outline-secondary' value='Trout' onClick={() => setType(trout)/
-            dispatch({type: 'SPECIES'})/dispatch({type: 'FISH_TYPE', payload: 'Trout'})/setShowOther(false)}>
+            dispatch({type: 'SPECIES'})/dispatch({type: 'FISH_TYPE', payload: 'Trout'})}>
           <div className='type-btn'>Trout</div>
           </ToggleButton>
           <ToggleButton variant='outline-secondary' value="Salmon" onClick={() => setType(salmon)/
-              dispatch({type: 'SPECIES'})/dispatch({type: 'FISH_TYPE', payload: 'Salmon'})/setShowOther(false)}>
+              dispatch({type: 'SPECIES'})/dispatch({type: 'FISH_TYPE', payload: 'Salmon'})}>
             <div className='type-btn'>Salmon</div>
           </ToggleButton>
           <ToggleButton variant='outline-secondary' value="Bass" onClick={() => setType(bass)/
-              dispatch({type: 'SPECIES'})/dispatch({type: 'FISH_TYPE', payload: 'Bass'}) /setShowOther(false)}>
+              dispatch({type: 'SPECIES'})/dispatch({type: 'FISH_TYPE', payload: 'Bass'}) }>
             <div className='type-btn'>Bass</div>
           </ToggleButton>
           <ToggleButton variant='outline-secondary' value="Other" onClick={() => setType(other)/
-              dispatch({type: 'SPECIES'})/dispatch({type: 'FISH_TYPE', payload: 'Other'})/
-              setShowOther(true)}>
+              dispatch({type: 'SPECIES'})/dispatch({type: 'FISH_TYPE', payload: 'Other'})}>
             <div className='type-btn'>Other</div>
           </ToggleButton>
         </ToggleButtonGroup>

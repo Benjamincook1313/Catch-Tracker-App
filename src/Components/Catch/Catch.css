@@ -2,6 +2,7 @@
 .preview{
   color: #343A40;
   text-transform: capitalize;
+  margin: 5px
 }
 .ButtonGroup{
   margin: 5px;
@@ -9,4 +10,7 @@
 }
 .page-nav{
   margin: 5px;
+}
+.tooltip{
+  min-width: 200px;
 }

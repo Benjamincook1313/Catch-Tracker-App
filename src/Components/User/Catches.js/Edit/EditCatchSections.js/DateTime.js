@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { FormControl, InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 
 function DateTime(){
-  // const [showTOD, setShowTOD] = useState(false)
-
   const dispatch = useDispatch()
   const Date = useSelector(state => state.day)
   const Tod = useSelector(state => state.tod)

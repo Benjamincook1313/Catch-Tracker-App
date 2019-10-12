@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { InputGroup, Dropdown, FormControl, DropdownButton } from 'react-bootstrap';
+import { InputGroup, Dropdown, DropdownButton } from 'react-bootstrap';
 
 
 function EditWeather(){

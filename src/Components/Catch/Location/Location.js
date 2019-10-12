@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {Button, ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
+import { Button, ToggleButton, ToggleButtonGroup, InputGroup, FormControl, 
+         DropdownButton, Dropdown } from 'react-bootstrap';
 import Scroll from 'react-scrollbar';
 import Swal from 'sweetalert2';
 import './Location.css'
@@ -19,30 +20,29 @@ function Location(){
   ];
 
   const dispatch = useDispatch();
+  const User = useSelector(state => state.user)
   const Day = useSelector(state => state.day);
   const TOD = useSelector(state => state.tod);
   const State = useSelector(state => state.usState);
   const WaterType = useSelector(state => state.waterType);
   const WaterName = useSelector(state => state.waterName);
 
-  const [showTOD, setShowTOD] = useState(false);
-  const [showStates, setShowStates] = useState(false);
+  useEffect(()=> {
+    dispatch({type: 'US_STATE', payload: User.state})
+  });
 
-  const filteredStates = States.filter(state => state.toLowerCase().startsWith(State.toLowerCase()));
-  const stateList = filteredStates.map((state, i) => (
-    <div className='list-item' key={i} value={filteredStates[i] || `${state}`}  
-      onClick={(e) => dispatch({type: 'US_STATE', payload: filteredStates[i]})/
-      setShowStates(false)}
-    >
-    {`${state}`}
-    </div>
+  const stateList = States.map((state, i) => (
+    <Dropdown.Item className='list-item' key={i} value={state}  
+    onClick={(e) => dispatch({type: 'US_STATE', payload: States[i]})}>
+      {state}
+    </Dropdown.Item>
   ));
 
   const todList = tod.map((item, i) => (
-    <div className='list-item' key={i} value={tod[i] || tod}  
-      onClick={(e) => dispatch({type: 'TOD', payload: tod[i].split(' ').shift()})/setShowTOD(false)}>
+    <Dropdown.Item className='list-item' key={i} value={tod}  
+      onClick={(e) => dispatch({type: 'TOD', payload: tod[i].split(' ').shift()})}>
       {item}
-    </div>)
+    </Dropdown.Item>)
   );
 
 // changes date format to yyyy-mm-dd
@@ -116,78 +116,79 @@ function Location(){
     }
     return `${month} ${day}, ${year}`
   }
-
-  const infoChecker = () => {
-    if(State && !WaterType && WaterName){return 'water type'}
-    if(State && WaterType && !WaterName){return 'water name'}
-    if(!State && WaterType && WaterName){return 'state'}
-    if(!State && !WaterType && WaterName){return 'water type & state'}
-    if(!State && WaterType && !WaterName){return 'water name & state'}
-    if(State && !WaterType && !WaterName){return 'water type & water name'}
-    else{return 'state, water type & water name'}
-  };
   
   return(
-    <div className='Location' >
+    <div className='Location'>
       <h2>Where was your catch?</h2>
-      <h4 className='preview'>{(WaterType && WaterName) && `${WaterName} ${WaterType}, ${State}`}</h4>
-      <div>
-        <div>
-          <input type="date" value={dateConvertor(Day)} onChange={(e) => dispatch({type: 'DAY', payload: reverseDate(e.target.value)})}/> {' '}
-          <input type='text' value={TOD} placeholder='time of day' 
-            onClick={() => setShowTOD(true)} onChange={e => dispatch({type: 'TOD', payload: e.target.value})} 
-          />
-          {showTOD && <button className='btn' onClick={() => setShowTOD(false)}>X</button>}
-          {showTOD && todList}
-        </div>
-        <div>
-          <input className='water-name' value={WaterName} type='text' placeholder={`name of`}
-            onChange={(e) => dispatch({type: 'WATER_NAME', payload: e.target.value})}
-          />
-        </div>
-        <ToggleButtonGroup className='ButtonGroup' type='radio' name='water' defaultValue='1'>
-          <ToggleButton variant='outline-secondary' value="1"
-            onClick={() => dispatch({type: 'WATER_TYPE', payload: 'River'})}>
-            <div className='location-btn'>River</div>
-          </ToggleButton>
-          <ToggleButton variant='outline-secondary' value="2"
-            onClick={() => dispatch({type: 'WATER_TYPE', payload: 'Creek'})}>
-            <div className='location-btn'>Creek</div>
-          </ToggleButton>
-          <ToggleButton variant='outline-secondary' value="3"
-            onClick={() => dispatch({type: 'WATER_TYPE', payload: 'Lake'})}>
-            <div className='location-btn'>Lake</div>
-          </ToggleButton>
-          <ToggleButton variant='outline-secondary' value="4"
-            onClick={() => dispatch({type: 'WATER_TYPE', payload: 'Reservoir'})}>
-            <div className='location-btn'>Reservoir</div>
-          </ToggleButton>
-          <ToggleButton variant='outline-secondary' value="5"
-            onClick={() => dispatch({type: 'WATER_TYPE', payload: 'Pond'})}>
-            <div className='location-btn'>Pond</div>
-          </ToggleButton>
-        </ToggleButtonGroup>
-        <div>
-          <input className='state' value={State} type='text'
-            onClick={() => setShowStates(true)/dispatch({type: 'US_STATE', payload: ''})} 
-            onKeyPress={() => setShowStates(true)}
-            onChange={e => dispatch({type: 'US_STATE', payload: e.target.value})}
-          />
-          {showStates && 
-            <Scroll className='list '>
-              {stateList}
-            </Scroll>
-          }
-        </div>
-      </div>
-      <br/>
-      <Button className='page-nav' variant='dark'
-        onClick={() => (State && WaterType && WaterName)? dispatch({type: 'NEXT'}): 
-        Swal.fire({
-          title:`Enter ${infoChecker()} before continuing`, 
-          showConfirmButton: false, 
-          type: 'warning', timer: 4000}
-        )}>
+      <h4 className='preview'>
+        {(WaterType && WaterName) && `${WaterName} ${WaterType }, ${State || User.state}`}
+      </h4>
+      <InputGroup className='date-time'>
+        <FormControl 
+          type="date" 
+          value={dateConvertor(Day)} 
+          onChange={(e) => dispatch({type: 'DAY', payload: reverseDate(e.target.value)})}/>
+        <FormControl 
+          type='text' 
+          value={TOD} 
+          placeholder='time of day' 
+          onClick={() => dispatch({type: 'TOD'})}
+          onChange={e => dispatch({type: 'TOD', payload: e.target.value})} 
+        />
+      <DropdownButton variant='outline-secondary' title='' as={InputGroup.Append} alignRight>
+        {todList}
+      </DropdownButton>
+      </InputGroup>
+      <ToggleButtonGroup className='ButtonGroup' type='radio' name='water' defaultValue='1'>
+        <ToggleButton variant='outline-secondary' value="1" 
+          onClick={() => dispatch({type: 'WATER_TYPE', payload: 'river'})}>
+          <div className='location-btn'>River</div>
+        </ToggleButton>
+        <ToggleButton variant='outline-secondary' value="2" 
+          onClick={() => dispatch({type: 'WATER_TYPE', payload: 'creek'})}>
+          <div className='location-btn'>Creek</div>
+        </ToggleButton>
+        <ToggleButton variant='outline-secondary' value="3" 
+          onClick={() => dispatch({type: 'WATER_TYPE', payload: 'lake'})}>
+          <div className='location-btn'>Lake</div>
+        </ToggleButton>
+        <ToggleButton variant='outline-secondary' value="4" 
+          onClick={() => dispatch({type: 'WATER_TYPE', payload: 'reservoir'})}>
+          <div className='location-btn'>Reservoir</div>
+        </ToggleButton>
+        <ToggleButton variant='outline-secondary' value="5" 
+          onClick={() => dispatch({type: 'WATER_TYPE', payload: 'pond'})}>
+          <div className='location-btn'>Pond</div>
+        </ToggleButton>
+      </ToggleButtonGroup>
+      <FormControl 
+        value={WaterName} 
+        type='text' 
+        placeholder={`${WaterType.toLowerCase()} name`}
+        onChange={(e) => dispatch({type: 'WATER_NAME', payload: e.target.value})}
+      />
+      <InputGroup className='state'>
+        <FormControl 
+          value={`${State}` || `${User.state}`} 
+          onClick={() => dispatch({type: 'US_STATE', payload: ''})} 
+          onChange={e => dispatch({type: 'US_STATE', payload: e.target.value})}
+        />
+        <DropdownButton variant='outline-secondary' as={InputGroup.Append} title='' alignRight>
+          <Scroll className='list '>
+            {stateList}
+          </Scroll>
+        </DropdownButton>
+      </InputGroup>
+      <Button 
+        type='submit'
+        className='page-nav' 
+        variant='dark' 
+        onClick={() => (WaterName !== '')? dispatch({type: 'NEXT'}):
+          Swal.fire({title: `Enter name of ${WaterType.toLowerCase()} before continuing`, 
+            showConfirmButton: false, type: 'warning', timer: 4000
+          })
+        }
+      >
         {'Next >'}
       </Button>
     </div>

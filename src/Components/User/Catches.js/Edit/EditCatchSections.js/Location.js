@@ -9,7 +9,7 @@ function EditLocation(){
   const dispatch = useDispatch()
   const WaterName = useSelector(state => state.waterName)
   const WaterType = useSelector(state => state.waterType)
-  const State = useSelector(state => state.usState)
+  const UsState = useSelector(state => state.usState)
 
   const States = [
     "Alaska", "Alabama", "Arkansas", "Arizona", "California", "Colorado", "Connecticut", "Delaware", "Florida","Georgia",
@@ -19,10 +19,10 @@ function EditLocation(){
     "South Dakota", "Tennessee", "Texas", "Utah", "Virginia", "Vermont", "Washington", "Wisconsin", "West Virginia", "Wyoming"
   ];
 
-  const filteredStates = States.filter(state => state.toLowerCase().startsWith(State.toLowerCase()));
-  const stateList = filteredStates.map((state, i) => 
-    <div className='list-item' key={i} value={filteredStates[i] || `${state}`}  
-      onClick={(e) => dispatch({type: 'US_STATE', payload: filteredStates[i]})/
+  // const filteredStates = States.filter(state => state.toLowerCase().startsWith(State.toLowerCase()));
+  const stateList = States.map((state, i) => 
+    <div className='list-item' key={i} value={state}  
+      onClick={(e) => dispatch({type: 'US_STATE', payload: States[i]})/
         setShowStates(false)}>
     {state}
     </div>
@@ -42,7 +42,7 @@ function EditLocation(){
           <Dropdown.Item onClick={() => dispatch({type: 'WATER_TYPE', payload: 'Pond'})}>Pond</Dropdown.Item>
         </DropdownButton>
       </InputGroup>
-      <input placeholder={State}  
+      <FormControl value={UsState}  
         onClick={() => dispatch({type: 'US_STATE'})/setShowStates(true)}
         onChange={e => dispatch({type: 'US_STATE', payload: e.target.value})} 
       />

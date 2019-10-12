@@ -1,25 +1,38 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import DateTime from './DateTime'
-import Location from './Location';
-import Weather from './Weather'
-import Fish from './Fish';
-import Fly from './Fly'
+import { useDispatch, useSelector } from 'react-redux';
+import DateTime from './EditCatchSections.js/DateTime'
+import Location from './EditCatchSections.js/Location';
+import Weather from './EditCatchSections.js/Weather'
+import Fish from './EditCatchSections.js/Fish';
+import Fly from './EditCatchSections.js/Fly'
 import { Button, FormControl } from 'react-bootstrap';
 import './EditCatch.css';
+import axios from 'axios';
 
 function Edit(props){
-  const {Image} = props
-  const { comments } = props.userCatch
-  const dispatch = useDispatch()
+  const { setEdit, setRefresh } = props
+  const { catch_id, details } = props.userCatch
 
-  const [Details, setDetails] = useState(comments)
-  const [section, setSection] = useState('fly') 
+  const dispatch = useDispatch()
+  const reduxState = useSelector(state => state)
+  const [Details, setDetails] = useState(details)
+  const [section, setSection] = useState('') 
+
+  const handleSave = async() => {
+    const res = await axios.put(`/api/edit-catch/${catch_id}`, reduxState)
+    if(!res.data){
+      console.log({message: 'problem updating catch'})
+    }
+    dispatch({type: 'UPDATE_CATCH', payload: res.data})
+    dispatch({type: 'CLEAR_CATCH'})
+    setEdit()
+    setRefresh()
+  };
 
   return(
     <div className='Edit'>
       <button className='x-btn' onClick={() => dispatch({type: 'CLEAR_CATCH'})/props.setEdit()}>X</button>
-      <h5 className='section' onClick={() => setSection('date/time')}>Date/Time</h5>
+      <h5 className='section' onClick={() => (section === 'date/time')? setSection(''):setSection('date/time')}>Date/Time</h5>
       {(section === 'date/time') &&
         <DateTime />
       }
@@ -42,11 +55,18 @@ function Edit(props){
       <h5 className='section' onClick={() => (section === 'details')? setSection(''): setSection('details')}>Details</h5>
       {(section === 'details') && 
         <div className='section-info'>
-          <FormControl as='textarea' rows='4' max-cols='50' value={Details} onChange={e => setDetails(e.target.value)}/> 
+          <FormControl 
+            className='text-area'
+            as='textarea' 
+            rows='4' 
+            max-cols='50' 
+            value={Details || ''} 
+            onChange={e => setDetails(e.target.value)}
+          /> 
         </div>
       }
       <br/>
-      <Button variant='dark' size='sm'>save</Button>
+      <Button variant='dark' size='sm' onClick={handleSave}>save</Button>
     </div>
   )
 };

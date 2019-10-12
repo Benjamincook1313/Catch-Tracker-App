@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import ImageUploader from 'react-images-upload'
 import { storage } from '../../../Firebase/index'
@@ -7,7 +7,6 @@ import { storage } from '../../../Firebase/index'
 const ImageUpload=()=>{
   const dispatch = useDispatch();
   const user = useSelector(state => state.user)
-  const image = useSelector(state => state.image)
 
   const onDrop=async(image)=>{
     await dispatch({type: 'IMAGE', payload: image[0].name})

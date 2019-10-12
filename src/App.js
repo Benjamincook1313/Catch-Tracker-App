@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import Nav from './Components/Nav/Nav'
@@ -12,13 +12,14 @@ import River from './Images/River.mp4'
 import axios from 'axios';
 import './App.css';
 import './Components/Catch/Catch.css'
+// import Swal from 'sweetalert2';
 
 function App() {;
   const dispatch = useDispatch();
   const loggedIn = useSelector(state => state.loggedIn)
-
   const page = useSelector(state => state.page)
-  const ShowForm = useSelector(state => state.showForm)
+  const showForm = useSelector(state => state.showForm)
+  const [refresh, setRefresh] = useState(true)
 
   useEffect(() => {
     let f = async function(){
@@ -26,45 +27,48 @@ function App() {;
         if(res.data.userData){
           dispatch({type: 'LOGIN', payload: true})
           dispatch({type: 'UPDATE_USER', payload: res.data.userData})
-          dispatch({type: 'US_STATE', payload: res.data.userData.state})
         }
       })
     }
     f().then(res => 
       axios.get('/api/catches').then(res => {
         dispatch({type: 'CATCHES', payload: res.data})
+        setRefresh(refresh+1)
       })  
     )
-  }, [dispatch]);
+  }, [dispatch, refresh]);
 
-  const Form = [
+  const form = [
     <Location />, 
     <Weather />, 
     <Fish />, 
     <Fly />,
-    <ReviewCatch />
+    <ReviewCatch setRefresh={() => setRefresh(!refresh)}/>
   ];
 
   return (
     <div className="App" >
-      <video className='background-video'  src={River} poster='./Images/fish-161320_1280.png' autoPlay={true} loop muted/>
+      <video className='background-video'  src={River} autoPlay={true} loop muted/>
       <div>
         <Nav />
       </div>
       <br/>
       {loggedIn &&
         <div className='fish-on'>
-          {!ShowForm && 
+          {!showForm && 
             <Button variant='light' onClick={() => dispatch({type: 'SHOW_FORM', payload: true})}>
               ^-^ Fish On!!! ^-^
             </Button>
           }
-          {ShowForm && <Button variant='dark' onClick={() => dispatch({type: 'SHOW_FORM', payload: false})/ dispatch({type: 'CLEAR_CATCH'})}>Fish Off!</Button>}
-          {ShowForm && <div className='form-page-wrapper'>{Form[page]}</div> }
+          {showForm && <Button variant='dark' onClick={() => dispatch({type: 'SHOW_FORM', payload: false})/dispatch({type: 'CLEAR_CATCH'})}>Fish Off!</Button>}
+          {showForm && <div className='form-page-wrapper'>{form[page]}</div> }
         </div>
       }
       <br/>
-      {loggedIn && <UserCatches/>}
+      {loggedIn && <UserCatches setRefresh={() => setRefresh(!refresh)}/>}
+      {loggedIn &&
+        <footer></footer>
+      }  
     </div>
   );
 };

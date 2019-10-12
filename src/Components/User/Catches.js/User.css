@@ -53,6 +53,10 @@ img{
 }
 .location-item{
   margin: 5px 10px 0px 5px;
+  text-transform: capitalize;
+}
+.catch-img{
+  min-width: 228px
 }
 .fish-info{
   border-top: 1px solid white;

@@ -40,7 +40,7 @@ const initialState = {
   showForm: false,
   page: 0,
   day: today(),
-  tod: '',
+  tod: 'morning',
   usState: '',
   waterType: 'River',
   waterName: '',
@@ -52,7 +52,7 @@ const initialState = {
   image: '',
   flyType: '',
   fly: '',
-  size: '',
+  size: '18',
   color: '',
   details: '',
   edit: false,
@@ -86,6 +86,8 @@ export const FLY_TYPE = 'FLY_TYPE';
 export const FLY = 'FLY';
 export const SIZE = 'SIZE';
 export const COLOR = 'COLOR'
+
+export const DETAILS = 'DETAILS'
 // Catch
 export const EDIT_CATCH = 'EDIT_CATCH'
 
@@ -95,7 +97,7 @@ export default function reducer(state = initialState, action){
     case LOGIN:
       return {...state, loggedIn: payload}
     case UPDATE_USER:
-      return {...state, user: payload}
+      return {...state, user: payload? payload: {}}
     case CATCHES:
       return {...state, catches: payload}
     case SHOW_FORM:
@@ -103,7 +105,7 @@ export default function reducer(state = initialState, action){
     case DAY:
       return {...state, day: payload}
     case TOD: 
-      return {...state, tod: payload}
+      return {...state, tod: payload? payload: ''}
     case US_STATE: 
       return {...state, usState: payload? payload: ''}
     case WATER_TYPE:
@@ -130,6 +132,8 @@ export default function reducer(state = initialState, action){
       return {...state, size: payload? payload: ''}
     case COLOR:
       return {...state, color: payload? payload: ''}
+    case DETAILS:
+      return {...state, details: payload? payload: ''}
     case NEXT:
       return {...state, page:  state.page + 1}
     case BACK:
@@ -141,13 +145,13 @@ export default function reducer(state = initialState, action){
         flyType: '', fly: '', size: '', color: ''
       }  
     case EDIT_CATCH:
-      const { date, tod, water_name, water_type, temperature, weather, 
-        length, fish_type, species, size, fly, fly_type, color, comments 
+      let { date, tod, water_name, water_type, us_state, temperature, weather, image_url,
+        length, fish_type, species, size, fly, fly_type, color, details 
         } = payload
       return {
         ...state, day: date, tod: tod, waterName: water_name, waterType: water_type, 
-        state: state, temp: temperature, weather: weather, length: length, fishType: fish_type,
-        species: species, size: size, fly: fly, flyType: fly_type, color: color, details: comments
+        usState: us_state, temp: temperature, weather: weather, length: length, image: image_url, fishType: fish_type,
+        species: species, size: size, fly: fly, flyType: fly_type, color: color, details: details
       }
     default:
       return state

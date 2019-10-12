@@ -33,4 +33,5 @@ app.get('/auth/logout', AuthCtrl.logout)
 // Catch Control
 app.post('/api/saveCatch', Ctrl.saveCatch)
 app.get('/api/catches', Ctrl.getCatches)
+app.put('/api/edit-catch/:id', Ctrl.updateCatch)
 
