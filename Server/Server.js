@@ -30,9 +30,10 @@ app.get('/auth/checkForUser', AuthCtrl.checkForUser)
 app.post('/auth/register', AuthCtrl.register)
 app.post('/auth/login', AuthCtrl.login)
 app.get('/auth/logout', AuthCtrl.logout)
+
 // Catch Control
 app.post('/api/saveCatch', Ctrl.saveCatch)
 app.get('/api/catches', Ctrl.getCatches)
 app.put('/api/edit-catch/:id', Ctrl.updateCatch)
-app.delete('/api/deleteCatch/:id', Ctrl.deleteCatch)
+app.put('/api/deleteCatch/:id', Ctrl.deleteCatch)
 

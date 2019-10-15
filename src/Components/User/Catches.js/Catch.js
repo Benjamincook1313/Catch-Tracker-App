@@ -9,14 +9,15 @@ import Fish from '../../../Images/fish.png';
 import axios from 'axios';
 
 function Catch(props){
-  const { userCatch } = props
+  const { userCatch, setRefresh } = props
   const { catch_id, date, tod, water_name, water_type, us_state, temperature, 
     weather, image_url, length, fish_type, species, size, color, fly, 
     fly_type, details } = userCatch
     
   const dispatch = useDispatch(props)
+  const reduxState = useSelector(state => state) 
   const user = useSelector(state => state.user)
-  const [showOptions, setShowOptions] = useState(true)
+  const [showOptions, setShowOptions] = useState(false)
   const [edit, setEdit] = useState(false)
   const [Dlt, setDelete] = useState(false)
 
@@ -47,14 +48,19 @@ function Catch(props){
     }
   };
 
-  const handleDelete=()=>{
-    console.log(props)
-    axios.delete(`/api/deleteCatch/:${catch_id}`)
+  const handleDelete=async(props)=>{
+    let res = await axios.put(`/api/deleteCatch/${catch_id}`, reduxState)
+    if(res.data){
+      dispatch({type: 'CLEAR_CATCH'})
+      dispatch({type: 'CATCHES', payload: res.data})
+      setDelete(false)
+      setRefresh()
+    }
   };
 
   return(
     <div className='Catch'>
-      {Dlt && <Delete setDelete={() => setDelete(false)} handleDelete={handleDelete} />}
+      {Dlt && <Delete cancel={() => setDelete(false)} handleDelete={handleDelete} />}
       {edit && 
         <EditCatch userCatch={userCatch} setEdit={() => setEdit(false)} setRefresh={props.setRefresh} />
       }
@@ -70,7 +76,7 @@ function Catch(props){
       {showOptions &&
         <div className='options'>
           <button className='option-btns' onClick={() => setEdit(true)/dispatch({type: 'EDIT_CATCH', payload: userCatch})}>Edit</button>
-          <button className='option-btns' onClick={() => setDelete(true)}>Delete</button>
+          <button className='option-btns' onClick={() => setDelete(true)/dispatch({type: 'EDIT_CATCH', payload: userCatch})}>Delete</button>
         </div>
       }
       <OverlayTrigger placement='right' overlay={

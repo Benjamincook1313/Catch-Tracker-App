@@ -70,23 +70,23 @@ function Fly(){
           </ToggleButton>
         </ToggleButtonGroup>
       </div>
-      <FormControl 
-        style={{margin: '5px 0px'}}
-        placeholder='color' 
-        value={Color} 
-        onChange={e => dispatch({type: 'COLOR', payload: e.target.value})}
-      />
-      <InputGroup>
+      <InputGroup className='input'>
         <DropdownButton variant='outline-secondary' as={InputGroup.Prepend} title={`#${Size}`}>
           <Scroll className='list'>
             {size}
           </Scroll>
         </DropdownButton>
         <FormControl 
+          placeholder='color' 
+          value={Color} 
+          onChange={e => dispatch({type: 'COLOR', payload: e.target.value})}
+        />
+        <FormControl 
           type='text' 
           value={Fly} 
           placeholder='fly' 
-          onChange={e => dispatch({type: 'FLY', payload: `${e.target.value}`})}/>
+          onChange={e => dispatch({type: 'FLY', payload: `${e.target.value}`})}
+        />
       </InputGroup>
       <div>
       </div>

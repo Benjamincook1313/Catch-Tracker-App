@@ -95,8 +95,7 @@ function DateTime(){
       <InputGroup className='inputGroup input'>
         <FormControl placeholder='specify time' type='time' onChange={e => dispatch({type: 'TOD', payload: e.target.value})}/>
         <p className='or'>or</p>
-        <DropdownButton as={InputGroup.Append} variant="outline-secondary" 
-          title={Tod} id="input-group-dropdown-2">
+        <DropdownButton as={InputGroup.Append} variant="outline-secondary" title={Tod} id="input-group-dropdown-2" alignRight>
           {todList}
         </DropdownButton>
       </InputGroup>

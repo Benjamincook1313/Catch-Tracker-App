@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Login from './Login';
-import Register from './Register';
+import Login from './Auth/Login';
+import Register from './Auth/Register';
 import FlyRod from './Fly-Rod/Fly-Rod';
 import axios from 'axios';
 import { Button, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faWater } from '@fortawesome/free-solid-svg-icons';
+import Settings from './Settings/Settings'
+import Fish from '../../Images/fish.png'
 import Swal from 'sweetalert2'
 import './Nav.css';
 
@@ -17,6 +17,8 @@ function Nav(){
 
   const [showLogin, setShowLogin] = useState(true)
   const [showRegister, setShowRegister] = useState(false)
+  const [stBtn, setStBtn] = useState(false)
+  const [settings, setSettings] = useState(false)
 
   const logout = async () => {
     let res = await axios.get('/auth/logout')
@@ -30,19 +32,23 @@ function Nav(){
 
   return(
     <div className='Nav'>
-      <div className='nav-items'>
+      <div className='name-wrapper'>
+        <img className='fish-img' src={Fish} alt='' width={260} />
         {loggedIn? 
-          <h3 className='name' >
-            {`Hello, ${User? User.user_name: ''}`} 
-          </h3>: <h3>''</h3>
+          <div className='name' onClick={() => setStBtn(true)}>
+            <h3 className='greeting' onClick={() => setStBtn(!stBtn)}>{`Hello, ${User? User.user_name: ''}`}</h3>
+            {stBtn && <h5 className='settings-btn' variant='light' onClick={() => setSettings(true)} >settings</h5>}
+          </div>: 
+          <h3>''</h3>
         }
+      </div>
+      <div className='login-logout'>
         {loggedIn &&
           <Button variant='dark' onClick={logout}>logout</Button>
         }
         {!loggedIn && 
           <ToggleButtonGroup className='login-buttons' name='login-buttons' type='radio' defaultValue={1}>
-            <ToggleButton variant='light' value={1} onClick={() => setShowLogin(true)/setShowRegister(false)}>login</ToggleButton>
-            <ToggleButton variant='light' value={2} onClick={() => setShowRegister(true)/setShowLogin(false)}>register</ToggleButton>
+          <ToggleButton variant='light' value={1} onClick={() => setShowLogin(true)/setShowRegister(false)}>login</ToggleButton>            <ToggleButton variant='light' value={2} onClick={() => setShowRegister(true)/setShowLogin(false)}>register</ToggleButton>
           </ToggleButtonGroup>
         }
       </div>
@@ -51,9 +57,12 @@ function Nav(){
       </h1> 
       {!loggedIn &&
         <div className='auth-wrapper'>
-          {showLogin && <Login setShowLogin={() => setShowLogin()}/>}
-          {showRegister && <Register setShowRegister={() => setShowRegister()} />}
+          {showLogin && <Login />}
+          {showRegister && <Register />}
         </div>
+      }
+      {settings &&
+        <Settings />
       }
     </div>
   )

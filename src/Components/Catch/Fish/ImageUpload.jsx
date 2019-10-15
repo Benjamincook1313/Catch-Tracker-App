@@ -13,17 +13,19 @@ const ImageUpload=()=>{
     handleUpload(image[0])
   };
 
-  const handleUpload=(image)=>{
+  const handleUpload = (image)=>{
     const uploadTask = storage.ref(`images/${user.user_name}/${image.name}`).put(image)
+    dispatch({type: 'IMAGE', payload: 'Loading...'})
     uploadTask.on('state_changed', 
     (snapshot) => {
       // progress
     },
     (error) => {
       console.log(error)
-    }, () => {
+    }, 
+    async () => {
       // complete
-      storage.ref(`images/${user.user_name}`).child(image.name).getDownloadURL().then(url => {
+      await storage.ref(`images/${user.user_name}`).child(image.name).getDownloadURL().then(url => {
         dispatch({type: 'IMAGE', payload: url})
       })
     })

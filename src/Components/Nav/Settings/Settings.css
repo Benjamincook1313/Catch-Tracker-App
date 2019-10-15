@@ -1,0 +1,13 @@
+
+.Settings{
+  text-decoration: underline;
+  position: fixed;
+  top: 125px;
+  margin: auto;
+  margin-right: 40px;
+  height: 600px;
+  width: 800px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 17px 17px 21px 0px rgb(0, 0, 0);
+}

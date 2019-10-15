@@ -7,7 +7,7 @@ import Weather from './Components/Catch/Weather/Weather';
 import Fish from './Components/Catch/Fish/Fish';
 import Fly from './Components/Catch/Fly/Fly';
 import ReviewCatch from './Components/Catch/ReviewCatch/ReviewCatch';
-import UserCatches from './Components/User/Catches.js/UserCatches';
+import UserCatches from './Components/User/UserCatches';
 import River from './Images/River.mp4'
 import axios from 'axios';
 import './App.css';
@@ -20,23 +20,21 @@ function App() {;
   const page = useSelector(state => state.page)
   const showForm = useSelector(state => state.showForm)
   const [refresh, setRefresh] = useState(true)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    let f = async function(){
-      await axios.get('/auth/checkForUser').then(res => {
-        if(res.data.userData){
-          dispatch({type: 'LOGIN', payload: true})
-          dispatch({type: 'UPDATE_USER', payload: res.data.userData})
-        }
-      })
-    }
-    f().then(res => 
-      axios.get('/api/catches').then(res => {
-        dispatch({type: 'CATCHES', payload: res.data})
-        setRefresh(refresh+1)
-      })  
-    )
-  }, [dispatch, refresh]);
+    if(!mounted){
+        axios.get('/auth/checkForUser').then(res => {
+          if(res.data.user){
+            dispatch({type: 'LOGIN', payload: true})
+            dispatch({type: 'UPDATE_USER', payload: res.data.user})
+            dispatch({type: 'CATCHES', payload: res.data.catches})
+            setMounted(true)
+          }
+        })
+      }
+    return () => {};
+  }, [dispatch, mounted]);
 
   const form = [
     <Location />, 
@@ -49,9 +47,8 @@ function App() {;
   return (
     <div className="App" >
       <video className='background-video'  src={River} autoPlay={true} loop muted/>
-      <div>
-        <Nav />
-      </div>
+      <div className='hidden'></div>
+      <Nav />
       <br/>
       {loggedIn &&
         <div className='fish-on'>
@@ -65,7 +62,7 @@ function App() {;
         </div>
       }
       <br/>
-      {loggedIn && <UserCatches setRefresh={() => setRefresh(!refresh)}/>}
+      {loggedIn && <UserCatches setRefresh={() => setMounted(false)}/>}
       {loggedIn &&
         <footer className='footer'></footer>
       }  

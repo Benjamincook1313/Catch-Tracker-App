@@ -2,10 +2,16 @@ const bcrypt = require('bcryptjs');
 const Swal = require('sweetalert2');
 
 module.exports = {
-  checkForUser: (req, res) => {
-    res.status(200).send({
-      userData: req.session.user
-    })
+
+  checkForUser: async (req, res) => {
+    if(req.session.user){
+      const db = req.app.get('db')
+      let catches = await db.get_user_catches(req.session.user.user_name)
+      res.status(200).send({
+        catches: catches,
+        user: req.session.user
+      })
+    }
   },
 
   register: async (req, res) => {

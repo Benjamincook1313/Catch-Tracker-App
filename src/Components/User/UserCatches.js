@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
-import Carousel from '../Carousel./Carousel';
-import Catch from './Catch';
+import Carousel from './Carousel./Carousel';
+import Catch from './Catches.js/Catch';
 import './User.css';
 
 function UserCatches(props){
@@ -11,7 +11,7 @@ function UserCatches(props){
 
   let userCatch = Catches.map((userCatch, i) => {
     return (
-      <Catch key={userCatch.catch_id} userCatch={userCatch} setRefresh={props.setRefresh} />
+      <Catch key={i} userCatch={userCatch} setRefresh={props.setRefresh} />
     )
   });
 

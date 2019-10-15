@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import '../Nav/Nav.css'
+// import '../Nav/Nav.css'
 
 function Login(props){
   const dispatch = useDispatch();
@@ -23,7 +23,6 @@ function Login(props){
         dispatch({type: 'CATCHES', payload: res.data.catches})
         setPassword('')
         setUserName('')
-        props.setShowLogin(false)
         Swal.fire({type: 'success', title: 'logged in', showConfirmButton: false, timer: 2000, toast: true, position: 'top-end'})
       }
     }

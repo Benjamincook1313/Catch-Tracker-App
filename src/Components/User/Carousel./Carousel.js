@@ -9,7 +9,7 @@ function CatchCarousel(){
   const Catches = useSelector(state => state.catches)
   // const User = useSelector(state => state.user)
   
-  let userCatch = Catches.reverse().slice(0,5).map((userCatch, i) => {
+  let userCatch = Catches.reverse().slice(0, 5).map((userCatch, i) => {
     let { fish_type, species, water_name, water_type, us_state, image_url } = userCatch
     return (
         <Carousel.Item key={i}>

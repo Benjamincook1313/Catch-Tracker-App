@@ -34,10 +34,10 @@ module.exports = {
   },
 
   deleteCatch: async (req, res) => {
-    const {id} = req.params
-    // const user_name = req.body.user.user_name
+    const { id } = req.params
+    const { user } = req.body
     const db = req.app.get('db')
-    const data = await db.delete_catch(id)
+    const data = await db.delete_catch([id, user.user_name])
     .catch(err => {err, console.log(err)})
     res.status(200).send(data)
   }

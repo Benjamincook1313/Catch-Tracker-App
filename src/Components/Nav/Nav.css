@@ -1,10 +1,12 @@
 
 .Nav {
+  position: fixed;
   width: 100vw;
   height: 90px;
   display: flex;
   justify-content: center;
   color: darkslategrey;
+  z-index: 100;
 }
 .title {
   position: absolute;
@@ -15,20 +17,53 @@
   flex-direction: column;
   align-items: center;
 }
-.nav-items {
-  width: 98%;
-  height: 50%;
-  margin: 10px 50px; 
+.login-logout {
+  position: absolute;
+  top: 30px;
+  right: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.name{
-  font-size: 35px;
+.fish-img{
+  position: absolute;
+  top: -50px;
+  z-index: 0;
+}
+.name-wrapper{
+  position: absolute;
+  top: 35px;
+  left: 20px;
+  width: 300px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  color: darkseagreen;
+  justify-content: center;
+}
+.name{
+  text-transform: capitalize;
+  color: rgb(255, 255, 255);
+  z-index: 1;
+  cursor: pointer;
+}
+.greeting:active{
+  font-size: 33px;
+  margin-left: 1px;
+  margin-top: 1px;
+}
+.settings-btn{
+  text-transform: lowercase;
+  background: none;
+  position: absolute;
+  top: 65px;
+  left: 115px;
+}
+.settings-btn:hover{
+  color: rgb(207, 207, 207);
+}
+.settings-btn:active{
+  font-size: 18px;
+  margin-bottom: 1px;
+  margin-left: 2px;
 }
 .water{
   font-size: 40px;

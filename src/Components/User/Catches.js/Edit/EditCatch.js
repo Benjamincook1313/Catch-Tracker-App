@@ -20,13 +20,12 @@ function Edit(props){
 
   const handleSave = async() => {
     const res = await axios.put(`/api/edit-catch/${catch_id}`, reduxState)
-    if(!res.data){
-      console.log({message: 'problem updating catch'})
+    if(res.data){
+      dispatch({type: 'CATCH', payload: res.data})
+      dispatch({type: 'CLEAR_CATCH'})
+      setEdit()
+      setRefresh()
     }
-    dispatch({type: 'UPDATE_CATCH', payload: res.data})
-    dispatch({type: 'CLEAR_CATCH'})
-    setEdit()
-    setRefresh()
   };
 
   return(
