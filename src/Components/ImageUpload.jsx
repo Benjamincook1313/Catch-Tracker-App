@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import ImageUploader from 'react-images-upload'
-import { storage } from '../../../Firebase/index'
+import { storage } from '../Firebase/index'
 
 
 const ImageUpload=()=>{

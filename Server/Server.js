@@ -30,6 +30,7 @@ app.get('/auth/checkForUser', AuthCtrl.checkForUser)
 app.post('/auth/register', AuthCtrl.register)
 app.post('/auth/login', AuthCtrl.login)
 app.get('/auth/logout', AuthCtrl.logout)
+app.post('/auth/checkPass', AuthCtrl.checkPass)
 
 // Catch Control
 app.post('/api/saveCatch', Ctrl.saveCatch)

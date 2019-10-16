@@ -1,8 +1,6 @@
 const bcrypt = require('bcryptjs');
-const Swal = require('sweetalert2');
 
 module.exports = {
-
   checkForUser: async (req, res) => {
     if(req.session.user){
       const db = req.app.get('db')
@@ -19,7 +17,6 @@ module.exports = {
     const db = req.app.get('db')
     const userArr = await db.find_user([UserName])
     if(userArr[0]){
-      Swal.fire({title: 'User already exists please sign in}', showConfirmButton: false, type: 'warning', timer: 3000})
       return res.status(400).send({message: 'User Already exists'})
     }
     const salt = bcrypt.genSaltSync(10)
@@ -42,17 +39,18 @@ module.exports = {
     const db = req.app.get('db')
     const userArr = await db.find_user([UserName])
     if(userArr.length === 0){
-      Swal.fire({title: 'user not found please register', showConfirmButton: false, timer: 3000})
       return res.status(401).send({message: 'Username not found'})
     }
     const result = await bcrypt.compareSync(Password, userArr[0].hash)
     if(!result) {
-      Swal.fire({title: 'incorrect password'})
       return res.status(401).send({message: 'Incorrect password'})
     }
     req.session.user = userArr[0]
     delete req.session.user.hash
     const catches = await db.get_user_catches([req.session.user.user_name])
+    if(catches.data){
+      return res.status(401).send({message: 'problem getting catches'})
+    }
     res.status(200).send({
       message: 'logged in',
       userData: req.session.user,
@@ -65,4 +63,17 @@ module.exports = {
     req.session.destroy()
     res.status(200).send({})
   },
+
+  checkPass: async (req, res)=> {
+    const { User, pass } = req.body
+    const db = req.app.get('db')
+    const userArr = await db.find_user([User.user_name])
+    const result = await bcrypt.compareSync(pass, userArr[0].hash)
+    if(!result){
+      return res.status(401).send({message: 'Incorrect Password'})
+    }    
+    console.log(userArr[0])
+    delete userArr[0]
+    res.status(200).send(true)
+  }
 }

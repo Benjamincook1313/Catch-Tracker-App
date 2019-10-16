@@ -45,11 +45,6 @@
   z-index: 1;
   cursor: pointer;
 }
-.greeting:active{
-  font-size: 33px;
-  margin-left: 1px;
-  margin-top: 1px;
-}
 .settings-btn{
   text-transform: lowercase;
   background: none;

@@ -35,9 +35,9 @@ function Nav(){
       <div className='name-wrapper'>
         <img className='fish-img' src={Fish} alt='' width={260} />
         {loggedIn? 
-          <div className='name' onClick={() => setStBtn(true)}>
+          <div className='name' onClick={() => setStBtn(!stBtn)}>
             <h3 className='greeting' onClick={() => setStBtn(!stBtn)}>{`Hello, ${User? User.user_name: ''}`}</h3>
-            {stBtn && <h5 className='settings-btn' variant='light' onClick={() => setSettings(true)} >settings</h5>}
+            {stBtn && <h5 className='settings-btn' variant='light' onClick={() => setSettings(true)/setStBtn(false)/dispatch({type: 'US_STATE', payload: User.state})} >settings</h5>}
           </div>: 
           <h3>''</h3>
         }
@@ -62,7 +62,7 @@ function Nav(){
         </div>
       }
       {settings &&
-        <Settings />
+        <Settings setSettings={() => setSettings(false)} />
       }
     </div>
   )

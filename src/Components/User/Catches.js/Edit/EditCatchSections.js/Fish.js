@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { FormControl, InputGroup, Dropdown, DropdownButton, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
-import ImageUploader from '../../../../Catch/Fish/ImageUpload';
+import ImageUploader from '../../../../ImageUpload';
 import Fish from '../../../../../Images/fish.png'
 import Scroll from 'react-scrollbar';
 

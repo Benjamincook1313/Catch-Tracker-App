@@ -3,9 +3,8 @@ import { useDispatch } from 'react-redux';
 import { InputGroup, FormControl } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
-import axios from 'axios';
 import Swal from 'sweetalert2';
-// import '../Nav/Nav.css'
+import axios from 'axios';
 
 function Login(props){
   const dispatch = useDispatch();
@@ -24,6 +23,8 @@ function Login(props){
         setPassword('')
         setUserName('')
         Swal.fire({type: 'success', title: 'logged in', showConfirmButton: false, timer: 2000, toast: true, position: 'top-end'})
+      }else{
+        Swal.fire({type: 'warning', title: `${res.data.message}`})
       }
     }
   };

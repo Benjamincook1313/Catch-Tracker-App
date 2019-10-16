@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ToggleButtonGroup, Button, FormControl, Dropdown, DropdownButton, InputGroup } from 'react-bootstrap';
-import ImageUpload from './ImageUpload'; 
+import ImageUpload from '../../ImageUpload'; 
 import Scroll from 'react-scrollbar';
 import './Fish.css'
 
