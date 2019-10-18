@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Login from './Auth/Login';
-import Register from './Auth/Register';
-import FlyRod from './Fly-Rod/Fly-Rod';
+import Login from '../Auth/Login';
+import Register from '../Auth/Register';
+import FlyRod from '../Fly-Rod/Fly-Rod';
 import axios from 'axios';
 import { Button, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
-import Settings from './Settings/Settings'
-import Fish from '../../Images/fish.png'
+import Settings from '../Settings/Settings'
+import Fish from '../../../Images/fish.png'
 import Swal from 'sweetalert2'
 import './Nav.css';
 
@@ -37,7 +37,12 @@ function Nav(){
         {loggedIn? 
           <div className='name' onClick={() => setStBtn(!stBtn)}>
             <h3 className='greeting' onClick={() => setStBtn(!stBtn)}>{`Hello, ${User? User.user_name: ''}`}</h3>
-            {stBtn && <h5 className='settings-btn' variant='light' onClick={() => setSettings(true)/setStBtn(false)/dispatch({type: 'US_STATE', payload: User.state})} >settings</h5>}
+            {stBtn && 
+              <h5 className='settings-btn' variant='light' 
+                onClick={() => setSettings(true)/setStBtn(false)/dispatch({type: 'US_STATE', payload: User.state})}>
+                settings
+              </h5>
+            }
           </div>: 
           <h3>''</h3>
         }
@@ -48,9 +53,10 @@ function Nav(){
         }
         {!loggedIn && 
           <ToggleButtonGroup className='login-buttons' name='login-buttons' type='radio' defaultValue={1}>
-          <ToggleButton variant='light' value={1} onClick={() => setShowLogin(true)/setShowRegister(false)}>login</ToggleButton>            <ToggleButton variant='light' value={2} onClick={() => setShowRegister(true)/setShowLogin(false)}>register</ToggleButton>
+            <ToggleButton variant='light' value={1} onClick={() => setShowLogin(true)/setShowRegister(false)}>login</ToggleButton>            <ToggleButton variant='light' value={2} onClick={() => setShowRegister(true)/setShowLogin(false)}>register</ToggleButton>
           </ToggleButtonGroup>
         }
+        <h4 className='shop-btn'>shop</h4>
       </div>
       <h1 className='title'>Catch-Tracker
         <FlyRod />

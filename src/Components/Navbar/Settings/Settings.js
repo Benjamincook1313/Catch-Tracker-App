@@ -50,7 +50,7 @@ function Settings(props){
     <div className='Settings' >
       <div className='s-top'>
         <h4>{User.user_name}</h4>
-        <div className='s-x-btn' onClick={() => dispatch({type: 'US_STATE'})/setSettings}>X</div>
+        <div className='s-x-btn' onClick={setSettings}>X</div>
       </div>
       <h2 className='setting'>Settings</h2>
       <div className='s-inputs'>
@@ -89,6 +89,7 @@ function Settings(props){
               </div>
             }
         </InputGroup>
+        <div>(press enter to submit current password)</div>
       </div>
       <br/>
       <br/>

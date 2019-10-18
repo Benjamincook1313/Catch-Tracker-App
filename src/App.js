@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
-import Nav from './Components/Nav/Nav'
+import Nav from './Components/Navbar/Nav/Nav'
 import Location from './Components/Catch/Location/Location';
 import Weather from './Components/Catch/Weather/Weather';
 import Fish from './Components/Catch/Fish/Fish';

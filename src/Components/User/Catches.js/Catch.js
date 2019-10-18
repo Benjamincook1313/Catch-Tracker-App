@@ -60,9 +60,20 @@ function Catch(props){
 
   return(
     <div className='Catch'>
-      {Dlt && <Delete cancel={() => setDelete(false)} handleDelete={handleDelete} />}
+      {Dlt && 
+        <Delete 
+          cancel={() => setDelete(false)} 
+          handleDelete={handleDelete} 
+          setShowOptions={() => setShowOptions(false)}
+        />
+      }
       {edit && 
-        <EditCatch userCatch={userCatch} setEdit={() => setEdit(false)} setRefresh={props.setRefresh} />
+        <EditCatch 
+          userCatch={userCatch} 
+          setEdit={() => setEdit(false)} 
+          setRefresh={props.setRefresh} 
+          setShowOptions={() => setShowOptions(false)}
+        />
       }
       <div className='location'>
         <h6 className='location-item'>{`${water_name} ${water_type}`}</h6> 
@@ -75,8 +86,8 @@ function Catch(props){
       </Button>
       {showOptions &&
         <div className='options'>
-          <button className='option-btns' onClick={() => setEdit(true)/dispatch({type: 'EDIT_CATCH', payload: userCatch})}>Edit</button>
-          <button className='option-btns' onClick={() => setDelete(true)/dispatch({type: 'EDIT_CATCH', payload: userCatch})}>Delete</button>
+          <div className='option-btns' onClick={() => setEdit(true)/dispatch({type: 'EDIT_CATCH', payload: userCatch})}>Edit</div>
+          <div className='option-btns' onClick={() => setDelete(true)/dispatch({type: 'EDIT_CATCH', payload: userCatch})}>Delete</div>
         </div>
       }
       <OverlayTrigger placement='right' overlay={

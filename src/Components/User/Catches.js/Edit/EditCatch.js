@@ -10,7 +10,7 @@ import './EditCatch.css';
 import axios from 'axios';
 
 function Edit(props){
-  const { setEdit, setRefresh } = props
+  const { setEdit, setRefresh, setShowOptions } = props
   const { catch_id, details } = props.userCatch
 
   const dispatch = useDispatch()
@@ -22,36 +22,36 @@ function Edit(props){
     const res = await axios.put(`/api/edit-catch/${catch_id}`, reduxState)
     if(res.data){
       dispatch({type: 'CATCH', payload: res.data})
-      dispatch({type: 'CLEAR_CATCH'})
       setEdit()
       setRefresh()
+      dispatch({type: 'CLEAR_CATCH'})
     }
   };
 
   return(
     <div className='Edit'>
-      <button className='x-btn' onClick={() => dispatch({type: 'CLEAR_CATCH'})/props.setEdit()}>X</button>
-      <h5 className='section' onClick={() => (section === 'date/time')? setSection(''):setSection('date/time')}>Date/Time</h5>
+      <button className='x-btn' onClick={() => dispatch({type: 'CLEAR_CATCH'})/setEdit()/setShowOptions()}>X</button>
+      <h5 className={(section === 'date/time')? 'selected': 'section'} onClick={() => (section === 'date/time')? setSection(''):setSection('date/time')}>Date/Time</h5>
       {(section === 'date/time') &&
         <DateTime />
       }
-      <h5 className='section' onClick={() => (section === 'location')? setSection(''): setSection('location')}>Location</h5>
+      <h5 className={(section === 'location')? 'selected': 'section'} onClick={() => (section === 'location')? setSection(''): setSection('location')}>Location</h5>
         {(section === 'location') && 
           <Location /> 
         }
-      <h5 className='section' onClick={() => (section === 'weather')? setSection(''): setSection('weather')}>Weather</h5>
+      <h5 className={(section === 'weather')? 'selected': 'section'} onClick={() => (section === 'weather')? setSection(''): setSection('weather')}>Weather</h5>
       {(section === 'weather') && 
         <Weather />
       }
-      <h5 className='section' onClick={() => (section === 'fish')? setSection(''): setSection('fish')}>Fish</h5>
+      <h5 className={(section === 'fish')? 'selected': 'section'} onClick={() => (section === 'fish')? setSection(''): setSection('fish')}>Fish</h5>
         {(section === 'fish') && 
           <Fish Image={Image} />
         }
-      <h5 className='section' onClick={() => (section === 'fly')? setSection(''): setSection('fly')}>Fly</h5>
+      <h5 className={(section === 'fly')? 'selected': 'section'} onClick={() => (section === 'fly')? setSection(''): setSection('fly')}>Fly</h5>
       {(section === 'fly') && 
         <Fly />
       }
-      <h5 className='section' onClick={() => (section === 'details')? setSection(''): setSection('details')}>Details</h5>
+      <h5 className={(section === 'details')? 'selected': 'section'} onClick={() => (section === 'details')? setSection(''): setSection('details')}>Details</h5>
       {(section === 'details') && 
         <div className='section-info'>
           <FormControl 

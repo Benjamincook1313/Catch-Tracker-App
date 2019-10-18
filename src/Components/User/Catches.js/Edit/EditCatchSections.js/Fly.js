@@ -16,7 +16,7 @@ function EditFly(){
   ];
 
   const typeList = flyTypes.map((type, i) => 
-    <Dropdown.Item key={i} onClick={() => dispatch({type: 'FISH_TYPE', payload: type})}>
+    <Dropdown.Item key={i} onClick={() => dispatch({type: 'FLY_TYPE', payload: type})}>
       {type}
     </Dropdown.Item>
   );
@@ -28,7 +28,7 @@ function EditFly(){
   return(
     <div className='Edit-Section'>
       <InputGroup className='inputGroup'>
-        <DropdownButton as={InputGroup.Prepend} variant="outline-secondary" title={Size}>
+        <DropdownButton as={InputGroup.Prepend} variant="outline-secondary" title={`#${Size}`}>
           {sizeList}
         </DropdownButton>
         <DropdownButton as={InputGroup.Append} variant="outline-secondary" title={FlyType}>

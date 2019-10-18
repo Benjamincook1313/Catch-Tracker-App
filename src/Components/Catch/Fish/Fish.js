@@ -13,12 +13,11 @@ function Fish(){
   const Length = useSelector(state => state.length);
   const Image = useSelector(state => state.image)
   
-  const [Type, setType] = useState('trout');
   const [showOther, setShowOther] = useState(false);
 
   const types = {
-    'trout': ['Apache', 'Bull', 'Brook','Brown', 'Cutthroat', 'DollyVarden','Golden', 'Lake', 'Rainbow', 'Splake', 'Tiger'],
-    'salmon': ['Atlantic', 'Chinook (King)', 'Coho (Silver)', 'Humpy (Pink)', 'Keta (Chum)',  'Kokanee', 'Sockeye (Red)', 'Steelhead (Rainbow)'],
+    'trout': ['Apache', 'Bull', 'Brook','Brown', 'Cutthroat', 'DollyVarden','Golden', 'Lake', 'Rainbow', 'Splake', 'Steelhead', 'Tiger'],
+    'salmon': ['Atlantic', 'Chinook (King)', 'Coho (Silver)', 'Humpy (Pink)', 'Keta (Chum)',  'Kokanee', 'Sockeye (Red)'],
     'bass': ['Large-Mouth', 'Small-Mouth', 'Striper', 'White'],
     'other': ['Alligator-Gar', 'Bluegill', 'Crappie', 'Catfish', 'Grayling', 'Herring', 'Muskie', 'Pike', 'Perch', 'Shad','Sturgeon', 'Sucker', 'Walleye']
   }
@@ -28,10 +27,9 @@ function Fish(){
    '68"', '69"', '70"'
  ];
 
-  const filtered = types[Type].filter(species => species === '' || species.toLowerCase().startsWith(Species))
-  const speciesList = filtered.map((species, i) => (
+  const speciesList = types[FishType].map((species, i) => (
   <Dropdown.Item className='list-item fishItem' key={i} value={species[i] || Species} 
-    onClick={() => dispatch({type: 'SPECIES', payload: `${filtered[i].split(' ').shift()}`})/
+    onClick={() => dispatch({type: 'SPECIES', payload: types[FishType[i]]})/
     setShowOther(false)}>
     {species}
   </Dropdown.Item>));
@@ -47,34 +45,26 @@ function Fish(){
     <div className='Fish'>
       <h2>What kind of Fish?</h2>
       {Species && <h4 className='preview'>{`${Length? Length: ''} ${Species} ${(FishType !== 'other')? FishType: ''}`} </h4>}
-      <ToggleButtonGroup className='ButtonGroup' type='radio' name='fishType'  >
-        <DropdownButton variant='outline-secondary' value="1" title='Trout' 
-          onClick={() => setType('trout')/
-          dispatch({type: 'SPECIES'})/
-          dispatch({type: 'FISH_TYPE', payload: 'trout'})/
+      <ToggleButtonGroup className='ButtonGroup' type='radio' name='fishType'  defaultValue='1'>
+        <DropdownButton variant={FishType === 'trout'? 'secondary': 'outline-secondary'} value="1" title='Trout' 
+          onClick={() => dispatch({type: 'FISH_TYPE', payload: 'trout'})/
           setShowOther(false)}>
-            {speciesList}
+            <Scroll className='list' stopScrollPropagation={true}>{speciesList}</Scroll>
         </DropdownButton>
-        <DropdownButton variant='outline-secondary' value="2" title='Salmon' 
-          onClick={() => setType('salmon')/
-          dispatch({type: 'SPECIES'})/
-          dispatch({type: 'FISH_TYPE', payload: 'salmon'})/
+        <DropdownButton variant={FishType === 'salmon'? 'secondary': 'outline-secondary'} value="2" title='Salmon' 
+          onClick={() => dispatch({type: 'FISH_TYPE', payload: 'salmon'})/
           setShowOther(false)}>
-            {speciesList}
+            <Scroll className='list' stopScrollPropagation={true}>{speciesList}</Scroll>
         </DropdownButton>
-        <DropdownButton variant='outline-secondary' value="3" title='Bass' alignRight 
-          onClick={() => setType('bass')/
-          dispatch({type: 'SPECIES'})/
-          dispatch({type: 'FISH_TYPE', payload: 'bass'})/
+        <DropdownButton variant={FishType === 'bass'? 'secondary': 'outline-secondary'} value="3" title='Bass' alignRight 
+          onClick={() => dispatch({type: 'FISH_TYPE', payload: 'bass'})/
           setShowOther(false)}>
-            {speciesList}
+            <Scroll className='list' stopScrollPropagation={true}>{speciesList}</Scroll>
         </DropdownButton>
-        <DropdownButton variant='outline-secondary' value="5" title='Other' alignRight
-          onClick={() => setType('other')/
-          dispatch({type: 'SPECIES'})/
-          dispatch({type: 'FISH_TYPE', payload: 'other'})/
+        <DropdownButton variant={FishType === 'other'? 'secondary': 'outline-secondary'} value="5" title='Other' alignRight
+          onClick={() => dispatch({type: 'FISH_TYPE', payload: 'other'})/
           setShowOther(true)}>
-            {speciesList}
+            <Scroll className='list' stopScrollPropagation={true}>{speciesList}</Scroll>
         </DropdownButton>
       </ToggleButtonGroup>
       {showOther && 
@@ -84,7 +74,7 @@ function Fish(){
       <InputGroup className='input' style={{width: '160px', margin: 'auto'}} >
         <FormControl type='text' placeholder='length' value={Length} readOnly style={{background: 'white'}}/>
         <DropdownButton variant='outline-dark' as={InputGroup.Append} title='' alignRight>
-          <Scroll className='list'>{inchList}</Scroll>
+          <Scroll className='list' stopScrollPropagation={true}>{inchList}</Scroll>
         </DropdownButton>
       </InputGroup>
       <div>

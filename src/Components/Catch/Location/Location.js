@@ -174,7 +174,7 @@ function Location(){
           onChange={e => dispatch({type: 'US_STATE', payload: e.target.value})}
         />
         <DropdownButton variant='outline-secondary' as={InputGroup.Append} title='' alignRight>
-          <Scroll className='list '>
+          <Scroll className='list ' stopScrollPropagation={true}>
             {stateList}
           </Scroll>
         </DropdownButton>

@@ -111,10 +111,9 @@ footer{
 }
 .list{
   max-height: 200px;
-  /* border: 2px solid black; */
-  /* border-radius: 5px; */
   overflow: hidden;
   cursor: pointer;
+  overScroll-behavior: contain;
 }
 .list-item:hover{
   color: white;
@@ -150,6 +149,7 @@ footer{
 .snow{
   color: ivory;
 }
+
 
 
 

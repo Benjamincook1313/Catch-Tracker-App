@@ -72,7 +72,7 @@ function Fly(){
       </div>
       <InputGroup className='input'>
         <DropdownButton variant='outline-secondary' as={InputGroup.Prepend} title={`#${Size}`}>
-          <Scroll className='list'>
+          <Scroll className='list' stopScrollPropagation={true}>
             {size}
           </Scroll>
         </DropdownButton>

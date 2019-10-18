@@ -22,6 +22,7 @@
   top: 30px;
   right: 50px;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
 }
@@ -49,12 +50,12 @@
   text-transform: lowercase;
   background: none;
   position: absolute;
-  top: 65px;
+  top: 60px;
   left: 115px;
 }
-.settings-btn:hover{
+/* .settings-btn:hover{
   color: rgb(207, 207, 207);
-}
+} */
 .settings-btn:active{
   font-size: 18px;
   margin-bottom: 1px;
@@ -96,4 +97,10 @@
   font-size: 25px;
   padding: 5px;
 }
-
+.shop-btn{
+  margin-top: 10px;
+  color: white;
+  cursor: pointer;
+  text-transform: lowercase;
+ :hover{text-decoration: underline};
+}

@@ -104,8 +104,8 @@ img{
   justify-content: center;
   width: 45px;
   position: absolute;
-  right: 0px;
-  top: 25px;
+  right: 2px;
+  top: 27px;
 }
 .options{
   font-size: 12px;
@@ -113,10 +113,11 @@ img{
   flex-direction: column;
   align-items: flex-start;
   position: absolute;
-  right: -45px;
+  right: -40px;
   top: 28px;
 }
 .option-btns{
+  margin-bottom: 5px;
   background: none;
   border: none;
   color: #b9e496;
