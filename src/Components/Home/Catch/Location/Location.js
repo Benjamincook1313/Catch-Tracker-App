@@ -1,7 +1,6 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, ToggleButton, ToggleButtonGroup, InputGroup, FormControl, 
-         DropdownButton, Dropdown } from 'react-bootstrap';
+import { Button, ToggleButton, ToggleButtonGroup, InputGroup, FormControl, DropdownButton, Dropdown } from 'react-bootstrap';
 import Scroll from 'react-scrollbar';
 import Swal from 'sweetalert2';
 import './Location.css'
@@ -27,13 +26,9 @@ function Location(){
   const WaterType = useSelector(state => state.waterType);
   const WaterName = useSelector(state => state.waterName);
 
-  useEffect(()=> {
-    dispatch({type: 'US_STATE', payload: User.state})
-  });
-
   const stateList = States.map((state, i) => (
     <Dropdown.Item className='list-item' key={i} value={state}  
-    onClick={(e) => dispatch({type: 'US_STATE', payload: States[i]})}>
+    onClick={() => dispatch({type: 'US_STATE', payload: state})}>
       {state}
     </Dropdown.Item>
   ));
@@ -169,9 +164,9 @@ function Location(){
       />
       <InputGroup className='state'>
         <FormControl 
-          value={`${State}` || `${User.state}`} 
-          onClick={() => dispatch({type: 'US_STATE', payload: ''})} 
-          onChange={e => dispatch({type: 'US_STATE', payload: e.target.value})}
+          value={State} 
+          style={{background: 'white'}}
+          readOnly
         />
         <DropdownButton variant='outline-secondary' as={InputGroup.Append} title='' alignRight>
           <Scroll className='list ' stopScrollPropagation={true}>

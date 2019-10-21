@@ -1,12 +1,13 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button } from 'react-bootstrap';
-import Fish from '../../../Images/fish.png'
+import Fish from '../../../../Images/fish.png'
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import './ReviewCatch.css';
 
 function ReviewCatch(props){
+  const { refresh } = props
   const dispatch = useDispatch()
   const reduxState = useSelector(state => state)
   const { day, tod, waterName, waterType, usState, temp, 
@@ -15,9 +16,9 @@ function ReviewCatch(props){
   const saveCatch = async () => {
     const res = await axios.post('/api/saveCatch', reduxState)
     if(res.data){
-      dispatch({type: 'CLEAR_CATCH'})
       Swal.fire({type: 'success', title: 'Catch Saved', showConfirmButton: false, timer: 2000, toast: true})
-      props.setRefresh()
+      dispatch({type: 'CLEAR_CATCH'})
+      refresh()
     }
   };
 

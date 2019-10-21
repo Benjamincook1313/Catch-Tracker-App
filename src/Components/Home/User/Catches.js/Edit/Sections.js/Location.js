@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { InputGroup, FormControl, DropdownButton, Dropdown} from 'react-bootstrap';
 import Scroll from 'react-scrollbar';
 
 function EditLocation(){
-  const [showStates, setShowStates] = useState(false)
-  
   const dispatch = useDispatch()
+
   const WaterName = useSelector(state => state.waterName)
   const WaterType = useSelector(state => state.waterType)
   const UsState = useSelector(state => state.usState)
@@ -21,20 +20,17 @@ function EditLocation(){
 
   // const filteredStates = States.filter(state => state.toLowerCase().startsWith(State.toLowerCase()));
   const stateList = States.map((state, i) => 
-    <div className='list-item' key={i} value={state}  
-      onClick={(e) => dispatch({type: 'US_STATE', payload: States[i]})/
-        setShowStates(false)}>
+    <Dropdown.Item className='list-item' key={i} value={state}  
+      onClick={(e) => dispatch({type: 'US_STATE', payload: state})}>
     {state}
-    </div>
+    </Dropdown.Item>
   );
 
   return(
     <div className='Edit-Section'>
       <InputGroup className='mb-3'>
         <FormControl value={WaterName} onChange={e => dispatch({type: 'WATER_NAME', payload: e.target.value})}/>
-        <DropdownButton as={InputGroup.Append} variant="outline-secondary" 
-          title={WaterType} id="input-group-dropdown-2"
-        >
+        <DropdownButton as={InputGroup.Append} variant="outline-secondary" title={WaterType} id="input-group-dropdown-2">
           <Dropdown.Item onClick={() => dispatch({type: 'WATER_TYPE', payload: 'River'})}>River</Dropdown.Item>
           <Dropdown.Item onClick={() => dispatch({type: 'WATER_TYPE', payload: 'Creek'})}>Creek</Dropdown.Item>
           <Dropdown.Item onClick={() => dispatch({type: 'WATER_TYPE', payload: 'Reservoir'})}>Reservoir</Dropdown.Item>
@@ -42,11 +38,16 @@ function EditLocation(){
           <Dropdown.Item onClick={() => dispatch({type: 'WATER_TYPE', payload: 'Pond'})}>Pond</Dropdown.Item>
         </DropdownButton>
       </InputGroup>
-      <FormControl value={UsState}  
-        onClick={() => dispatch({type: 'US_STATE'})/setShowStates(true)}
-        onChange={e => dispatch({type: 'US_STATE', payload: e.target.value})} 
+      <InputGroup>
+      <FormControl 
+        value={UsState}  
+        style={{background: 'white'}}
+        readOnly
       />
-      {showStates && <Scroll className='list'>{stateList}</Scroll>}
+        <DropdownButton variant='outline-secondary' title='' as={InputGroup.Append} alignRight>
+          <Scroll className='list'>{stateList}</Scroll>
+        </DropdownButton>
+      </InputGroup>
     </div>
   )
 };

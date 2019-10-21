@@ -5,11 +5,11 @@ import Delete from './Delete';
 import { OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSnowflake, faCloudRain, faCloudSunRain, faCloudSun, faSun, faCloud, faFish } from '@fortawesome/free-solid-svg-icons'
-import Fish from '../../../Images/fish.png';
+import Fish from '../../../../Images/fish.png';
 import axios from 'axios';
 
 function Catch(props){
-  const { userCatch, setRefresh } = props
+  const { userCatch, refresh } = props
   const { catch_id, date, tod, water_name, water_type, us_state, temperature, 
     weather, image_url, length, fish_type, species, size, color, fly, 
     fly_type, details } = userCatch
@@ -54,7 +54,7 @@ function Catch(props){
       dispatch({type: 'CLEAR_CATCH'})
       dispatch({type: 'CATCHES', payload: res.data})
       setDelete(false)
-      setRefresh()
+      refresh()
     }
   };
 
@@ -65,13 +65,14 @@ function Catch(props){
           cancel={() => setDelete(false)} 
           handleDelete={handleDelete} 
           setShowOptions={() => setShowOptions(false)}
+          refresh={refresh}
         />
       }
       {edit && 
         <EditCatch 
           userCatch={userCatch} 
           setEdit={() => setEdit(false)} 
-          setRefresh={props.setRefresh} 
+          refresh={refresh} 
           setShowOptions={() => setShowOptions(false)}
         />
       }
@@ -111,16 +112,15 @@ function Catch(props){
           <div className='fish-info'>
             <h6>Fish:</h6>
             <div className='fishInfo'>
-              <p>{`${length} ${fish_type}`}</p>
-              <p>{species}</p>
+              <p style={{textTransform: 'capitalize'}}>{`${length} ${species}`}</p>
+              <p style={{textTransform: 'capitalize'}}>{fish_type}</p>
             </div>
           </div>
           <div className='fly'>
             <h6>Fly:</h6>
             <div className='fly-info'>
-              <p>#{size} </p> 
+              <p>#{size} {fly_type}</p> 
               <p>{color} {fly}</p>
-              <p>{fly_type}</p>
             </div>
           </div>
           {details &&

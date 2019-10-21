@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import DateTime from './EditCatchSections.js/DateTime'
-import Location from './EditCatchSections.js/Location';
-import Weather from './EditCatchSections.js/Weather'
-import Fish from './EditCatchSections.js/Fish';
-import Fly from './EditCatchSections.js/Fly'
+import DateTime from './Sections.js/DateTime'
+import Location from './Sections.js/Location';
+import Weather from './Sections.js/Weather'
+import Fish from './Sections.js/Fish';
+import Fly from './Sections.js/Fly'
 import { Button, FormControl } from 'react-bootstrap';
 import './EditCatch.css';
 import axios from 'axios';
 
 function Edit(props){
-  const { setEdit, setRefresh, setShowOptions } = props
+  const { setEdit, refresh, setShowOptions } = props
   const { catch_id, details } = props.userCatch
 
   const dispatch = useDispatch()
@@ -23,7 +23,7 @@ function Edit(props){
     if(res.data){
       dispatch({type: 'CATCH', payload: res.data})
       setEdit()
-      setRefresh()
+      refresh()
       dispatch({type: 'CLEAR_CATCH'})
     }
   };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Carousel } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import Fish from '../../../Images/fish.png';
+import Fish from '../../../../Images/fish.png';
 import './Carousel.css'
 
 

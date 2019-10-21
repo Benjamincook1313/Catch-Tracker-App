@@ -37,3 +37,6 @@
 .change-password{
   display: flex;
 }
+.s-showpass-icon{
+  font-size: 26px;
+}

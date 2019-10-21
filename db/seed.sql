@@ -1,14 +1,14 @@
 create table users(
+  user_id serial primary key,
 	state varchar not null,
-	user_name varchar primary key, 
+	user_name varchar not null, 
 	email varchar not null,
-	hash varchar not null,
-	friends varchar,
+	hash varchar not null
 )
 
 create table catch(
   catch_id serial,
-  user_name varchar references users(user_name), 
+  user_id int references users(user_id), 
   date varchar,
   tod varchar, 
   water_name varchar,
@@ -16,7 +16,7 @@ create table catch(
   us_state varchar,
   temperature varchar,
   weather varchar,
-  image_name text,
+  image_url text,
   length varchar,
   species varchar,
   fish_type varchar,

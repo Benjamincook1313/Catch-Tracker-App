@@ -31,6 +31,8 @@ app.post('/auth/register', AuthCtrl.register)
 app.post('/auth/login', AuthCtrl.login)
 app.get('/auth/logout', AuthCtrl.logout)
 app.post('/auth/checkPass', AuthCtrl.checkPass)
+app.post('/auth/updateUser', AuthCtrl. updateUser)
+app.post('/auth/updatePassword', AuthCtrl.updatePassword)
 
 // Catch Control
 app.post('/api/saveCatch', Ctrl.saveCatch)

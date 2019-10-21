@@ -46,7 +46,7 @@ const initialState = {
   waterName: '',
   weather: '',
   temp: '',
-  fishType: [],
+  fishType: 'trout',
   species: '',
   length: '',
   image: '',
@@ -141,8 +141,8 @@ export default function reducer(state = initialState, action){
     case CLEAR_CATCH:
       return {
         ...state, showForm: false, page: 0, day: today(), tod: '', waterType: 'River', 
-        waterName: '', weather: '', temp: '', fishType: '', species: '', length: '', image: '', 
-        flyType: '', fly: '', size: '', color: ''
+        waterName: '', weather: '', temp: '', fishType: 'trout', species: '', length: '', image: '', 
+        flyType: '', fly: '', size: '', color: '', details: ''
       }  
     case EDIT_CATCH:
       let { date, tod, water_name, water_type, us_state, temperature, weather, image_url,

@@ -12,21 +12,21 @@ module.exports = {
   saveCatch: async (req, res) => {
     const { user, day, tod, waterName, waterType, usState, temp, weather, image, 
       length, species, fishType, size, fly, flyType, color, details } = req.body
-    const user_name = user.user_name
+    const user_id = user.user_id
     const db = req.app.get('db')
-    const data = await db.save_catch([user_name, day, tod, waterName, waterType, usState, temp, 
+    const data = await db.save_catch([user_id, day, tod, waterName, waterType, usState, temp, 
       weather, image, length, species, fishType, size, fly, flyType, color, details])
     res.status(200).send(data)
   },
 
   updateCatch: async (req, res) => {
-    const {id} = req.params
+    const { id } = req.params
     const { user, day, tod, waterName, waterType, usState, temp, weather, image, 
       length, species, fishType, size, fly, flyType, color, details } = req.body
-    const user_name = `${user.user_name}`
+    const user_id = `${user.user_id}`
     const db = req.app.get('db')
     const data = await db.update_catch([
-      id, user_name, day, tod, waterName, waterType, 
+      id, user_id, day, tod, waterName, waterType, 
       usState, temp, weather, image, length, species, fishType, size, fly, 
       flyType, color, details
     ]).catch(err => {err, console.log(err)})

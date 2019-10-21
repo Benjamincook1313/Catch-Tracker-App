@@ -1,0 +1,69 @@
+.footer{
+  position: fixed;
+  bottom: 0px;
+  min-height: 55px;
+  width: 100vw;
+  background: rgb(0, 0, 0, .7);
+}
+.input{
+  margin: 5px;
+}
+
+.Home {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  display: flex; 
+  flex-direction: column; 
+  align-items: center;
+  color: #b9e496;
+}
+.hidden{
+  height:110px;
+  width: 100vw;
+}
+.background-video{
+  position: fixed;
+  z-index: -10;
+  width: 100;
+}
+.list{
+  max-height: 200px;
+  overflow: hidden;
+  cursor: pointer;
+  overScroll-behavior: contain;
+}
+.list-item:hover{
+  color: white;
+  background: #b9b9b9;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.form-page-wrapper {
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 20px 50px;
+  margin-top: 30px;
+  background-color: rgba(255, 255, 255, 0.9);
+  margin: 10px;
+}
+
+.sun{
+  color: orange;
+}
+.pc{
+  color: wheat;
+}
+.cloud{
+  color: gainsboro;
+}
+.pcr{
+  color: lightsteelblue;
+}
+.rain{
+  color: skyblue;
+}
+.snow{
+  color: ivory;
+}

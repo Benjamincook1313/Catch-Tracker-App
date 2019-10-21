@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { InputGroup, FormControl } from 'react-bootstrap';
+import { InputGroup, FormControl, DropdownButton, Dropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import Scroll from 'react-scrollbar';
@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 
 function Register(props){
+  const { setShowRegister } = props
   const dispatch = useDispatch()
 
   const [UserName, setUserName] = useState('')
@@ -15,9 +16,7 @@ function Register(props){
   const [Email, setEmail] = useState('')
   const [Password, setPassword] = useState('')
   const [Verify, setVerify] = useState('')
-
-  const [showStates, setShowStates] = useState(false)
-  const [showPassword, setShowPassword] = useState(false)
+  const [showPass, setShowPass] = useState(false)
 
   const States = [
     "Alaska", "Alabama", "Arkansas", "Arizona", "California", "Colorado", "Connecticut", "Delaware", "Florida","Georgia",
@@ -27,26 +26,25 @@ function Register(props){
     "South Dakota", "Tennessee", "Texas", "Utah", "Virginia", "Vermont", "Washington", "Wisconsin", "West Virginia", "Wyoming"
   ];
 
-  const filteredStates = States.filter(state => state.toLowerCase().startsWith(State.toLowerCase()));
-  const stateList = filteredStates.map((state, i) => (
-    <div className='list-item' key={i} value={filteredStates[i] || `${state}`}  
-      onClick={(e) => setState(filteredStates[i])/
-      setShowStates(false)}
-    >
-    {showStates && state}
-    </div>
+  const stateList = States.map((state, i) => (
+    <Dropdown.Item className='list-item' key={i} value={state} onClick={(e) => setState(state)}>
+      {state}
+    </Dropdown.Item>
   ));
 
   const registerUser = async (e) => {
     if(e.key === 'Enter'){
-      if(Password !== Verify){ Swal.fire({title:'Passwords do not match'}) }
+      if(Password !== Verify){ Swal.fire({type: 'error', title: 'try again', text: 'Passwords do not match', timer: 2000, showConfirmButton: false}) }
       if(State && Email && Password && UserName && Email.includes('@') && Verify === Password){
         const res = await axios.post('/auth/register', { State, UserName, Email, Password })
-        if(!res.data){ Swal.fire({title: 'Login Failed', showConfirmButton: false, timer: 3000})}
-        Swal.fire({type: 'success', title: 'you are logged in', showConfirmButton: false, timer: 2000, toast: true, position: 'top-end'})
-        dispatch({type: 'LOGIN', payload: true})
-        dispatch({type: 'UPDATE_USER', payload: res.data.userData})
-        props.setShowRegister(false)
+        if(!res.data.loggedIn){
+          Swal.fire({type: 'warning', title: `${res.data.message}`, text: 'try again', showConfirmButton: false, timer: 2000})
+        }else{
+          Swal.fire({type: 'success', title: 'you are logged in', showConfirmButton: false, timer: 2000, toast: true, position: 'top-end'})
+          dispatch({type: 'LOGIN', payload: true})
+          dispatch({type: 'UPDATE_USER', payload: res.data.userData})
+          setShowRegister()
+        }
       }
     }
   };
@@ -58,20 +56,21 @@ function Register(props){
         <br/>
         <InputGroup>
           <FormControl 
-            // style={{background: 'white'}}
-            placeholder='State' 
+            style={{background: 'white'}}
+            placeholder='Home State' 
             value={State} 
-            onClick={() => setShowStates(true)} 
             onChange={e => setState(e.target.value)} 
-            required
+            readOnly
           />
+          <DropdownButton as={InputGroup.Append} variant='outline-secondary' title='' alignRight>
+            <Scroll className='list'>{stateList}</Scroll>
+          </DropdownButton>
         </InputGroup>
-        {showStates && <Scroll className='list'>{stateList}</Scroll>}
         <br/> 
         <InputGroup>
           <FormControl 
-            placeholder='username' 
-            type='username' 
+            placeholder='Username' 
+            type='Username' 
             value={UserName} 
             onChange={ e => setUserName(e.target.value)} 
             required
@@ -87,28 +86,26 @@ function Register(props){
         <br/>
         <InputGroup>
           <FormControl 
-            placeholder='password' 
+            placeholder='Password' 
             value={Password} 
-            type={showPassword? 'text':'password'} 
-            onChange={ e => setPassword(e.target.value)}
+            type={showPass? 'text':'password'} 
+            onChange={e => setPassword(e.target.value)}
           />
           <FormControl 
-            placeholder='verify password' 
+            placeholder='Verify' 
             value={Verify} 
-            type={showPassword? 'text':'password'} 
+            type={showPass? 'text':'password'} 
             onChange={e => setVerify(e.target.value)} 
             onKeyPress={e => registerUser(e)}
           />
+          <InputGroup.Append id='basic-addon2' >
+              <InputGroup.Text>
+                <FontAwesomeIcon icon={!showPass? faEye: faEyeSlash} onClick={() => setShowPass(!showPass)}/>
+              </InputGroup.Text>
+            </InputGroup.Append>
         </InputGroup>
-        <div className='show-password-icon'>
-          <FontAwesomeIcon 
-            icon={!showPassword? faEye: faEyeSlash} 
-            onClick={() => setShowPassword(!showPassword)} 
-            style={{fontSize: '35px', padding: 5, }}
-          />
-        </div>
         <br/>
-        {'( press enter to submit )'}
+        <div>( press enter to submit )</div>
       </div>
     </div>
   )

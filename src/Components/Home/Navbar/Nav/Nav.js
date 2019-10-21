@@ -6,7 +6,7 @@ import FlyRod from '../Fly-Rod/Fly-Rod';
 import axios from 'axios';
 import { Button, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import Settings from '../Settings/Settings'
-import Fish from '../../../Images/fish.png'
+import Fish from '../../../../Images/fish.png'
 import Swal from 'sweetalert2'
 import './Nav.css';
 
@@ -64,7 +64,7 @@ function Nav(){
       {!loggedIn &&
         <div className='auth-wrapper'>
           {showLogin && <Login />}
-          {showRegister && <Register />}
+          {showRegister && <Register setShowRegister={() => setShowRegister(false)}/>}
         </div>
       }
       {settings &&

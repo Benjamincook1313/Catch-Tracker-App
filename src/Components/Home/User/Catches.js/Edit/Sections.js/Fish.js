@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { InputGroup, Dropdown, DropdownButton, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
-import ImageUploader from '../../../../ImageUpload';
-import Fish from '../../../../../Images/fish.png'
+import { InputGroup, Dropdown, DropdownButton, ButtonGroup } from 'react-bootstrap';
+import ImageUploader from '../../../../../ImageUpload';
 import Scroll from 'react-scrollbar';
 
 function EditFish(props){
@@ -11,7 +10,6 @@ function EditFish(props){
   const Species = useSelector(state => state.species)
   const Length = useSelector(state => state.length)
   const fishType = useSelector(state => state.fishType)
-  const [refresh, setRefresh] = useState(false)
 
   const types = {
     'trout': ['Apache', 'Bull', 'Brook','Brown', 'Cutthroat', 'DollyVarden','Golden', 'Lake', 'Rainbow', 'Splake', 'Steelhead', 'Tiger'],
@@ -40,24 +38,24 @@ function EditFish(props){
     <div className='Edit-fish' style={{height: 300}}>
       <Scroll stopScrollPropagation={true} style={{padding: '20px'}}>
         <h4 className='input'>{Length} {Species} {fishType}</h4>
-        <ToggleButtonGroup  type='radio' name='fishType' defaultValue={fishType}>
-          <DropdownButton variant={fishType === 'trout'? 'secondary': 'outline-secondary'} value="trout" title='Trout' 
+        <ButtonGroup  type='radio' name='fishType' defaultValue={fishType}>
+          <DropdownButton as={ButtonGroup} variant={fishType === 'trout'? 'secondary': 'outline-secondary'} value="trout" title='Trout' 
             onClick={() => dispatch({type: 'FISH_TYPE', payload: 'trout'})}>
               <Scroll className='list' stopScrollPropagation={true}>{speciesList}</Scroll>
           </DropdownButton>
-          <DropdownButton variant={fishType === 'salmon'? 'secondary': 'outline-secondary'} value="salmon" title='Salmon' 
+          <DropdownButton as={ButtonGroup} variant={fishType === 'salmon'? 'secondary': 'outline-secondary'} value="salmon" title='Salmon' 
             onClick={() => dispatch({type: 'FISH_TYPE', payload: 'salmon'})}>
               <Scroll className='list' stopScrollPropagation={true}>{speciesList}</Scroll>
           </DropdownButton>
-          <DropdownButton variant={fishType === 'bass'? 'secondary': 'outline-secondary'} value="bass" title='Bass' alignRight 
+          <DropdownButton as={ButtonGroup} variant={fishType === 'bass'? 'secondary': 'outline-secondary'} value="bass" title='Bass' alignRight 
             onClick={() => dispatch({type: 'FISH_TYPE', payload: 'bass'})}>
               <Scroll className='list' stopScrollPropagation={true}>{speciesList}</Scroll>
           </DropdownButton>
-          <DropdownButton variant={fishType === 'other'? 'secondary': 'outline-secondary'} value="other" title='Other' alignRight
+          <DropdownButton as={ButtonGroup} variant={fishType === 'other'? 'secondary': 'outline-secondary'} value="other" title='Other' alignRight
             onClick={() => dispatch({type: 'FISH_TYPE', payload: 'other'})}>
               <Scroll className='list' stopScrollPropagation={true}>{speciesList}</Scroll>
           </DropdownButton>
-        </ToggleButtonGroup>
+        </ButtonGroup>
         <InputGroup className='inputGroup input'>
           <DropdownButton variant="outline-secondary" title={Length} alignRight>
             <Scroll style={{maxHeight: 200, textAlign: 'center'}}>{inchList}</Scroll>
