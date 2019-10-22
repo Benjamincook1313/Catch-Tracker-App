@@ -90,12 +90,13 @@ export const COLOR = 'COLOR'
 export const DETAILS = 'DETAILS'
 // Catch
 export const EDIT_CATCH = 'EDIT_CATCH'
+export const RESET = 'RESET'
 
 export default function reducer(state = initialState, action){
   const { type, payload } = action
   switch(type) {
     case LOGIN:
-      return {...state, loggedIn: payload}
+      return {...state, loggedIn: payload? payload: false}
     case UPDATE_USER:
       return {...state, user: payload? payload: {}}
     case CATCHES:
@@ -153,6 +154,8 @@ export default function reducer(state = initialState, action){
         usState: us_state, temp: temperature, weather: weather, length: length, image: image_url, fishType: fish_type,
         species: species, size: size, fly: fly, flyType: fly_type, color: color, details: details
       }
+    case RESET:
+      return{...initialState}
     default:
       return state
   }

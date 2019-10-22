@@ -1,4 +1,14 @@
 const bcrypt = require('bcryptjs');
+const nodemailer = require('nodemailer')
+const { PASSWORD, EMAIL} = process.env
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: EMAIL,
+    pass: PASSWORD
+  }
+})
 
 module.exports = {
   checkForUser: async (req, res) => {
@@ -28,7 +38,7 @@ module.exports = {
     }
     const salt = bcrypt.genSaltSync(10)
     const hash = bcrypt.hashSync(password, salt)
-    let newUserArr = await db.register_user([state, userName, email, hash])
+    const newUserArr = await db.register_user([state, userName, email, hash])
     delete newUserArr[0].hash
     req.session.user = newUserArr[0]
     res.status(200).send({
@@ -39,19 +49,19 @@ module.exports = {
   },
 
   login: async (req, res) => {
-    const { userName, password } = req.body
+    const { userName, password} = req.body
     const db = req.app.get('db')
     const userArr = await db.find_user([userName])
-    if(userArr.length === 0){
+    if(!userArr[0]){
       return res.status(200).send({message: 'Invalid Username!'})
     }
-    const result = await bcrypt.compareSync(password, userArr[0].hash)
+     const result = await bcrypt.compareSync(password, userArr[0].hash)
     if(!result) {
       return res.status(200).send({message: 'Incorrect Password!'})
     }
     delete userArr[0].hash
     req.session.user = userArr[0]
-    const catches = await db.get_catches([req.session.user.user_id])
+    const catches = await db.get_catches([userArr[0].user_id])
     if(!catches){
       return res.status(200).send({message: 'problem getting catches'})
     }
@@ -69,38 +79,96 @@ module.exports = {
   },
 
   checkPass: async (req, res) => {
-    const { User, pass } = req.body
+    const { userName, pass } = req.body
     const db = req.app.get('db')
-    const hashArr = await db.check_pass([User.user_name])
+    const hashArr = await db.check_pass([userName])
     const result = await bcrypt.compareSync(pass, hashArr[0].hash)
     if(!result){
-      return res.status(401).send({})
+      return res.status(200).send({})
     }
+    delete hashArr[0]
     res.status(200).send({message: 'Password Correct'})
   },
 
   updateUser: async (req, res) => {
     const { id } = req.params
-    const { state, name, email } = req.body
+    const { homeSt, userName, newEmail } = req.body
     const db = req.app.get('db')
-    if(req.session.user.user_name !== name){
-      const checkUsername = db.find_user(name)
+    const { user_name, email } = req.session.user
+    if(user_name !== userName){
+      const checkUsername = await db.find_user(userName)
       if(checkUsername[0]){
-        return res.status(200).send({message: 'Username Taken'})
+        delete checkUsername[0]
+        return res.status(200).send({message: 'Username Taken!'})
       }
     }
-    const userArr = db.update_user([id, state, name, email])
+    if(email !== newEmail){
+      const checkEmail = await db.check_email(newEmail)
+      if(checkEmail[0]){
+        delete checkEmail[0]
+        return res.status(200).send({message: 'Email already in use!'})
+      }
+    }
+    const userArr = await db.update_user([id, homeSt, userName, newEmail])
     delete userArr[0].hash
-    console.log(userArr[0])
     res.status(200).send(userArr[0])
   },
 
-  updatePassword: async (req, res) => {
+  updatePass: async (req, res) => {
+    const { id } = req.params
     const { pass } = req.body
     const db = req.app.get('db')
-    const salt = bcrypt.genSalt(10)
+    const salt = bcrypt.genSaltSync(10)
     const hash = bcrypt.hashSync(pass, salt)
-    await db.update_password([hash])
-    res.status(200).send({message: 'update success'})
+    const result = await db.update_password([id, hash])
+    if(result){
+      return res.status(200).send({message: 'Password updated'})
+    }
+  },
+
+  forgotPass: async(req, res) => {
+    const { email } = req.body
+    let tempPass = Math.random().toString(15).slice(-10)
+    const db = await req.app.get('db')
+    const userArr = await db.check_email([email])
+    if(!userArr[0]){
+      return res.status(200).send({message: 'Invalid Email'})
+    }
+    const salt = bcrypt.genSaltSync(10)
+    const hash = bcrypt.hashSync(tempPass, salt)
+    console.log(userArr[0].user_id)
+    const setPass = await db.update_password([userArr[0].user_id, hash])
+    if(setPass){
+      let mailOption = {
+        from: EMAIL,
+        to: email,
+        subject: 'temporary password',
+        text: `your temporary password is ${tempPass}.
+          Instructions, 
+          sign in using your temperary password. 
+          click on your username in the top left corner. 
+          click settings. 
+          enter temperary password.
+          enter new password and verify.
+          click update password.`
+      }  
+      transporter.sendMail(mailOption, (err)=>{
+        if(err) {
+          console.log(err, 'Error sending email')
+        }
+        console.log('Email sent!!!')
+      })
+    }
+    res.sendStatus(200)
+  },
+
+  deleteAccount: async(req, res) => {
+    const { id } = req.params
+    const db = req.app.get('db')
+    const result = await db.delete_account([id])
+    if(result){
+      req.session.destroy()
+      res.status(200).send({message: 'Account Deleted'})
+    }
   }
 }

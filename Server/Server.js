@@ -27,12 +27,14 @@ app.use(session({
 
 // AUTHENTICATION
 app.get('/auth/checkForUser', AuthCtrl.checkForUser)
-app.post('/auth/register', AuthCtrl.register)
-app.post('/auth/login', AuthCtrl.login)
 app.get('/auth/logout', AuthCtrl.logout)
+app.post('/auth/login', AuthCtrl.login)
+app.post('/auth/register', AuthCtrl.register)
 app.post('/auth/checkPass', AuthCtrl.checkPass)
-app.post('/auth/updateUser', AuthCtrl. updateUser)
-app.post('/auth/updatePassword', AuthCtrl.updatePassword)
+app.post('/auth/forgotPass', AuthCtrl.forgotPass)
+app.put('/auth/updateUser/:id', AuthCtrl.updateUser)
+app.put('/auth/updatePass/:id', AuthCtrl.updatePass)
+app.delete('/auth/deleteAccount/:id', AuthCtrl.deleteAccount)
 
 // Catch Control
 app.post('/api/saveCatch', Ctrl.saveCatch)

@@ -12,15 +12,16 @@ function Settings(props){
   const { setSettings, refresh } = props
   const dispatch = useDispatch()
   const User = useSelector(state => state.user)
+  const TempPass = useSelector(state => state.tempPass)
   
-  const [state, setState] = useState(`${User.state}`)
-  const [name, setName] = useState(`${User.user_name}`)
-  const [email, setEmail] = useState(`${User.email}`)
+  const [homeSt, setHomeSt] = useState(`${User.state}`)
+  const [userName, setUserName] = useState(`${User.user_name}`)
+  const [newEmail, setNewEmail] = useState(`${User.email}`)
   const [changePass, setChangePass] = useState(false)
-  const [tempPass, setTempPass] = useState('')
   const [pass, setPass] = useState('')
   const [verify, setVerify] = useState('')
   const [showPass, setShowPass] = useState(false)
+  const [dltAcc, setDltAcc] = useState(false)
 
   const States = [
     "Alaska", "Alabama", "Arkansas", "Arizona", "California", "Colorado", "Connecticut", "Delaware", "Florida","Georgia",
@@ -31,34 +32,25 @@ function Settings(props){
   ];
   const stateList = States.map((state, i) => (
     <Dropdown.Item className='list-item' key={i} value={state}  
-      onClick={e => setState(state)}>
+      onClick={e => setHomeSt(state)}>
       {state}
     </Dropdown.Item>
   ));
 
-  const resetInfo=()=>{
-    setState('')
-    setName('')
-    setEmail('')
-  };
-  const resetPass =()=>{
-    setTempPass('')
-    setPass('')
-    setChangePass(false)
-    setVerify('')
-    setShowPass(false)
-  };
-
   const handleCurrentPass=async(e)=>{
     if(e.key === 'Enter'){
-      if(tempPass){
-        if(tempPass === pass){
-          setChangePass(true)
+      if(TempPass){
+        if(TempPass === pass){
+          return setChangePass(true)
         }
       }
-      const res = await axios.post('/auth/checkPass', {User, pass})
+      const res = await axios.post('/auth/checkPass', {userName: User.user_name, pass})
       if(!res.data){
-        Swal.fire({type: 'warning', title: 'incorrect password', showConfirmButton: false, timer: 2000})
+        Swal.fire({
+          type: 'warning', 
+          title: 'incorrect password', 
+          showConfirmButton: false, timer: 2000
+        })
       }else{
         setPass('')
         setChangePass(true)
@@ -66,39 +58,81 @@ function Settings(props){
     }
   };
 
-  const updatePass = async()=>{
-    if(pass === verify && verify !== ''){
-      const res = await axios.put(`/auth/updatePassword:${User.user_id}`, pass)
-      if(res.data){
-        console.log(res.data)
-        Swal.fire({type: 'success', title: 'Info Updated', timer: 2000, showConfirmButton: false})
-        dispatch({type: 'UPDATE_USER', payload: res.data})
-        refresh()
+  const updateUser=async()=>{
+    const res = await axios.put(`/auth/updateUser/${User.user_id}`, {homeSt, userName, newEmail})
+    if(res.data){
+      Swal.fire({
+        type: 'success', 
+        title: 'Info Updated', 
+        showConfirmButton: false, timer: 2000
+      })
+      await dispatch({type: 'UPDATE_USER', payload: res.data})
+      refresh()
+    }
+  };
+
+  const updatePass = async(e)=>{
+    if(e.key === 'Enter'){
+      if(pass !== verify){
+        Swal.fire({
+          type: 'warning', 
+          title: 'Passwords do not match!', 
+          timer: 2000, showConfirmButton: false
+        })
+      }
+      if(pass === verify && verify !== ''){
+        const res = await axios.put(`/auth/updatePass/${User.user_id}`, {pass})
+        if(res.data){
+          Swal.fire({
+            type: 'success', 
+            title: `${res.data.message}`, 
+            timer: 2000, showConfirmButton: false
+          })
+          setChangePass(false)
+          setPass('')
+          setVerify('')
+        }
       }
     }
-  }
+  };
 
-  const saveUserInfo=async()=>{
-    const res = await axios.put(`/auth/updateUser:${User.user_id}`, [state, name, email])
-    if(res.data){
-      Swal.fire({type: 'success', title: 'Info Updated', showConfirmButton: false, timer: 2000})
-      dispatch({type: 'UPDATE_USER', payload: res.data})
+  const deleteAccount = async()=>{
+    const res = await axios.delete(`/auth/deleteAccount/${User.user_id}`)
+    if(res.data.message){
+      dispatch({type: 'RESET'})
+      setSettings()
+      refresh()
+      Swal.fire({
+        type: 'success', 
+        title: `${res.data.message}`, 
+        timer: 2000, showConfirmButton: false
+      })
     }
   };
 
   return(
-    <div className='Settings' >
+    <div className='Settings'>
       <div className='s-top'>
         <h4>{User.user_name}</h4>
         <div className='s-x-btn' onClick={setSettings}>X</div>
       </div>
       <h2 className='setting'>User Settings</h2>
+      {dltAcc &&
+        <div className='delete-account'>
+          <h2>Are you sure you want to delete your account?</h2>
+          <h3>All of your catches and their info will be gone and you will not be able to get them back!</h3>
+          <div className='dlt-btns'>
+            <Button variant='dark' size='lg' onClick={() => setDltAcc(false)}>No</Button>
+            <Button variant='dark' size='lg' onClick={deleteAccount}>Yes</Button>
+          </div>
+        </div>
+      }
       <div className='s-inputs'>
         <InputGroup className='mb-3'>
           <InputGroup.Prepend>
             <InputGroup.Text>Home State</InputGroup.Text>
           </InputGroup.Prepend>
-          <FormControl value={state} style={{background: 'white'}} readOnly/>
+          <FormControl value={homeSt} style={{background: 'white'}} readOnly/>
           <DropdownButton as={InputGroup.Append} variant='outline-secondary' title='' alignRight>
             <Scroll className='list'>{stateList}</Scroll>
           </DropdownButton>
@@ -107,16 +141,16 @@ function Settings(props){
           <InputGroup.Prepend id='basic-addon1'>
             <InputGroup.Text>Username</InputGroup.Text>
           </InputGroup.Prepend>
-          <FormControl value={name} onChange={e => setName(e.target.value)} />
+          <FormControl value={userName} onChange={e => setUserName(e.target.value)} />
         </InputGroup>
         <InputGroup className='mb-3'>
           <InputGroup.Prepend>
             <InputGroup.Text>Email</InputGroup.Text>
           </InputGroup.Prepend>
-          <FormControl type='email' value={email} onChange={e => setEmail(e.target.value)}/>
+          <FormControl type='email' value={newEmail} onChange={e => setNewEmail(e.target.value)}/>
         </InputGroup>
-        {(state !== User.state || (name !== User.user_name && name !== '') || (email !== User.email && email !== '')) &&
-          <Button className='mb-3' variant='dark' type='submit' onClick={saveUserInfo}>Update Info</Button>
+        {(homeSt !== User.state || (userName !== User.user_name && userName !== '') || (newEmail !== User.email && newEmail !== '')) &&
+          <Button className='mb-3' variant='dark' type='submit' onClick={updateUser}>Update Info</Button>
         }
         <br/>
         {!changePass?
@@ -143,7 +177,9 @@ function Settings(props){
             <FormControl type={showPass? 'text':'password'} value={pass} placeholder='new password'
               onChange={e => setPass(e.target.value)}/>
             <FormControl type={showPass? 'text':'password'} value={verify} placeholder='verify'
-              onChange={e => setVerify(e.target.value)}/>
+              onChange={e => setVerify(e.target.value)}
+              onKeyPress={e => updatePass(e)}
+            />
             <InputGroup.Append id='basic-addon2' >
               <InputGroup.Text>
                 <FontAwesomeIcon icon={!showPass? faEye: faEyeSlash} onClick={() => setShowPass(!showPass)}/>
@@ -153,7 +189,10 @@ function Settings(props){
         }
         {!changePass? 
           <div>(press enter to submit current password)</div>:
-          <Button variant='dark' onClick={updatePass} >Update Password</Button>
+          <div className='s-btns'>
+            <div>(press enter to update password)</div>
+            <Button className='dlt-btn' variant='light' onClick={() => setDltAcc(true)} >Delete Account</Button>
+          </div>
         }
       </div>
       <br/>

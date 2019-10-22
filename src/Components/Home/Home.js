@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
-import Nav from './Navbar/Nav/Nav';
+import Nav from './Navbar/Nav';
 import Location from './Catch/Location/Location';
 import Weather from './Catch/Weather/Weather';
 import Fish from './Catch/Fish/Fish';
@@ -57,7 +57,7 @@ function Home(props) {;
     <div className="Home" >
       <video className='background-video'  src={River} autoPlay={true} loop muted/>
       <div className='hidden'></div> 
-      <Nav />
+      <Nav refresh={() => setMounted(false)}/>
       <br/>
       {loggedIn &&
         <div className='fish-on'>
@@ -74,8 +74,9 @@ function Home(props) {;
       {loggedIn && 
         <div className='UserCatches' >
           <div className='carousel-wrapper'>
-            {Catches && 
-              <Carousel />
+            {Catches? 
+              <Carousel />:
+              <h4>5 most recent catches</h4>
             }
           </div>
           <Button variant='light' onClick={() => setShowAll(!showAll)}>All Catches</Button>

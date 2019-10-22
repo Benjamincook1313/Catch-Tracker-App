@@ -53,23 +53,10 @@
   top: 60px;
   left: 115px;
 }
-/* .settings-btn:hover{
-  color: rgb(207, 207, 207);
-} */
 .settings-btn:active{
   font-size: 18px;
   margin-bottom: 1px;
   margin-left: 2px;
-}
-.water{
-  font-size: 40px;
-}
-.water:hover{
-  color: yellow;
-}
-.water:active{
-  font-size: 35px;
-  margin-top: 5px;
 }
 
 .auth-wrapper {
@@ -90,6 +77,12 @@
   margin: 10px;
   background: rgb(255, 255, 255, .9);
 }
+.forgot-p{
+  color: darkred;
+  position: relative;
+  margin-top: 5px;
+  cursor: pointer;
+}
 .show-password-icon {
   position: absolute;
   right: 20px;
@@ -102,5 +95,4 @@
   color: white;
   cursor: pointer;
   text-transform: lowercase;
- :hover{text-decoration: underline};
 }

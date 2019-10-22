@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Login from '../Auth/Login';
-import Register from '../Auth/Register';
-import FlyRod from '../Fly-Rod/Fly-Rod';
+import Login from './Auth/Login';
+import Register from './Auth/Register';
+import FlyRod from './Fly-Rod/Fly-Rod';
 import axios from 'axios';
 import { Button, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
-import Settings from '../Settings/Settings'
-import Fish from '../../../../Images/fish.png'
-import Swal from 'sweetalert2'
+import Settings from './Settings/Settings';
+import Fish from '../../../Images/fish.png';
+import Swal from 'sweetalert2';
 import './Nav.css';
 
-function Nav(){
+function Nav(props){
   const dispatch = useDispatch()
   const loggedIn = useSelector(state => state.loggedIn)
   const User = useSelector(state => state.user)
@@ -23,9 +23,13 @@ function Nav(){
   const logout = async () => {
     let res = await axios.get('/auth/logout')
     if(!res.data.loggedIn){
-      dispatch({type: 'LOGIN', payload: false})
+      dispatch({type: 'LOGIN'})
       dispatch({type: 'UPDATE_USER'})
-      Swal.fire({type: 'success', title: 'logged out', showConfirmButton: false, toast: true, timer: 1000, position: 'top-end'})
+      Swal.fire({
+        type: 'success', 
+        title: 'logged out', 
+        showConfirmButton: false, toast: true, timer: 1000, position: 'top'
+      })
     }
   };
   // <FontAwesomeIcon className='water' icon={faWater} />
@@ -36,7 +40,7 @@ function Nav(){
         <img className='fish-img' src={Fish} alt='' width={260} />
         {loggedIn? 
           <div className='name' onClick={() => setStBtn(!stBtn)}>
-            <h3 className='greeting' onClick={() => setStBtn(!stBtn)}>{`Hello, ${User? User.user_name: ''}`}</h3>
+            <h3 className='greeting' onClick={() => setStBtn(!stBtn)}>{`${User? User.user_name: ''}`}</h3>
             {stBtn && 
               <h5 className='settings-btn' variant='light' 
                 onClick={() => setSettings(true)/setStBtn(false)/dispatch({type: 'US_STATE', payload: User.state})}>
@@ -63,12 +67,12 @@ function Nav(){
       </h1> 
       {!loggedIn &&
         <div className='auth-wrapper'>
-          {showLogin && <Login />}
+          {showLogin && <Login refresh={props.refresh} setShowLogin={() => setShowLogin(true)}/>}
           {showRegister && <Register setShowRegister={() => setShowRegister(false)}/>}
         </div>
       }
       {settings &&
-        <Settings setSettings={() => setSettings(false)} />
+        <Settings setSettings={() => setSettings(false)} refresh={props.refresh}/>
       }
     </div>
   )

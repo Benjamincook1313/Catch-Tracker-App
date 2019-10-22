@@ -11,11 +11,11 @@ function Register(props){
   const { setShowRegister } = props
   const dispatch = useDispatch()
 
-  const [UserName, setUserName] = useState('')
-  const [State, setState] = useState('')
-  const [Email, setEmail] = useState('')
-  const [Password, setPassword] = useState('')
-  const [Verify, setVerify] = useState('')
+  const [userName, setUserName] = useState('')
+  const [state, setState] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [verify, setVerify] = useState('')
   const [showPass, setShowPass] = useState(false)
 
   const States = [
@@ -34,13 +34,13 @@ function Register(props){
 
   const registerUser = async (e) => {
     if(e.key === 'Enter'){
-      if(Password !== Verify){ Swal.fire({type: 'error', title: 'try again', text: 'Passwords do not match', timer: 2000, showConfirmButton: false}) }
-      if(State && Email && Password && UserName && Email.includes('@') && Verify === Password){
-        const res = await axios.post('/auth/register', { State, UserName, Email, Password })
+      if(password !== verify){ Swal.fire({type: 'error', title: 'try again', text: 'Passwords do not match', timer: 2000, showConfirmButton: false}) }
+      if(state && email && password && userName && email.includes('@') && verify === password){
+        const res = await axios.post('/auth/register', { state, userName, email, password })
         if(!res.data.loggedIn){
           Swal.fire({type: 'warning', title: `${res.data.message}`, text: 'try again', showConfirmButton: false, timer: 2000})
         }else{
-          Swal.fire({type: 'success', title: 'you are logged in', showConfirmButton: false, timer: 2000, toast: true, position: 'top-end'})
+          Swal.fire({type: 'success', title: 'you are logged in', showConfirmButton: false, timer: 2000, toast: true, position: 'top'})
           dispatch({type: 'LOGIN', payload: true})
           dispatch({type: 'UPDATE_USER', payload: res.data.userData})
           setShowRegister()
@@ -58,7 +58,7 @@ function Register(props){
           <FormControl 
             style={{background: 'white'}}
             placeholder='Home State' 
-            value={State} 
+            value={state} 
             onChange={e => setState(e.target.value)} 
             readOnly
           />
@@ -71,14 +71,14 @@ function Register(props){
           <FormControl 
             placeholder='Username' 
             type='Username' 
-            value={UserName} 
+            value={userName} 
             onChange={ e => setUserName(e.target.value)} 
             required
           />
           <FormControl 
             placeholder='Email' 
             type='email' 
-            value={Email} 
+            value={email} 
             onChange={ e => setEmail(e.target.value)} 
             required
           />
@@ -87,13 +87,13 @@ function Register(props){
         <InputGroup>
           <FormControl 
             placeholder='Password' 
-            value={Password} 
+            value={password} 
             type={showPass? 'text':'password'} 
             onChange={e => setPassword(e.target.value)}
           />
           <FormControl 
             placeholder='Verify' 
-            value={Verify} 
+            value={verify} 
             type={showPass? 'text':'password'} 
             onChange={e => setVerify(e.target.value)} 
             onKeyPress={e => registerUser(e)}
