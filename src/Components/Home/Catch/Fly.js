@@ -2,7 +2,8 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { InputGroup, ToggleButton, ToggleButtonGroup, Button, FormControl, Dropdown, DropdownButton } from 'react-bootstrap';
 import Scroll from 'react-scrollbar';
-import './Fly.css';
+import Swal from 'sweetalert2';
+import './Catch.css';
 
 function Fly(){
   const dispatch = useDispatch();
@@ -24,47 +25,74 @@ function Fly(){
     </Dropdown.Item>  
   );
 
+  const whatsMissing=()=>{
+    const obj = {Fly, FlyType, Color}
+    let answer = ''
+    for(let key in obj){
+      if(obj[key] === ''){
+        if(answer.split(' ').length === 2){
+          answer = `${answer} and ${key}`
+        }else{
+          answer = !answer? `${key}`: `${answer}, ${key}`
+        }
+      }
+    }
+    return answer
+  };
+
+  const handleNext=()=>{
+    if(FlyType && Fly && Color){
+      dispatch({type: 'NEXT'})
+    }else{
+      Swal.fire({
+        type: 'warning',
+        title: `enter ${whatsMissing()} to Continue`,
+        timer: 2000, showConfirmButton: false,
+        toast: true, position: 'top'
+      })
+    }
+  };
+
   return(
     <div className='Fly'>
       <h2 className='Fly-title'>What fly did you use?</h2>
-      <h5 className='preview'>{Size && `#${Size}`}</h5>
+      <h5 className='preview'>{Size && `#${Size}`} {FlyType && `${FlyType}`}</h5>
       <h3 className='preview'>{(Fly && FlyType) && `${Color || ''} ${ Fly}`}</h3>
-      <h4 className='preview'>{FlyType}</h4>
       <div className='Button-Group'>
-        <ToggleButtonGroup type='radio' name='fly' defaultValue={FlyType}>
-          <ToggleButton variant='outline-secondary' value="dry" 
+        <ToggleButtonGroup type='radio' name='fly' >
+          <ToggleButton variant='light' value='1' 
             onClick={() => dispatch({type: 'FLY_TYPE', payload: 'dryfly'})}>
-            <div className='fly-btn'>DryFly</div>
+            <div className='fly-btn'>Dryfly</div>
           </ToggleButton>
-          <ToggleButton variant='outline-secondary' value="wet" 
-            onClick={() => dispatch({type: 'FLY_TYPE', payload: 'wetfly'})}>
-            <div className='fly-btn'>WetFly</div>
-          </ToggleButton>
-          <ToggleButton variant='outline-secondary' value="streamer" 
-            onClick={() => dispatch({type: 'FLY_TYPE', payload: 'streamer'})}>
-            <div className='fly-btn'>Streamer</div>
-          </ToggleButton>
-          <ToggleButton variant='outline-secondary' value="nymph" 
+          <ToggleButton variant='light' value='2' 
             onClick={() => dispatch({type: 'FLY_TYPE', payload: 'nymph'})}>
             <div className='fly-btn'>Nymph</div>
+          </ToggleButton>
+          <ToggleButton variant='light' value='3' 
+            onClick={() => dispatch({type: 'FLY_TYPE', payload: 'streamer'})}>
+            <div className='fly-btn'>Streamer</div>
           </ToggleButton>
         </ToggleButtonGroup>
       </div>
       <div className='Button-Group'>
         <ToggleButtonGroup type='radio' name='fly' defaultValue={FlyType}>
-          <ToggleButton variant='outline-secondary' value="emerger" 
+          <ToggleButton variant='light' value='4' 
             onClick={() => dispatch({type: 'FLY_TYPE', payload: 'emerger'})}>
             <div className='fly-btn'>Emerger</div>
           </ToggleButton>
-          <ToggleButton variant='outline-secondary' value="terestrial" 
+          <ToggleButton variant='light' value='5' 
+            onClick={() => dispatch({type: 'FLY_TYPE', payload: 'wetfly'})}>
+            <div className='fly-btn'>Wetfly</div>
+          </ToggleButton>
+          <ToggleButton variant='light' value='6' 
             onClick={() => dispatch({type: 'FLY_TYPE', payload: 'terrestrial'})}>
             <div className='fly-btn'>Terrestrial</div>
           </ToggleButton>
-          <ToggleButton variant='outline-secondary' value="salt water" 
+          {/* <ToggleButton variant='light' value="salt water" 
             onClick={() => dispatch({type: 'FLY_TYPE', payload: 'salt water'})}>
             <div className='fly-btn'>Salt Water</div>
-          </ToggleButton>
-          <ToggleButton variant='outline-secondary' value="bead" 
+          </ToggleButton> */}
+          <ToggleButton variant='light' value='7' 
             onClick={() => dispatch({type: 'FLY_TYPE', payload: 'bead'})}>
             <div className='fly-btn'>Bead</div>
           </ToggleButton>
@@ -92,14 +120,8 @@ function Fly(){
       </div>
       <br/>
       <div>
-        <Button className='page-nav' variant='dark' onClick={() => dispatch({type: 'BACK'})}>
-          {'< Back'}   
-        </Button>     
-        <Button className='page-nav' variant='dark' 
-          onClick={() => dispatch({type: 'NEXT'})}
-        >
-          {'Next >'}
-        </Button>
+        <Button className='page-nav' variant='dark' onClick={() => dispatch({type: 'BACK'})}>{'< Back'}</Button>     
+        <Button className='page-nav' variant='dark' onClick={handleNext}>{'Next >'}</Button>
       </div>
     </div>
   )

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Carousel } from 'react-bootstrap';
+import { Carousel, Image } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import Fish from '../../../../Images/fish.png';
 import './Carousel.css'
@@ -15,17 +15,17 @@ function CatchCarousel(){
         <Carousel.Item key={i}>
           <div className='Image'>
             {image_url? 
-              <img src={image_url} alt='' height='400' />:
-              <img src={Fish} alt='' width='400'/>
+              <Image src={image_url} alt='' height='500' />:
+              <div className='default'><Image src={Fish} alt='' width='80%'/></div>
             }
           </div>
           <Carousel.Caption >
-            <h3 className='c-fish'>
+            <h2 className='c-fish'>
               {species} {(species !== 'Steelhead')? fish_type: ''}
-            </h3>
+            </h2>
             <div className='c-water'>
-              <h5 >{`${water_name} ${water_type },`}</h5> 
-              <h5 className='c-water-info'>{us_state}</h5>
+              <h4 >{`${water_name} ${water_type },`}</h4> 
+              <h4 className='c-water-info'>{us_state}</h4>
             </div>
           </Carousel.Caption>
         </Carousel.Item>

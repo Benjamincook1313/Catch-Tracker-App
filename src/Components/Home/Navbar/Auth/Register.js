@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { InputGroup, FormControl, DropdownButton, Dropdown } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import Scroll from 'react-scrollbar';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
 function Register(props){
   const { setShowRegister } = props
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
   const [userName, setUserName] = useState('')
   const [state, setState] = useState('')
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [verify, setVerify] = useState('')
-  const [showPass, setShowPass] = useState(false)
+  // const [password, setPassword] = useState('')
+  // const [verify, setVerify] = useState('')
+  // const [showPass, setShowPass] = useState(false)
 
   const States = [
     "Alaska", "Alabama", "Arkansas", "Arizona", "California", "Colorado", "Connecticut", "Delaware", "Florida","Georgia",
@@ -34,15 +32,21 @@ function Register(props){
 
   const registerUser = async (e) => {
     if(e.key === 'Enter'){
-      if(password !== verify){ Swal.fire({type: 'error', title: 'try again', text: 'Passwords do not match', timer: 2000, showConfirmButton: false}) }
-      if(state && email && password && userName && email.includes('@') && verify === password){
-        const res = await axios.post('/auth/register', { state, userName, email, password })
-        if(!res.data.loggedIn){
-          Swal.fire({type: 'warning', title: `${res.data.message}`, text: 'try again', showConfirmButton: false, timer: 2000})
+      if(state && email && userName && email.includes('@')){
+        const res = await axios.post('/auth/register', { state, userName: userName.toLowerCase(), email })
+        if(res.data.message){
+          Swal.fire({
+            type: 'warning', 
+            title: `${res.data.message}`, 
+            showConfirmButton: false, timer: 2000,
+            toast: true, position: 'top'
+          })
         }else{
-          Swal.fire({type: 'success', title: 'you are logged in', showConfirmButton: false, timer: 2000, toast: true, position: 'top'})
-          dispatch({type: 'LOGIN', payload: true})
-          dispatch({type: 'UPDATE_USER', payload: res.data.userData})
+          Swal.fire({
+            type: 'success', 
+            title: `your temparary password was sent to ${email}`, 
+            showConfirmButton: false, timer: 2000 
+          })
           setShowRegister()
         }
       }
@@ -67,12 +71,12 @@ function Register(props){
           </DropdownButton>
         </InputGroup>
         <br/> 
-        <InputGroup>
+        <InputGroup className='mb-3'>
           <FormControl 
             placeholder='Username' 
             type='Username' 
             value={userName} 
-            onChange={ e => setUserName(e.target.value)} 
+            onChange={e => setUserName(e.target.value)} 
             required
           />
           <FormControl 
@@ -80,11 +84,11 @@ function Register(props){
             type='email' 
             value={email} 
             onChange={ e => setEmail(e.target.value)} 
+            onKeyPress={e => registerUser(e)}
             required
           />
         </InputGroup>
-        <br/>
-        <InputGroup>
+        {/* <InputGroup>
           <FormControl 
             placeholder='Password' 
             value={password} 
@@ -103,9 +107,8 @@ function Register(props){
                 <FontAwesomeIcon icon={!showPass? faEye: faEyeSlash} onClick={() => setShowPass(!showPass)}/>
               </InputGroup.Text>
             </InputGroup.Append>
-        </InputGroup>
-        <br/>
-        <div>( press enter to submit )</div>
+        </InputGroup> */}
+        {email && <div>( press enter to register )</div>}
       </div>
     </div>
   )

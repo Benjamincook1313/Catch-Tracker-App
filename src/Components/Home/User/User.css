@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 0px;
 }
 .userCatch{
   width: 90vw;
@@ -12,11 +13,6 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-}
-
-img{
-  border-radius: 5px;
-  min-width: 185px;
 }
 
 .Catch{
@@ -90,22 +86,35 @@ img{
 }
 .d-title{
   text-decoration: underline;
+  position: relative;
+  top: 5px;
 }
  
 .fish{
   font-size: 10px;
-  margin: 1px;
 }
 .options-btn{
-  border: 2px solid white;
+  height: 20px;
+  width: 40px;
+  padding: 3px;
   border-radius: 3px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 45px;
+  justify-content: space-between;
   position: absolute;
-  right: 2px;
+  right: 1px;
+  top: 26px;
+  cursor: pointer;
+}
+.options-btn:hover{
+  border: 1px solid white;
+  padding: 2px;
+}
+.options-btn:active{
+  height: 18px;
+  width: 38px;
   top: 27px;
+  right: 2px;
 }
 .options{
   font-size: 12px;
@@ -124,6 +133,7 @@ img{
   font-weight: bold;
   text-decoration: underline;
   z-index: 10;
+  cursor: pointer;
 }
 .option-btns:hover{
   color: white;
@@ -144,23 +154,11 @@ img{
   align-items: center;
   justify-content: space-evenly;
   z-index: 1;
+  padding: 20px;
 }
-.d-x-btn{
-  border: none;
-  background: none;
-  color: white;
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  font-size: 16px;
+.d-btns{
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
 }
-.d-x-btn:hover{
-  background: white;
-  color: black;
-  border-radius: 2px;
-}
-.d-x-btn:active{
-  font-size: 14px;
-  margin-top: 1px;
-  margin-right: 1px;
-}
+

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, ToggleButton, ToggleButtonGroup, InputGroup, FormControl, DropdownButton, Dropdown } from 'react-bootstrap';
 import Scroll from 'react-scrollbar';
 import Swal from 'sweetalert2';
-import './Location.css'
+import './Catch.css'
 
 function Location(){
   const tod = [
@@ -108,9 +108,22 @@ function Location(){
       case '12': month = `Dec`
         break;
       default: 
+        return `${month} ${day}, ${year}`
     }
-    return `${month} ${day}, ${year}`
-  }
+  };
+
+  const handleNext=()=>{
+    if(WaterName){ 
+      dispatch({type: 'NEXT'})
+    }else{
+      Swal.fire({
+        type: 'warning',
+        title: `Enter name of ${WaterType.toLowerCase()} before continuing`, 
+        showConfirmButton: false,  timer: 4000,
+        toast: true, position: 'top'
+      })
+    }
+  };
   
   return(
     <div className='Location'>
@@ -174,16 +187,7 @@ function Location(){
           </Scroll>
         </DropdownButton>
       </InputGroup>
-      <Button 
-        type='submit'
-        className='page-nav' 
-        variant='dark' 
-        onClick={() => (WaterName !== '')? dispatch({type: 'NEXT'}):
-          Swal.fire({title: `Enter name of ${WaterType.toLowerCase()} before continuing`, 
-            showConfirmButton: false, type: 'warning', timer: 4000
-          })
-        }
-      >
+      <Button className='page-nav' variant='dark' onClick={handleNext}>
         {'Next >'}
       </Button>
     </div>

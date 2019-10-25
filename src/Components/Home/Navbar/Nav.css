@@ -28,30 +28,27 @@
 }
 .fish-img{
   position: absolute;
-  top: -50px;
+  top: -10px;
+  left: 15px;
   z-index: 0;
 }
-.name-wrapper{
-  position: absolute;
-  top: 35px;
-  left: 20px;
-  width: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+
 .name{
   text-transform: capitalize;
   color: rgb(255, 255, 255);
   z-index: 1;
   cursor: pointer;
+  position: absolute;
+  top: 46px;
+  left: 40px;
+  width: 260px;
 }
 .settings-btn{
   text-transform: lowercase;
   background: none;
   position: absolute;
-  top: 60px;
-  left: 115px;
+  top: 65px;
+  left: 95px;
 }
 .settings-btn:active{
   font-size: 18px;

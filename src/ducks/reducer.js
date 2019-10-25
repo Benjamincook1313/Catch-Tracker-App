@@ -52,7 +52,7 @@ const initialState = {
   image: '',
   flyType: '',
   fly: '',
-  size: '0',
+  size: '',
   color: '',
   details: '',
   edit: '',

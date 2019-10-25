@@ -14,3 +14,80 @@
 .tooltip{
   min-width: 200px;
 }
+.column{
+  display: flex;
+  flex-direction: column;
+}
+
+/* Location */
+.date-time{
+  margin-bottom: 5px;
+}
+.state{
+  margin-top: 10px;
+}
+.location-btn{
+  color: #7dc244
+}
+.Location{
+  color: #7dc244;
+}
+.x-btn{
+  position: relative;
+  top: 0px;
+  right: 0px;
+}
+
+/* Weather */
+.Weather{
+  color: lightseagreen;
+}
+.weather-btn{
+  color: lightseagreen;
+}
+.specific-temp{
+  color: #343A40;
+}
+.weather-icon{
+  font-size: 28px;
+}
+
+/* Fish */
+.Fish{
+  color: salmon;
+}
+.fishItem:hover{
+  background: salmon
+}
+.type-btn{
+  color: salmon
+}
+.Length{
+  width: 400px;
+  margin: 0px auto;
+}
+
+.img{
+  /* border: 2px solid gray; */
+  border-radius: 5px;
+  padding: 2px;
+}
+
+/* Fly */
+.Fly{
+  color: orange;
+}
+.Fly-title{
+  margin-bottom: 15px;
+}
+.fly-btn{
+  color: orange;
+}
+.Button-Group{
+  margin-top: 5px;
+}
+
+/* Review */
+.ReviewCatch{
+  color: #343A40;
+}

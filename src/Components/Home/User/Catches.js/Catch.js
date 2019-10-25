@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import EditCatch from './Edit/EditCatch';
-import Delete from './Delete';
 import { OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSnowflake, faCloudRain, faCloudSunRain, faCloudSun, faSun, faCloud, faFish } from '@fortawesome/free-solid-svg-icons'
@@ -19,7 +18,7 @@ function Catch(props){
   const user = useSelector(state => state.user)
   const [showOptions, setShowOptions] = useState(false)
   const [edit, setEdit] = useState(false)
-  const [Dlt, setDelete] = useState(false)
+  const [dlt, setDlt] = useState(false)
 
   const Sun = <FontAwesomeIcon className='weather-icon2 sun' icon={faSun} />
   const Cloud = <FontAwesomeIcon className='weather-icon2 cloud' icon={faCloud}/>
@@ -27,6 +26,7 @@ function Catch(props){
   const Snow = <FontAwesomeIcon className='weather-icon2 snow' icon={faSnowflake}/>
   const Pc = <FontAwesomeIcon className='weather-icon2 pc' icon={faCloudSun}/>
   const Pcr = <FontAwesomeIcon className='weather-icon2 pcr' icon={faCloudSunRain}/>
+  
   const fish = <FontAwesomeIcon className='fish' icon={faFish}/>
 
   const kindOfWeather = (Weather) => {
@@ -53,20 +53,21 @@ function Catch(props){
     if(res.data){
       dispatch({type: 'CLEAR_CATCH'})
       dispatch({type: 'CATCHES', payload: res.data})
-      setDelete(false)
+      setDlt(false)
       refresh()
     }
   };
 
   return(
     <div className='Catch'>
-      {Dlt && 
-        <Delete 
-          cancel={() => setDelete(false)} 
-          handleDelete={handleDelete} 
-          setShowOptions={() => setShowOptions(false)}
-          refresh={refresh}
-        />
+      {dlt && 
+        <div className='Delete'>
+          <h4>are you sure you want to delete this catch?</h4>
+          <div className='d-btns'>
+            <Button variant='light' onClick={() => setDlt(false)}>no</Button>
+            <Button variant='light' onClick={handleDelete}>yes</Button>
+          </div>
+        </div>
       }
       {edit && 
         <EditCatch 
@@ -80,15 +81,14 @@ function Catch(props){
         <h6 className='location-item'>{`${water_name} ${water_type}`}</h6> 
         <h5 className='location-item'>{`${us_state}`|| user.state}</h5>
       </div>
-      <Button className='options-btn' 
-        size='sm' variant='outline-light'
+      <div className='options-btn' 
         onClick={() => setShowOptions(!showOptions)}>
         {fish}{fish}{fish}
-      </Button>
+      </div>
       {showOptions &&
         <div className='options'>
           <div className='option-btns' onClick={() => setEdit(true)/dispatch({type: 'EDIT_CATCH', payload: userCatch})}>Edit</div>
-          <div className='option-btns' onClick={() => setDelete(true)/dispatch({type: 'EDIT_CATCH', payload: userCatch})}>Delete</div>
+          <div className='option-btns' onClick={() => setDlt(true)/dispatch({type: 'EDIT_CATCH', payload: userCatch})/setShowOptions(false)}>Delete</div>
         </div>
       }
       <OverlayTrigger placement='right' overlay={
@@ -119,14 +119,15 @@ function Catch(props){
           <div className='fly'>
             <h6>Fly:</h6>
             <div className='fly-info'>
-              <p>#{size} {fly_type}</p> 
-              <p>{color} {fly}</p>
+              <p>#{size} {fly}</p> 
+              <p>{color}</p>
+              <p>{fly_type}</p>
             </div>
           </div>
           {details &&
             <div className='details'>
               <h6 className='d-title'>Details</h6>
-              <p>{details}</p> 
+              <p className='input'>{details}</p> 
             </div>
           }
         </Tooltip>

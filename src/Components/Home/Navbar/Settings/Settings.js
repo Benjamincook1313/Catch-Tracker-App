@@ -12,11 +12,10 @@ function Settings(props){
   const { setSettings, refresh } = props
   const dispatch = useDispatch()
   const User = useSelector(state => state.user)
-  const TempPass = useSelector(state => state.tempPass)
   
-  const [homeSt, setHomeSt] = useState(`${User.state}`)
-  const [userName, setUserName] = useState(`${User.user_name}`)
-  const [newEmail, setNewEmail] = useState(`${User.email}`)
+  const [homeSt, setHomeSt] = useState('')
+  const [userName, setUserName] = useState('')
+  const [newEmail, setNewEmail] = useState('')
   const [changePass, setChangePass] = useState(false)
   const [pass, setPass] = useState('')
   const [verify, setVerify] = useState('')
@@ -39,11 +38,6 @@ function Settings(props){
 
   const handleCurrentPass=async(e)=>{
     if(e.key === 'Enter'){
-      if(TempPass){
-        if(TempPass === pass){
-          return setChangePass(true)
-        }
-      }
       const res = await axios.post('/auth/checkPass', {userName: User.user_name, pass})
       if(!res.data){
         Swal.fire({
@@ -59,14 +53,29 @@ function Settings(props){
   };
 
   const updateUser=async()=>{
-    const res = await axios.put(`/auth/updateUser/${User.user_id}`, {homeSt, userName, newEmail})
-    if(res.data){
+    let userInfo = {
+      homeSt: homeSt? homeSt: User.state,
+      userName: userName? userName: User.user_name,
+      newEmail: newEmail? newEmail: User.email
+    }
+    const res = await axios.put(`/auth/updateUser/${User.user_id}`, userInfo)
+    if(res.data.message){
+      Swal.fire({
+        type: 'warning',
+        title: `${res.data.message}`,
+        showConfirmButton: false, timer: 2000,
+        toast: true
+      })
+    }else{
       Swal.fire({
         type: 'success', 
         title: 'Info Updated', 
         showConfirmButton: false, timer: 2000
       })
       await dispatch({type: 'UPDATE_USER', payload: res.data})
+      setHomeSt('')
+      setUserName('')
+      setNewEmail('')
       refresh()
     }
   };
@@ -80,7 +89,7 @@ function Settings(props){
           timer: 2000, showConfirmButton: false
         })
       }
-      if(pass === verify && verify !== ''){
+      if(pass === verify && verify !== '' && pass.length >= 6){
         const res = await axios.put(`/auth/updatePass/${User.user_id}`, {pass})
         if(res.data){
           Swal.fire({
@@ -92,6 +101,14 @@ function Settings(props){
           setPass('')
           setVerify('')
         }
+      }
+    }else{
+      if(e.key === 'Enter'){
+        Swal.fire({
+          type: 'warning', 
+          title: 'password must be at least 6 characters', 
+          showConfirmButton: false, timer: 2000
+        })
       }
     }
   };
@@ -132,7 +149,7 @@ function Settings(props){
           <InputGroup.Prepend>
             <InputGroup.Text>Home State</InputGroup.Text>
           </InputGroup.Prepend>
-          <FormControl value={homeSt} style={{background: 'white'}} readOnly/>
+          <FormControl placeholder={User.state} value={homeSt} style={{background: 'white'}} readOnly/>
           <DropdownButton as={InputGroup.Append} variant='outline-secondary' title='' alignRight>
             <Scroll className='list'>{stateList}</Scroll>
           </DropdownButton>
@@ -141,15 +158,15 @@ function Settings(props){
           <InputGroup.Prepend id='basic-addon1'>
             <InputGroup.Text>Username</InputGroup.Text>
           </InputGroup.Prepend>
-          <FormControl value={userName} onChange={e => setUserName(e.target.value)} />
+          <FormControl placeholder={User.user_name} value={userName} onChange={e => setUserName(e.target.value)} />
         </InputGroup>
         <InputGroup className='mb-3'>
           <InputGroup.Prepend>
             <InputGroup.Text>Email</InputGroup.Text>
           </InputGroup.Prepend>
-          <FormControl type='email' value={newEmail} onChange={e => setNewEmail(e.target.value)}/>
+          <FormControl type='email'  placeholder={User.email} value={newEmail} onChange={e => setNewEmail(e.target.value)}/>
         </InputGroup>
-        {(homeSt !== User.state || (userName !== User.user_name && userName !== '') || (newEmail !== User.email && newEmail !== '')) &&
+        {(homeSt !== '' || userName !== '' || newEmail !== '') &&
           <Button className='mb-3' variant='dark' type='submit' onClick={updateUser}>Update Info</Button>
         }
         <br/>

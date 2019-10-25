@@ -90,7 +90,7 @@ function Login(props){
             <FormControl className='mb-3' placeholder='Enter Email' onChange={e => setEmail(e.target.value)} onKeyPress={e => forgotPass(e)} />
           </div>
         }
-        {'( press enter to submit )'}
+        {password && '( press enter to login )'}
         {(showReset && !showEmail) &&
           <h6 className='forgot-p' onClick={() => setShowEmail(true)} >forgot password?</h6>
         }

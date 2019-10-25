@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, ButtonGroup,FormControl, Dropdown, DropdownButton, InputGroup } from 'react-bootstrap';
-import ImageUpload from '../../../ImageUpload'; 
+import ImageUpload from '../../ImageUpload'; 
 import Scroll from 'react-scrollbar';
-import './Fish.css'
+import Swal from 'sweetalert2';
+import './Catch.css'
 
 function Fish(){
   const dispatch = useDispatch();
@@ -41,10 +42,26 @@ function Fish(){
     </Dropdown.Item>  
   ))
 
+  const handleNext = ()=>{
+    if(Species){
+      dispatch({type: 'NEXT'})
+    }else{
+      Swal.fire({
+        type: 'warning',
+        title: 'Select Fish Species to Continue',
+        timer: 2000, showConfirmButton: false,
+        toast: true, position: 'top'
+      })
+    }
+  };
+
   return(
     <div className='Fish'>
       <h2>What kind of Fish?</h2>
-      {Species && <h4 className='preview'>{`${Length? Length: ''} ${Species} ${(FishType !== 'other')? FishType: ''}`} </h4>}
+      {Species && 
+        <h4 className='preview'>
+          {`${Length? Length: ''} ${Species} ${(FishType !== 'other')? FishType: ''}`} 
+        </h4>}
       <ButtonGroup className='ButtonGroup' type='radio' name='fishType'  defaultValue='1'>
         <DropdownButton as={ButtonGroup} variant={FishType === 'trout'? 'secondary': 'outline-secondary'} value="1" title='Trout' 
           onClick={() => dispatch({type: 'FISH_TYPE', payload: 'trout'})/
@@ -78,7 +95,10 @@ function Fish(){
         </DropdownButton>
       </InputGroup>
       <div className='input'>
-        <img  src={Image} alt='' width={200}/>
+        {Image? 
+          <img className='img'  src={Image} alt='loading...' width={200}/>:
+          null
+        }
         <ImageUpload />
       </div>
       <br/>
@@ -86,7 +106,7 @@ function Fish(){
         <Button className='page-nav' variant='dark' onClick={() => dispatch({type: 'BACK'})}>
           {'< Back'}
         </Button>
-        <Button className='page-nav' variant='dark' onClick={() => dispatch({type: 'NEXT'})}>
+        <Button className='page-nav' variant='dark' onClick={handleNext}>
           {'Next >'}
         </Button>
       </div>

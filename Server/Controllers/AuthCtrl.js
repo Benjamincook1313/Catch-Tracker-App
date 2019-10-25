@@ -26,7 +26,8 @@ module.exports = {
   },
 
   register: async (req, res) => {
-    const { state, userName, email, password } = req.body
+    const { state, userName, email } = req.body
+    let tempPass = Math.random().toString(15).slice(-10)
     const db = req.app.get('db')
     const checkEmail = await db.check_email([email])
     if(checkEmail[0]){
@@ -37,15 +38,28 @@ module.exports = {
       return res.status(200).send({message: 'Username Taken!'})
     }
     const salt = bcrypt.genSaltSync(10)
-    const hash = bcrypt.hashSync(password, salt)
+    const hash = bcrypt.hashSync(tempPass, salt)
     const newUserArr = await db.register_user([state, userName, email, hash])
     delete newUserArr[0].hash
-    req.session.user = newUserArr[0]
-    res.status(200).send({
-      message: 'logged in',
-      userData: req.session.user,
-      loggedIn: true
+    let mailOption = {
+      from: EMAIL,
+      to: email,
+      subject: 'temporary password',
+      text: `Username: ${userName} temporary password: ${tempPass}.
+        Instructions: 
+          sign in using your temperary password. 
+          click on your username in the top left corner. 
+          click settings. 
+          enter temperary password.
+          enter new password and verify.
+          click update password.`
+    }  
+    transporter.sendMail(mailOption, (err)=>{
+      if(err) {
+        return res.status(200).send({message: 'Invalid Email try again'})
+      }
     })
+    res.sendStatus(200)
   },
 
   login: async (req, res) => {
@@ -110,8 +124,10 @@ module.exports = {
       }
     }
     const userArr = await db.update_user([id, homeSt, userName, newEmail])
-    delete userArr[0].hash
-    res.status(200).send(userArr[0])
+    if(userArr[0]){
+      delete userArr[0].hash
+      return res.status(200).send(userArr[0])
+    }
   },
 
   updatePass: async (req, res) => {
@@ -136,7 +152,6 @@ module.exports = {
     }
     const salt = bcrypt.genSaltSync(10)
     const hash = bcrypt.hashSync(tempPass, salt)
-    console.log(userArr[0].user_id)
     const setPass = await db.update_password([userArr[0].user_id, hash])
     if(setPass){
       let mailOption = {
@@ -154,9 +169,8 @@ module.exports = {
       }  
       transporter.sendMail(mailOption, (err)=>{
         if(err) {
-          console.log(err, 'Error sending email')
+          return res.status(200).send({message: 'Invalid Email try again'})
         }
-        console.log('Email sent!!!')
       })
     }
     res.sendStatus(200)

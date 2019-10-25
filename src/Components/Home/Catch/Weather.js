@@ -4,7 +4,7 @@ import { OverlayTrigger, Tooltip, ToggleButton, ButtonGroup, Button } from 'reac
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSnowflake, faCloudRain, faCloudSunRain, faCloudSun, faSun, faCloud } from '@fortawesome/free-solid-svg-icons'
 import Swal from 'sweetalert2';
-import './Weather.css'
+import './Catch.css'
 
 function Weather(){
   const dispatch = useDispatch();
@@ -35,6 +35,19 @@ function Weather(){
         return Pcr
       default:
         return ''
+    }
+  };
+
+  const handleNext=()=>{
+    if(Weather && Temp){
+      dispatch({type: 'NEXT'})
+    }else{ 
+      Swal.fire({
+        type: 'warning', 
+        title: `must select weather & temp before continuing`, 
+        showConfirmButton: false, timer: 3000,
+        toast: true, position: 'top'
+      })
     }
   };
 
@@ -129,12 +142,7 @@ function Weather(){
       <br/>
       <div>
         <Button className='page-nav' variant='dark' onClick={() => dispatch({type: 'BACK'})}>{'< Back'}</Button> 
-        <Button className='page-nav' variant='dark' onClick={() => (Weather && Temp)? dispatch({type: 'NEXT'}): 
-          Swal.fire({
-            type: 'warning', 
-            title: `must select weather & temp before continuing`, 
-            showConfirmButton: false, timer: 3000 }
-          )}>
+        <Button className='page-nav' variant='dark' onClick={handleNext}>
           {'Next >'}
         </Button>
       </div>

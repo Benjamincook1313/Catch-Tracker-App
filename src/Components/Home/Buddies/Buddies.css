@@ -1,0 +1,14 @@
+
+.Buddies{
+  background: white;
+  height: 660px;
+  width: 1000px;
+  border-radius: 5px;
+  position: absolute;
+  top: 200px;
+  color: royalblue;
+  padding: 10px;
+}
+.fb-title{
+  text-decoration: underline;
+}

@@ -5,4 +5,4 @@ where user_id=$2 and catch_id=$1;
 
 select * from catch
 where user_id = $2
-order by user_id desc; 
+order by date asc; 

@@ -15,7 +15,6 @@ const ImageUpload=()=>{
 
   const handleUpload = (image)=>{
     const uploadTask = storage.ref(`images/${user.user_name}/${image.name}`).put(image)
-    dispatch({type: 'IMAGE', payload: 'Uploading...'})
     uploadTask.on('state_changed', 
     (snapshot) => {
       // progress

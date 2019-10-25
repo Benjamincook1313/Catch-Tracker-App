@@ -1,11 +1,32 @@
-.carousel{
-  /* width: 800px; */
+
+.Image{
+  width: 70%;
+  margin: auto;
+  overflow: hidden;
+  background: rgb(0, 0, 0, .4);
 }
-.carousel-wrapper{
+.default{
+  height: 500px;
+  background: rgb(0, 0, 0,);
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 420px;
+}
+.carousel{
+  display: flex;
+  align-items: center;
+  width: 1000px;
+  height: 500px;
+  border-radius: 10px;
+}
+.carousel-caption{
+  bottom: 5px;
+}
+.carousel-control-next{
+  background: rgb(0, 0, 0, .8)
+}
+.carousel-control-prev{
+  background: rgb(0, 0, 0, .8)
 }
 .img-opts-btn{
   position: absolute;

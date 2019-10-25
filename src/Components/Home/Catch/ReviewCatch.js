@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button } from 'react-bootstrap';
-import Fish from '../../../../Images/fish.png'
+import Fish from '../../../Images/fish.png'
 import Swal from 'sweetalert2';
 import axios from 'axios';
-import './ReviewCatch.css';
+import './Catch.css';
 
 function ReviewCatch(props){
   const { refresh } = props
@@ -25,11 +25,13 @@ function ReviewCatch(props){
   return(
     <div className='ReviewCatch'>
       <h1>New Catch Review</h1>
-      <h5><div>{`${tod} ${day}`}</div>  <div>{`${temp}-${weather}`}</div></h5>
-      <h2>{`${length} ${species} ${fishType}`}</h2> 
+      <h5>{`${tod} ${day}`}</h5>
+      <h5>{`${temp}-${weather}`}</h5>
+      <h3>{`${length} ${species} ${fishType}`}</h3> 
       <img src={image? image: Fish} alt='' height='200' />
       <h3>{`${waterName} ${waterType}, ${usState}`}</h3> 
-      <h4>{`size ${size}, ${color} ${fly} - ${flyType}`}</h4>
+      <h4>{`size ${size} - ${flyType}`}</h4>
+      <h3>{`${color} ${fly}`}</h3>
         Details
       <div className='column'>
         <textarea rows='5' cols='50' value={details} onChange={e => dispatch({type: 'DETAILS', payload: e.target.value})} />

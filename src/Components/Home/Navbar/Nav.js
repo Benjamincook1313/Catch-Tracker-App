@@ -32,25 +32,21 @@ function Nav(props){
       })
     }
   };
-  // <FontAwesomeIcon className='water' icon={faWater} />
 
   return(
     <div className='Nav'>
-      <div className='name-wrapper'>
-        <img className='fish-img' src={Fish} alt='' width={260} />
-        {loggedIn? 
-          <div className='name' onClick={() => setStBtn(!stBtn)}>
-            <h3 className='greeting' onClick={() => setStBtn(!stBtn)}>{`${User? User.user_name: ''}`}</h3>
-            {stBtn && 
-              <h5 className='settings-btn' variant='light' 
-                onClick={() => setSettings(true)/setStBtn(false)/dispatch({type: 'US_STATE', payload: User.state})}>
-                settings
-              </h5>
-            }
-          </div>: 
-          <h3>''</h3>
-        }
-      </div>
+      <img className='fish-img' src={Fish} alt='' width={280} onClick={() => setStBtn(!stBtn)} />
+      {loggedIn? 
+        <div className='name' onClick={() => setStBtn(!stBtn)}>
+          <h3>{`${User? User.user_name: null}`}</h3>
+          {stBtn && 
+            <h5 className='settings-btn' variant='light' 
+              onClick={() => setSettings(true)/setStBtn(false)/dispatch({type: 'US_STATE', payload: User.state})}>
+              settings
+            </h5>
+          }
+        </div>: null
+      }
       <div className='login-logout'>
         {loggedIn &&
           <Button variant='dark' onClick={logout}>logout</Button>
@@ -60,7 +56,7 @@ function Nav(props){
             <ToggleButton variant='light' value={1} onClick={() => setShowLogin(true)/setShowRegister(false)}>login</ToggleButton>            <ToggleButton variant='light' value={2} onClick={() => setShowRegister(true)/setShowLogin(false)}>register</ToggleButton>
           </ToggleButtonGroup>
         }
-        <h4 className='shop-btn'>shop</h4>
+        {/* <h4 className='shop-btn'>shop</h4> */}
       </div>
       <h1 className='title'>Catch-Tracker
         <FlyRod />

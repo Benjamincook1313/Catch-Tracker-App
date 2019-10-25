@@ -1,15 +1,22 @@
 .footer{
   position: fixed;
   bottom: 0px;
-  min-height: 55px;
+  min-height: 70px;
   width: 100vw;
-  background: rgb(0, 0, 0, .7);
+  background: rgb(0, 0, 0, .8);
 }
 .input{
   margin: 5px;
 }
-
-.Home {
+.fish-on{
+  margin-top: 5px;
+  margin-bottom: 20px; 
+  width: 600px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-evenly;
+}
+.Home{
   text-align: center;
   height: 100%;
   width: 100%;
@@ -44,9 +51,10 @@
   border: 2px solid black;
   border-radius: 5px;
   padding: 20px 50px;
-  margin-top: 30px;
   background-color: rgba(255, 255, 255, 0.9);
   margin: 10px;
+  position: absolute;
+  top: 200px;
 }
 
 .sun{

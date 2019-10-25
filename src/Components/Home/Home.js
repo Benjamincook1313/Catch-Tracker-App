@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import Nav from './Navbar/Nav';
-import Location from './Catch/Location/Location';
-import Weather from './Catch/Weather/Weather';
-import Fish from './Catch/Fish/Fish';
-import Fly from './Catch/Fly/Fly';
-import ReviewCatch from './Catch/ReviewCatch/ReviewCatch';
+import Location from './Catch/Location';
+import Weather from './Catch/Weather';
+import Fish from './Catch/Fish';
+import Fly from './Catch/Fly';
+import ReviewCatch from './Catch/ReviewCatch';
 import River from '../../Images/River.mp4';
-import Carousel from './User/Carousel./Carousel';
+import Buddies from './Buddies/Buddies';
+import Carousel from './User/Carousel/Carousel';
 import Catch from './User/Catches.js/Catch';
 import axios from 'axios';
 import './Catch/Catch.css';
@@ -22,16 +23,17 @@ function Home(props) {;
   const showForm = useSelector(state => state.showForm)
   const Catches = useSelector(state => state.catches)
 
-  const [mounted, setMounted] = useState(false)
-  const [showAll, setShowAll] = useState(false)
+  const [refresh, setRefresh] = useState(false)
+  const [selected, setSelected] = useState(2)
 
   let userCatch = Catches? Catches.map((userCatch, i) => {
     return (
-      <Catch key={i} userCatch={userCatch} refresh={() => setMounted(false)} />
+      <Catch key={i} userCatch={userCatch} refresh={() => setRefresh(!refresh)} />
     )
   }): null;
 
   useEffect(() => {
+    let mounted = false
     if(!mounted){
       axios.get('/auth/checkForUser').then(res => {
         if(res.data.user){
@@ -39,58 +41,66 @@ function Home(props) {;
           dispatch({type: 'UPDATE_USER', payload: res.data.user})
           dispatch({type: 'CATCHES', payload: res.data.catches})
           dispatch({type: 'US_STATE', payload: res.data.user.state})
-          setMounted(true)
         }
       })
     }
-  }, [dispatch, mounted]);
+    return () => {
+      if(!mounted){
+        mounted = true
+      }
+    }
+  }, [dispatch, refresh]);
 
   const form = [
     <Location />, 
     <Weather />, 
     <Fish />, 
     <Fly />,
-    <ReviewCatch refresh={() => setMounted(false)}/>
+    <ReviewCatch refresh={() => setRefresh(!refresh)}/>
   ];
+
+  const section = [
+    <Carousel />,
+    <div className='userCatch'>{userCatch}</div>,
+    <Buddies />
+  ]
 
   return (
     <div className="Home" >
       <video className='background-video'  src={River} autoPlay={true} loop muted/>
       <div className='hidden'></div> 
-      <Nav refresh={() => setMounted(false)}/>
+      <Nav refresh={() => setRefresh(false)}/>
       <br/>
       {loggedIn &&
         <div className='fish-on'>
+          {(selected === 2)?
+            <Button variant='secondary' onClick={() => setSelected(0)/dispatch({type: 'SHOW_FORM'})}>Carousel</Button>:
+            <Button variant='secondary' onClick={() => setSelected(2)/dispatch({type: 'SHOW_FORM'})}>Buddies</Button>
+          }
           {!showForm && 
-            <Button variant='light' onClick={() => dispatch({type: 'SHOW_FORM', payload: true})}>
+            <Button variant='light' size='lg' onClick={() => dispatch({type: 'SHOW_FORM', payload: true})}>
               ^-^ Fish On!!! ^-^
             </Button>
           }
           {showForm && <Button variant='dark' onClick={() => dispatch({type: 'SHOW_FORM', payload: false})/dispatch({type: 'CLEAR_CATCH'})}>Fish Off!</Button>}
+          {(selected === 1)?
+            <Button variant='secondary' onClick={() => setSelected(0)/dispatch({type: 'SHOW_FORM'})}>Carousel</Button>:
+            <Button variant='secondary' onClick={() => setSelected(1)/dispatch({type: 'SHOW_FORM'})}>All Catches</Button>
+          }
+            
           {showForm && <div className='form-page-wrapper'>{form[page]}</div> }
         </div>
       }
       <br/>
       {loggedIn && 
         <div className='UserCatches' >
-          <div className='carousel-wrapper'>
-            {Catches? 
-              <Carousel />:
-              <h4>5 most recent catches</h4>
-            }
-          </div>
-          <Button variant='light' onClick={() => setShowAll(!showAll)}>All Catches</Button>
-          <br/>
-          {showAll &&
-            <div className='userCatch'>
-              {userCatch}
-            </div>
+          {(Catches && !showForm) && 
+            section[selected]
           }
+          <br/>
         </div>
       }
-      {loggedIn &&
-        <footer className='footer'></footer>
-      }  
+      <footer className='footer'></footer>
       <footer></footer>
     </div>
   );
