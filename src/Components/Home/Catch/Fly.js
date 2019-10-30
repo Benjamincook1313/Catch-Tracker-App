@@ -55,7 +55,7 @@ function Fly(){
 
   return(
     <div className='Fly'>
-      <h2 className='Fly-title'>What fly did you use?</h2>
+      <h2 className='Fly-title'>Fly</h2>
       <h5 className='preview'>{Size && `#${Size}`} {FlyType && `${FlyType}`}</h5>
       <h3 className='preview'>{(Fly && FlyType) && `${Color || ''} ${ Fly}`}</h3>
       <div className='Button-Group'>

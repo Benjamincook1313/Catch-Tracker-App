@@ -4,7 +4,7 @@ import './Buddies.css';
 function Buddies(){
   return(
     <div className='Buddies'>
-      <h1 className='fb-title'>Fishing Buddies</h1>
+      <h2 className='fb-title'>Fishing Buddies</h2>
     </div>
   )
 };

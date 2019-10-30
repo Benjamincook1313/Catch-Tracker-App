@@ -1,24 +1,9 @@
 
-.UserCatches{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 0px;
-}
-.userCatch{
-  width: 90vw;
-  height: unset;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-}
-
 .Catch{
   position: relative;
   border-radius: 5px;
-  margin: 25px 45px 25px 5px;
+  margin: 0px 45px 25px 5px;
+  max-width: 100%;
 }
 
 .weather{
@@ -52,7 +37,8 @@
   text-transform: capitalize;
 }
 .catch-img{
-  min-width: 228px
+  min-width: 228px;
+  max-width: 100%;
 }
 .fish-info{
   border-top: 1px solid white;
@@ -160,5 +146,11 @@
   width: 100%;
   display: flex;
   justify-content: space-evenly;
+}
+@media(max-width: 500px){
+  .Catch{
+    max-width: 100%;
+    margin: 0px 0px 20px 0px;
+  }
 }
 

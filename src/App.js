@@ -11,6 +11,7 @@ function App(){
         <Route path='/' exact component={ Home } />
         <Route path='/store' component={ Store} />
       </Switch>
+      {/* <footer></footer> */}
     </HashRouter>
   );
 };

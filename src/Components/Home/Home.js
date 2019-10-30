@@ -6,6 +6,7 @@ import Location from './Catch/Location';
 import Weather from './Catch/Weather';
 import Fish from './Catch/Fish';
 import Fly from './Catch/Fly';
+import Scroll from 'react-scrollbar';
 import ReviewCatch from './Catch/ReviewCatch';
 import River from '../../Images/River.mp4';
 import Buddies from './Buddies/Buddies';
@@ -24,7 +25,7 @@ function Home(props) {;
   const Catches = useSelector(state => state.catches)
 
   const [refresh, setRefresh] = useState(false)
-  const [selected, setSelected] = useState(2)
+  const [selected, setSelected] = useState(0)
 
   let userCatch = Catches? Catches.map((userCatch, i) => {
     return (
@@ -75,33 +76,30 @@ function Home(props) {;
         <div className='fish-on'>
           {(selected === 2)?
             <Button variant='secondary' onClick={() => setSelected(0)/dispatch({type: 'SHOW_FORM'})}>Carousel</Button>:
-            <Button variant='secondary' onClick={() => setSelected(2)/dispatch({type: 'SHOW_FORM'})}>Buddies</Button>
+            <Button variant='secondary' onClick={() => setSelected(2)/dispatch({type: 'SHOW_FORM'})} disabled>Buddies</Button>
           }
           {!showForm && 
-            <Button variant='light' size='lg' onClick={() => dispatch({type: 'SHOW_FORM', payload: true})}>
-              ^-^ Fish On!!! ^-^
+            <Button className='fish-on-btn' variant='light' size='lg' onClick={() => dispatch({type: 'SHOW_FORM', payload: true})} >
+              Fish On!!!
             </Button>
           }
-          {showForm && <Button variant='dark' onClick={() => dispatch({type: 'SHOW_FORM', payload: false})/dispatch({type: 'CLEAR_CATCH'})}>Fish Off!</Button>}
+          {showForm && <Button variant='dark' size='lg' onClick={() => dispatch({type: 'SHOW_FORM', payload: false})/dispatch({type: 'CLEAR_CATCH'})}>Fish Off!</Button>}
           {(selected === 1)?
             <Button variant='secondary' onClick={() => setSelected(0)/dispatch({type: 'SHOW_FORM'})}>Carousel</Button>:
-            <Button variant='secondary' onClick={() => setSelected(1)/dispatch({type: 'SHOW_FORM'})}>All Catches</Button>
+            <Button variant='secondary' onClick={() => setSelected(1)/dispatch({type: 'SHOW_FORM'})}>Catches</Button>
           }
-            
-          {showForm && <div className='form-page-wrapper'>{form[page]}</div> }
         </div>
       }
-      <br/>
       {loggedIn && 
         <div className='UserCatches' >
+          {showForm && <div className='form-page-wrapper'>{form[page]}</div> }
           {(Catches && !showForm) && 
             section[selected]
           }
           <br/>
         </div>
       }
-      <footer className='footer'></footer>
-      <footer></footer>
+      {/* <footer></footer> */}
     </div>
   );
 };

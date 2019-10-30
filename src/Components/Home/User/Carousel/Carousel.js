@@ -12,10 +12,10 @@ function CatchCarousel(){
   let userCatch = Catches.reverse().slice(0, 5).map((userCatch, i) => {
     let { fish_type, species, water_name, water_type, us_state, image_url } = userCatch
     return (
-        <Carousel.Item key={i}>
+        <Carousel.Item key={i} width='100%'>
           <div className='Image'>
             {image_url? 
-              <Image src={image_url} alt='' height='500' />:
+              <Image src={image_url} alt='' height='100%'/>:
               <div className='default'><Image src={Fish} alt='' width='80%'/></div>
             }
           </div>
@@ -33,7 +33,7 @@ function CatchCarousel(){
     });
   return(
     <div className='Carousel'>
-      <Carousel className='carousel'>
+      <Carousel >
         {userCatch}
       </Carousel>
     </div>

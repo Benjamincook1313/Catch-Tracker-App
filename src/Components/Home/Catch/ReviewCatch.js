@@ -24,17 +24,17 @@ function ReviewCatch(props){
 
   return(
     <div className='ReviewCatch'>
-      <h1>New Catch Review</h1>
+      <h2>Catch Review</h2>
       <h5>{`${tod} ${day}`}</h5>
       <h5>{`${temp}-${weather}`}</h5>
       <h3>{`${length} ${species} ${fishType}`}</h3> 
       <img src={image? image: Fish} alt='' height='200' />
       <h3>{`${waterName} ${waterType}, ${usState}`}</h3> 
-      <h4>{`size ${size} - ${flyType}`}</h4>
+      <h4>{size? `#${size} ${flyType}`: `${flyType}`}</h4>
       <h3>{`${color} ${fly}`}</h3>
         Details
       <div className='column'>
-        <textarea rows='5' cols='50' value={details} onChange={e => dispatch({type: 'DETAILS', payload: e.target.value})} />
+        <textarea style={{textAlign: 'center'}} rows='5' cols='50' value={details} onChange={e => dispatch({type: 'DETAILS', payload: e.target.value})} />
       </div>
       <br/>
       <div >

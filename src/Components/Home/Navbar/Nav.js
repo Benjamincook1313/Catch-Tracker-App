@@ -37,8 +37,8 @@ function Nav(props){
     <div className='Nav'>
       <img className='fish-img' src={Fish} alt='' width={280} onClick={() => setStBtn(!stBtn)} />
       {loggedIn? 
-        <div className='name' onClick={() => setStBtn(!stBtn)}>
-          <h3>{`${User? User.user_name: null}`}</h3>
+        <div onClick={() => setStBtn(!stBtn)}>
+          <h3 className='name'>{`${User? User.user_name: null}`}</h3>
           {stBtn && 
             <h5 className='settings-btn' variant='light' 
               onClick={() => setSettings(true)/setStBtn(false)/dispatch({type: 'US_STATE', payload: User.state})}>
@@ -49,15 +49,17 @@ function Nav(props){
       }
       <div className='login-logout'>
         {loggedIn &&
-          <Button variant='dark' onClick={logout}>logout</Button>
+          <Button className='logout-btn' size='sm' variant='dark' onClick={logout}>logout</Button>
         }
-        {!loggedIn && 
-          <ToggleButtonGroup className='login-buttons' name='login-buttons' type='radio' defaultValue={1}>
-            <ToggleButton variant='light' value={1} onClick={() => setShowLogin(true)/setShowRegister(false)}>login</ToggleButton>            <ToggleButton variant='light' value={2} onClick={() => setShowRegister(true)/setShowLogin(false)}>register</ToggleButton>
-          </ToggleButtonGroup>
-        }
+        
         {/* <h4 className='shop-btn'>shop</h4> */}
       </div>
+      {!loggedIn && 
+        <ToggleButtonGroup className='login-buttons' name='login-buttons' type='radio' defaultValue={1}>
+          <ToggleButton variant='light'  value={1} onClick={() => setShowLogin(true)/setShowRegister(false)}>login</ToggleButton>            
+          <ToggleButton variant='light'  value={2} onClick={() => setShowRegister(true)/setShowLogin(false)}>register</ToggleButton>
+        </ToggleButtonGroup>
+      }
       <h1 className='title'>Catch-Tracker
         <FlyRod />
       </h1> 

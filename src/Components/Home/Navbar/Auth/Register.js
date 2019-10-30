@@ -71,7 +71,7 @@ function Register(props){
           </DropdownButton>
         </InputGroup>
         <br/> 
-        <InputGroup className='mb-3'>
+        <InputGroup className='mb-3 name-email'>
           <FormControl 
             placeholder='Username' 
             type='Username' 
@@ -88,26 +88,6 @@ function Register(props){
             required
           />
         </InputGroup>
-        {/* <InputGroup>
-          <FormControl 
-            placeholder='Password' 
-            value={password} 
-            type={showPass? 'text':'password'} 
-            onChange={e => setPassword(e.target.value)}
-          />
-          <FormControl 
-            placeholder='Verify' 
-            value={verify} 
-            type={showPass? 'text':'password'} 
-            onChange={e => setVerify(e.target.value)} 
-            onKeyPress={e => registerUser(e)}
-          />
-          <InputGroup.Append id='basic-addon2' >
-              <InputGroup.Text>
-                <FontAwesomeIcon icon={!showPass? faEye: faEyeSlash} onClick={() => setShowPass(!showPass)}/>
-              </InputGroup.Text>
-            </InputGroup.Append>
-        </InputGroup> */}
         {email && <div>( press enter to register )</div>}
       </div>
     </div>

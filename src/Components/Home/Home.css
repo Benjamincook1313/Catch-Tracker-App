@@ -1,20 +1,17 @@
-.footer{
-  position: fixed;
-  bottom: 0px;
-  min-height: 70px;
-  width: 100vw;
-  background: rgb(0, 0, 0, .8);
+.Home{
+  height: 100vh;
 }
+
 .input{
   margin: 5px;
 }
 .fish-on{
-  margin-top: 5px;
-  margin-bottom: 20px; 
-  width: 600px;
+  position: relative;
+  width: 40%;
   display: flex;
   align-items: flex-end;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  margin-bottom: 25px;
 }
 .Home{
   text-align: center;
@@ -50,11 +47,28 @@
 .form-page-wrapper {
   border: 2px solid black;
   border-radius: 5px;
-  padding: 20px 50px;
+  padding: 10px 50px;
   background-color: rgba(255, 255, 255, 0.9);
-  margin: 10px;
-  position: absolute;
-  top: 200px;
+  margin-top: 30px;
+  width: 600px;
+  max-width: 98%;
+}
+
+.UserCatches{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+}
+.userCatch{
+  width: 90vw;
+  height: unset;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 
 .sun{
@@ -74,4 +88,49 @@
 }
 .snow{
   color: ivory;
+}
+
+@media(max-width: 1400px){
+  .fish-on{
+    /* bottom: 5px; */
+    width: 50%;
+  }
+}
+@media(max-width: 800px){
+  .UserCatches{
+    width: 100%
+  }
+  .fish-on{
+    width: 50%
+  }
+  .UserCatches{
+    bottom: 20px;
+  }
+  .form-page-wrapper{
+    margin-top: 0px;
+    position: relative;
+    bottom: 20px;
+  }
+}
+@media(max-width: 700px){
+  .fish-on{
+    width: 60%
+  }
+}
+@media(max-width: 550px){
+  .fish-on{
+    bottom: 10px;
+    width: 90%;
+  }
+  .d-img{
+    max-width: 100%;
+  }
+  .UserCatches{
+    bottom: 20px;
+  }
+  .form-page-wrapper{
+    margin-top: 0px;
+    position: relative;
+    bottom: 20px;
+  }
 }

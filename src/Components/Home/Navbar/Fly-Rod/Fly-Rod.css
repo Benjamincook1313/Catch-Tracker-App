@@ -11,8 +11,8 @@
 }
 .cork2{
   border-left: 10px solid white;
-  border-bottom: 1.5px solid transparent;
-  border-top: 1.5px solid transparent;
+  border-bottom: 2px solid transparent;
+  border-top: 2px solid transparent;
   border-radius: 2px;
   height: 7px;
   position: absolute;
@@ -35,53 +35,57 @@
   width: 1px;
   position: absolute;
   right: 0px;
+  top: 0px;
+  z-index: 1;
 }
 .eye2{
   border: 1px solid white;
   border-radius: 50%;
-  height: 4px;
+  height: 3px;
   width: 3px;
   position: absolute;
   right: 35px;
-  top: 0px;
-  z-index: 0;
+  top: 1px;
+  z-index: 1;
 }
 .eye3{
   border: 1px solid white;
   border-radius: 50%;
-  height: 4px;
+  height: 3px;
   width: 3px;
   position: absolute;
   right: 75px;
-  top: 0px;
-  z-index: 0;
+  top: 1px;
+  z-index: 1;
 }
 .eye4{
   border: 1px solid white;
   border-radius: 50%;
-  height: 4.5px;
+  height: 4px;
   width: 3px;
   position: absolute;
   right: 120px;
-  top: 0px;
+  top: 1px;
 }
 .eye5{
   border: 1px solid white;
   border-radius: 50%;
-  height: 4.5px;
+  height: 4px;
   width: 3px;
   position: absolute;
   right: 165px;
-  top: 0px;
+  top: 1px;
+  z-index: 0;
 }
 .eye6{
   border: 1px solid white;
   border-radius: 50%;
-  height: 5px;
+  height: 4px;
   width: 3px;
   position: absolute;
-  right: 225px;
-  top: 0.5px;
+  right: 220px;
+  top: 1px;
+  z-index: 1;
 }
 .eye7{
   border: 1px solid white;
@@ -89,8 +93,8 @@
   height: 5px;
   width: 3px;
   position: absolute;
-  right: 285px;
-  top: .8px;
+  right: 280px;
+  top: 1px;
 }
 .eye8{
   border: 1px solid white;
@@ -99,7 +103,7 @@
   width: 2px;
   position: absolute;
   right: 350px;
-  top: 1px;
+  top: 0px;
 }
 .fly-line{
   width:500px; height:100px;  
@@ -136,4 +140,101 @@
   position: absolute;
   right: 5px;
   top: 3px;
+}
+
+@media(max-width: 700px){
+  .rod{
+    border-left: 360px solid white;
+    height: 2px;
+    border-bottom: 1px solid transparent;
+    border-right: 25px solid transparent;
+  }
+  .cork{
+    border: 2px solid white;
+    background: white;
+    width: 35px;
+    height: 3px;
+    bottom: -1px;
+    left: 28px;
+  }
+  .cork2{
+    border-radius: 2px;
+    height: 5px;
+    position: absolute;
+    bottom: -2px;
+    left: 9px;
+  }
+  .eye1{
+    height: 3px;
+    width: 1px;
+  }
+  .eye2{
+    height: 3px;
+    width: 3px;
+    right: 25px;
+  }
+  .eye3{
+    height: 3px;
+    width: 3px;
+    right: 55px;
+    top: 0px;
+    z-index: 0;
+  }
+  .eye4{
+    height: 3px;
+    width: 3px;
+    right: 90px;
+  }
+  .eye5{
+    height: 4px;
+    width: 3px;
+    right: 125px;
+  }
+  .eye6{
+    height: 4px;
+    width: 3px;
+    right: 165px;
+  }
+  .eye7{
+    height: 4px;
+    width: 3px;
+    right: 205px;
+    top: 1px;
+  }
+  .eye8{
+    height: 4px;
+    width: 2px;
+    right: 250px;
+    top: 1px;
+  }
+  .foot{
+    border-top: 3px solid white;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    width: 15px;
+    position: relative;
+    top: -4px;
+    right: 3px;
+  }
+  .reel{
+    height: 18px;
+    width: 18px;
+    left: 13px;
+    bottom: -19px;
+  }
+  .knob{
+    border: 1px solid white;
+    border-radius: 50%;
+    height: 3px;
+    width: 3px;
+    right: 3px;
+    top: 2px;
+    background: white;
+  }
+}
+
+@media(max-width: 400px){
+  .flyRod{
+    margin-right: 5px;
+  }
 }

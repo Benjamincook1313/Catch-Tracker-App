@@ -91,7 +91,7 @@ function Catch(props){
           <div className='option-btns' onClick={() => setDlt(true)/dispatch({type: 'EDIT_CATCH', payload: userCatch})/setShowOptions(false)}>Delete</div>
         </div>
       }
-      <OverlayTrigger placement='right' overlay={
+      <OverlayTrigger placement='bottom' overlay={
         <Tooltip className='tooltip'>
           <div className='date-time'>
             <div className='weather'>

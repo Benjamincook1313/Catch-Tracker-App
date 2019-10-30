@@ -47,7 +47,7 @@ table {
 	border-spacing: 0;
 }
 h1 {
-  font-size: 70px;
+  font-size: 75px;
   margin: 5px;
 }
 h2{
@@ -81,8 +81,10 @@ img{
   min-width: 185px;
 }
 footer{
-  min-height: 100px;
+  margin-top: 6%;
+  min-height: 80px;
   width: 100vw;
+  background: rgb(0, 0, 0, .8);
 }
 
 

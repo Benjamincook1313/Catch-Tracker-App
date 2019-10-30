@@ -3,6 +3,7 @@
   position: fixed;
   top: 145px;
   width: 700px;
+  max-width: 100%;
   background: white;
   border-radius: 10px;
   padding: 15px 20px;
@@ -54,7 +55,8 @@
   justify-content: space-evenly;
 }
 .s-inputs{
-  width: 600px
+  width: 600px;
+  max-width: 90%;
 }
 .change-password{
   display: flex;
