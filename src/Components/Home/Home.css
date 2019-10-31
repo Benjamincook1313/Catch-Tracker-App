@@ -12,6 +12,7 @@
   align-items: flex-end;
   justify-content: space-between;
   margin-bottom: 25px;
+  z-index: 9;
 }
 .Home{
   text-align: center;
@@ -51,7 +52,7 @@
   background-color: rgba(255, 255, 255, 0.9);
   margin-top: 30px;
   width: 600px;
-  max-width: 98%;
+  max-width: 100%;
 }
 
 .UserCatches{
@@ -92,7 +93,6 @@
 
 @media(max-width: 1400px){
   .fish-on{
-    /* bottom: 5px; */
     width: 50%;
   }
 }
@@ -132,5 +132,6 @@
     margin-top: 0px;
     position: relative;
     bottom: 20px;
+    padding: 5px;
   }
 }

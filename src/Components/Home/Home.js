@@ -6,7 +6,6 @@ import Location from './Catch/Location';
 import Weather from './Catch/Weather';
 import Fish from './Catch/Fish';
 import Fly from './Catch/Fly';
-import Scroll from 'react-scrollbar';
 import ReviewCatch from './Catch/ReviewCatch';
 import River from '../../Images/River.mp4';
 import Buddies from './Buddies/Buddies';
@@ -99,7 +98,10 @@ function Home(props) {;
           <br/>
         </div>
       }
-      {/* <footer></footer> */}
+      {Catches && 
+         <footer className='footer'></footer>
+      }
+      <footer></footer>
     </div>
   );
 };

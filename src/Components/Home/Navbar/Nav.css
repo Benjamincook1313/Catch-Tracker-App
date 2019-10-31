@@ -53,6 +53,7 @@
   position: absolute;
   top: 110px;
   left: 135px;
+  z-index: 5;
 }
 .settings-btn:active{
   font-size: 18px;
@@ -93,6 +94,7 @@
   color: white;
   cursor: pointer;
   text-transform: lowercase;
+  z-index: 8;
 }
 
 @media(max-width: 1400px){

@@ -7,6 +7,7 @@
 .ButtonGroup{
   margin: 5px;
   text-align: center;
+  max-width: 100%;
 }
 .page-nav{
   margin: 5px;
@@ -79,7 +80,10 @@
   color: orange;
 }
 .Button-Group{
+  margin: 0px;
   margin-top: 5px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 /* Review */

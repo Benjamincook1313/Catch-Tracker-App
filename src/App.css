@@ -81,8 +81,12 @@ img{
   min-width: 185px;
 }
 footer{
-  margin-top: 6%;
-  min-height: 80px;
+  height: 300px;
+}
+.footer{
+  position: fixed;
+  bottom: 0px;
+  height: 80px;
   width: 100vw;
   background: rgb(0, 0, 0, .8);
 }
