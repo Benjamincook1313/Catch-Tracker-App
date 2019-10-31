@@ -52,8 +52,8 @@
       "last 1 safari version"
     ]
   },
-  "main": "server/server.js",
-  "proxy": "http://localhost:6789",
+  "main": "Server/Server.js",
+  "proxy": "http://localhost:3344",
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "devDependencies": {},
   "repository": {

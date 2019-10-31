@@ -24,7 +24,7 @@ function ReviewCatch(props){
 
   return(
     <div className='ReviewCatch'>
-      <h2>Catch Review</h2>
+      <h2 style={{textDecoration: 'underline'}}>Catch Review</h2>
       <h5>{`${tod} ${day}`}</h5>
       <h5>{`${temp}-${weather}`}</h5>
       <h3>{`${length} ${species} ${fishType}`}</h3> 

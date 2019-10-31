@@ -57,7 +57,7 @@ function Fish(){
 
   return(
     <div className='Fish'>
-      <h2>Fish</h2>
+      <h2 style={{textDecoration: 'underline'}}>Fish</h2>
       {Species && 
         <h4 className='preview'>
           {`${Length? Length: ''} ${Species} ${(FishType !== 'other')? FishType: ''}`} 

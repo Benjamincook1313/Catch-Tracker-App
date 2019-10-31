@@ -127,7 +127,7 @@ function Location(){
   
   return(
     <div className='Location'>
-      <h2>Location</h2>
+      <h2 style={{textDecoration: 'underline'}}>Location</h2>
       <h4 className='preview'>
         {(WaterType && WaterName) && `${WaterName} ${WaterType }, ${State || User.state}`}
       </h4>

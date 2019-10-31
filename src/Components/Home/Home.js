@@ -22,6 +22,7 @@ function Home(props) {;
   const page = useSelector(state => state.page)
   const showForm = useSelector(state => state.showForm)
   const Catches = useSelector(state => state.catches)
+  const User = useSelector(state => state.user)
 
   const [refresh, setRefresh] = useState(false)
   const [selected, setSelected] = useState(0)
@@ -82,7 +83,11 @@ function Home(props) {;
               Fish On!!!
             </Button>
           }
-          {showForm && <Button variant='dark' size='lg' onClick={() => dispatch({type: 'SHOW_FORM', payload: false})/dispatch({type: 'CLEAR_CATCH'})}>Fish Off!</Button>}
+          {showForm && 
+            <Button variant='dark' size='lg' onClick={() => dispatch({type: 'SHOW_FORM', payload: false})/dispatch({type: 'CLEAR_CATCH'})/dispatch({type: 'US_STATE', payload: User.state})}>
+              Fish Off!
+            </Button>
+          }
           {(selected === 1)?
             <Button variant='secondary' onClick={() => setSelected(0)/dispatch({type: 'SHOW_FORM'})}>Carousel</Button>:
             <Button variant='secondary' onClick={() => setSelected(1)/dispatch({type: 'SHOW_FORM'})}>Catches</Button>

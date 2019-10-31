@@ -53,7 +53,7 @@ function Weather(){
 
   return(
     <div className='Weather'>
-      <h2 className='weather-title'>Weather</h2>
+      <h2 className='weather-title' style={{textDecoration: 'underline'}}>Weather</h2>
       <div className='preview'>
         {(Weather && Temp) && 
           <h4>{kindOfWeather(Weather)} {isNaN(Temp)? Temp: Temp+'°'} {kindOfWeather(Weather)}</h4>
