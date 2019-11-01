@@ -53,18 +53,5 @@
     ]
   },
   "main": "Server/Server.js",
-  "proxy": "http://localhost:3344",
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
-  "devDependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Benjamincook1313/Catch-Tracker-App.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Benjamincook1313/Catch-Tracker-App/issues"
-  },
-  "homepage": "https://github.com/Benjamincook1313/Catch-Tracker-App#readme"
+  "proxy": "http://localhost:3344"
 }

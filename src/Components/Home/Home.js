@@ -103,9 +103,9 @@ function Home(props) {;
           <br/>
         </div>
       }
-      {Catches && 
+      {/* {Catches && 
          <footer className='footer'></footer>
-      }
+      } */}
       <footer></footer>
     </div>
   );
