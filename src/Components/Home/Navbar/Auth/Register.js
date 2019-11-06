@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import { useDispatch } from 'react-redux';
 import { InputGroup, FormControl, DropdownButton, Dropdown } from 'react-bootstrap';
 import Scroll from 'react-scrollbar';
 import Swal from 'sweetalert2';
@@ -7,14 +6,10 @@ import axios from 'axios';
 
 function Register(props){
   const { setShowRegister } = props
-  // const dispatch = useDispatch()
 
   const [userName, setUserName] = useState('')
   const [state, setState] = useState('')
   const [email, setEmail] = useState('')
-  // const [password, setPassword] = useState('')
-  // const [verify, setVerify] = useState('')
-  // const [showPass, setShowPass] = useState(false)
 
   const States = [
     "Alaska", "Alabama", "Arkansas", "Arizona", "California", "Colorado", "Connecticut", "Delaware", "Florida","Georgia",
@@ -32,20 +27,28 @@ function Register(props){
 
   const registerUser = async (e) => {
     if(e.key === 'Enter'){
-      if(state && email && userName && email.includes('@')){
+      if(!email.includes('@')){
+        Swal.fire({
+          type: 'warning', 
+          title: 'Invalid Email try another', 
+          showConfirmButton: false, timer: 2000,
+          toast: true, position: 'top'
+        })
+      }else if(state && email && userName && email.includes('@')){
         const res = await axios.post('/auth/register', { state, userName: userName.toLowerCase(), email })
         if(res.data.message){
           Swal.fire({
             type: 'warning', 
-            title: `${res.data.message}`, 
-            showConfirmButton: false, timer: 2000,
-            toast: true, position: 'top'
+            title: `${res.data.message}`,
+            text: `${res.data.text}`, 
+            showConfirmButton: false, 
+            timer: 4000
           })
         }else{
           Swal.fire({
             type: 'success', 
-            title: `your temparary password was sent to ${email}`, 
-            showConfirmButton: false, timer: 2000 
+            title: `Temporary password sent to ${email}`, 
+            showConfirmButton: false, timer: 3000 
           })
           setShowRegister()
         }

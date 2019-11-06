@@ -1,2 +1,3 @@
 insert into users(state, user_name, email, hash)
-values($1, $2, $3, $4);
+values($1, $2, $3, $4)
+returning *;

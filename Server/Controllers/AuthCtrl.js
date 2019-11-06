@@ -31,7 +31,7 @@ module.exports = {
     const db = req.app.get('db')
     const checkEmail = await db.check_email([email])
     if(checkEmail[0]){
-      return res.status(200).send({message: 'Email Already In Use!'})
+      return res.status(200).send({message: 'Email Already In Use!',text: 'Login or check email for temporary password '})
     }
     const userArr = await db.find_user([userName])
     if(userArr[0]){
@@ -39,26 +39,26 @@ module.exports = {
     }
     const salt = bcrypt.genSaltSync(10)
     const hash = bcrypt.hashSync(tempPass, salt)
-    const newUserArr = await db.register_user([state, userName, email, hash])
-    delete newUserArr[0].hash
     let mailOption = {
       from: EMAIL,
       to: email,
       subject: 'temporary password',
-      text: `Username: ${userName} temporary password: ${tempPass}.
+      text: `Username: ${userName}, password: ${tempPass}.
         Instructions: 
-          sign in using your temperary password. 
+          sign in using your temporary password. 
           click on your username in the top left corner. 
           click settings. 
-          enter temperary password.
+          enter temporary password.
           enter new password and verify.
           click update password.`
     }  
-    transporter.sendMail(mailOption, (err)=>{
-      if(err) {
-        return res.status(200).send({message: 'Invalid Email try again'})
+    const data = await transporter.sendMail(mailOption)
+    .catch(err => console.log(err))
+      if(!data) {
+        return res.status(200).send({message: 'Invalid Email'})
       }
-    })
+    const newUserArr = await db.register_user([state, userName, email, hash])
+    delete newUserArr[0].hash
     res.sendStatus(200)
   },
 

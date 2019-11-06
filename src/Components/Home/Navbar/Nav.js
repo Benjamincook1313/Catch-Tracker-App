@@ -66,7 +66,7 @@ function Nav(props){
       {!loggedIn &&
         <div className='auth-wrapper'>
           {showLogin && <Login refresh={props.refresh} setShowLogin={() => setShowLogin(true)}/>}
-          {showRegister && <Register setShowRegister={() => setShowRegister(false)}/>}
+          {showRegister && <Register setShowRegister={() => setShowRegister(false)/setShowLogin(true)}/>}
         </div>
       }
       {settings &&
