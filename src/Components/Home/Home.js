@@ -89,7 +89,7 @@ function Home(props) {;
             </Button>
           }
           {(selected === 1)?
-            <Button variant='secondary' onClick={() => setSelected(0)/dispatch({type: 'SHOW_FORM'})}>Carousel</Button>:
+            <Button variant='secondary' onClick={() => setSelected(0)/dispatch({type: 'SHOW_FORM'})}>Main</Button>:
             <Button variant='secondary' onClick={() => setSelected(1)/dispatch({type: 'SHOW_FORM'})}>Catches</Button>
           }
         </div>
@@ -103,10 +103,21 @@ function Home(props) {;
           <br/>
         </div>
       }
+      
       {/* {Catches && 
          <footer className='footer'></footer>
       } */}
-      <footer></footer>
+      <footer style={{position: 'absolute', bottom: 10, color: 'black', fontWeight: 'bold', background: 'white'}}>
+        <h3>
+          a Fly Fisherman's note book  
+        </h3>
+        <br/>
+        <p>
+          track your catch data such as 
+        </p>
+        <p>Date, Location, Weather, Temperature, Sky Conditions, Fish Species, Fly used </p>
+        <p>and other details</p>
+      </footer>
     </div>
   );
 };

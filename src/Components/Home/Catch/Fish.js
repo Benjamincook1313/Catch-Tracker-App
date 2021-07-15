@@ -18,7 +18,7 @@ function Fish(){
 
   const types = {
     'trout': ['Apache', 'Bull', 'Brook','Brown', 'Cutthroat', 'DollyVarden','Golden', 'Lake', 'Rainbow', 'Splake', 'Steelhead', 'Tiger'],
-    'salmon': ['Atlantic', 'Chinook (King)', 'Coho (Silver)', 'Humpy (Pink)', 'Keta (Chum)',  'Kokanee', 'Sockeye (Red)'],
+    'salmon': ['Atlantic', 'Chinook', 'Coho', 'Humpy', 'Keta',  'Kokanee', 'Sockeye'],
     'bass': ['Large-Mouth', 'Small-Mouth', 'Striper', 'White'],
     'other': ['Alligator-Gar', 'Bluegill', 'Crappie', 'Catfish', 'Grayling', 'Herring', 'Muskie', 'Pike', 'Perch', 'Shad','Sturgeon', 'Sucker', 'Walleye']
   }
